@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bosque · Belverde — Um espaço, múltiplas vidas</title>
+<meta name="description" content="Bosque é um refúgio privado em Belverde: cave climatizada e jardim que se transformam em parque de aventura, hub de inovação ou santuário de bem-estar. Um só espaço, múltiplas vidas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@300;400;450;500;600&display=swap" rel="stylesheet">
+<style>
+/* ================= TOKENS ================= */
+:root{
+  --bg:#f5f3ec;
+  --card:#ffffff;
+  --cream:#fbf9f2;
+  --ink:#172520;
+  --muted:#5d6b61;
+  --line:rgba(23,37,32,.10);
+  --green:#1f3a2a;
+  --sage:#88a07c;
+  --clay:#c8744a;
+
+  --kids-bg:#eef4e0;  --kids:#5d9a36;  --kids-chip:#f7eecf;
+  --biz-bg:#ecf0ec;   --biz:#b56a37;   --biz-chip:#f4e6da;
+  --well-bg:#ebf0e7;  --well:#7a9165;  --well-chip:#efe7d8;
+
+  --img-hero:url('https://images.unsplash.com/photo-1750889054950-32e9dd92f221?fm=jpg&q=82&w=1500&auto=format&fit=crop');
+  --img-garden:url('https://images.unsplash.com/photo-1692339267725-ce644ac805ec?fm=jpg&q=80&w=1100&auto=format&fit=crop');
+  --img-kids:url('https://images.unsplash.com/photo-1533222535026-754c501569dd?fm=jpg&q=80&w=1300&auto=format&fit=crop');
+  --img-biz:url('https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?fm=jpg&q=80&w=1300&auto=format&fit=crop');
+  --img-well:url('https://images.unsplash.com/photo-1671041191053-15dd8a7187c8?fm=jpg&q=80&w=1300&auto=format&fit=crop');
+
+  --display:'Schibsted Grotesk',system-ui,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+  --maxw:1200px;
+  --r:26px;
+  --shadow:0 34px 70px -36px rgba(20,40,28,.36);
+  --shadow-sm:0 14px 30px -18px rgba(20,40,28,.3);
+  --ease:cubic-bezier(.22,.7,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:var(--body);background:var(--bg);color:var(--ink);
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--clay);color:#fff}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,40px)}
+
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.02;letter-spacing:-.03em}
+
+/* soft ambient blobs */
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;z-index:0;pointer-events:none}
+
+/* pill badges */
+.pill{
+  display:inline-flex;align-items:center;gap:.5em;
+  font-size:.78rem;font-weight:600;letter-spacing:.01em;
+  padding:.42em .85em;border-radius:100px;background:var(--card);
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);
+}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--clay)}
+.tag{
+  display:inline-flex;align-items:center;gap:.5em;font-size:.74rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;padding:.4em .8em;border-radius:100px;
+}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:.55em;font-family:var(--body);
+  font-weight:600;font-size:.96rem;padding:.85em 1.4em;border-radius:100px;
+  border:1px solid transparent;cursor:pointer;transition:transform .35s var(--ease),background .3s,color .3s,box-shadow .3s,border-color .3s;
+}
+.btn--solid{background:var(--ink);color:var(--cream);box-shadow:0 12px 26px -14px rgba(23,37,32,.7)}
+.btn--solid:hover{background:var(--green);transform:translateY(-2px)}
+.btn--ghost{background:var(--card);border-color:var(--line);box-shadow:var(--shadow-sm)}
+.btn--ghost:hover{transform:translateY(-2px);border-color:var(--ink)}
+.btn .arr{transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(3px)}
+:focus-visible{outline:2.5px solid var(--clay);outline-offset:3px;border-radius:6px}
+
+/* ================= NAV ================= */
+.nav{
+  position:fixed;top:14px;left:0;right:0;z-index:100;
+}
+.nav .bar{
+  max-width:var(--maxw);margin-inline:auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 9px 9px 20px;border-radius:100px;
+  background:rgba(251,249,242,.72);backdrop-filter:blur(16px) saturate(1.2);
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);
+  margin-inline:clamp(14px,4vw,40px);
+}
+.brand{display:flex;align-items:center;gap:.5em;font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.03em}
+.brand svg{width:22px;height:22px;color:var(--green)}
+.brand .dot{color:var(--clay)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a:not(.btn){font-size:.92rem;font-weight:500;color:var(--muted);padding:.5em .8em;border-radius:100px;transition:color .25s,background .25s}
+.nav-links a:not(.btn):hover{color:var(--ink);background:rgba(23,37,32,.05)}
+.nav .btn--solid{padding:.62em 1.15em;font-size:.9rem}
+.menu-btn{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:8px}
+.menu-btn svg{width:24px;height:24px}
+
+/* ================= HERO ================= */
+.hero{position:relative;padding:clamp(120px,17vh,180px) 0 clamp(50px,8vw,90px);overflow:hidden}
+.hero .b1{width:520px;height:520px;background:#cfe0b6;top:-160px;right:-120px}
+.hero .b2{width:420px;height:420px;background:#f0d9c4;bottom:-120px;left:-130px;opacity:.5}
+.hero .wrap{position:relative;z-index:1}
+.hero-head{max-width:780px}
+.hero h1{font-size:clamp(2.9rem,7.4vw,5.6rem);font-weight:800;letter-spacing:-.045em}
+.hero h1 .soft{color:var(--sage)}
+.hero-sub{margin-top:1em;font-size:clamp(1.05rem,1.7vw,1.32rem);color:var(--muted);max-width:54ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:1.9em}
+.trust{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:2.2em;align-items:center;color:var(--muted);font-size:.9rem}
+.trust b{font-family:var(--display);font-weight:700;color:var(--ink);font-size:1.05rem}
+.trust .sep{width:5px;height:5px;border-radius:50%;background:var(--line)}
+
+/* hero visual */
+.hero-visual{position:relative;margin-top:clamp(46px,6vw,72px)}
+.hero-photo{
+  position:relative;height:clamp(320px,46vw,520px);border-radius:var(--r);
+  background:#dfe6d2 var(--img-hero) center/cover no-repeat;box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(20,38,26,.22))}
+.hero-photo .cap{position:absolute;left:24px;bottom:22px;z-index:2;color:#fff}
+.hero-photo .cap span{font-size:.8rem;opacity:.85;display:block}
+.hero-photo .cap b{font-family:var(--display);font-size:1.3rem;font-weight:600}
+.chip{
+  position:absolute;z-index:3;display:flex;align-items:center;gap:.6em;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:.6em .85em;box-shadow:var(--shadow-sm);font-size:.86rem;font-weight:600;white-space:nowrap;
+  animation:float 6s ease-in-out infinite;
+}
+.chip small{color:var(--muted);font-weight:500;font-size:.82em}
+.chip .cd{width:9px;height:9px;border-radius:50%}
+.chip-1{top:-18px;left:6%;animation-delay:0s}
+.chip-2{top:34%;right:-10px;animation-delay:-2s}
+.chip-3{bottom:-18px;left:30%;animation-delay:-4s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ================= KINETIC STATEMENT ================= */
+.kinetic{padding:clamp(70px,11vw,140px) 0;text-align:center;position:relative}
+.kinetic .line{
+  font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:1.08;
+  font-size:clamp(2rem,6.2vw,4.4rem);max-width:18ch;margin-inline:auto;
+}
+.kinetic .w{display:inline-block;opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.kinetic.in .w{opacity:1;transform:none}
+.kinetic .am{color:var(--well)}
+.kinetic .pm{color:var(--biz)}
+.kinetic .we{color:var(--kids)}
+.kinetic p{margin-top:1.6em;color:var(--muted);font-size:1.1rem}
+
+/* ================= SECTIONS ================= */
+.section{padding:clamp(70px,9vw,120px) 0;position:relative}
+.shead{max-width:680px;margin-bottom:clamp(34px,5vw,58px)}
+.shead .pill{margin-bottom:18px}
+.shead h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:700;letter-spacing:-.035em}
+.shead p{margin-top:.7em;color:var(--muted);font-size:clamp(1.02rem,1.5vw,1.18rem);max-width:56ch}
+
+/* ================= BENTO ================= */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cell{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:26px;position:relative;overflow:hidden;box-shadow:var(--shadow-sm);
+  transition:transform .4s var(--ease),box-shadow .4s;display:flex;flex-direction:column;
+}
+.cell:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.cell .ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--cream);border:1px solid var(--line);margin-bottom:auto}
+.cell .ic svg{width:22px;height:22px;color:var(--green)}
+.cell h3{font-size:1.25rem;font-weight:700;margin-top:18px}
+.cell p{color:var(--muted);font-size:.94rem;margin-top:.35em}
+.cell .big{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,4vw,3.2rem);letter-spacing:-.04em;line-height:1}
+.cell .big small{font-size:.36em;color:var(--muted);font-weight:600}
+.cell-wide{grid-column:span 2}
+.cell-tall{grid-row:span 2}
+.cell--photo{color:#fff;border-color:transparent;justify-content:flex-end;min-height:230px}
+.cell--photo::before{content:"";position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
+.cell--photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,38,26,.05),rgba(18,34,24,.7));z-index:0}
+.cell--photo>*{position:relative;z-index:1}
+.cell--photo h3{margin:0}
+.cell--photo p{color:rgba(255,255,255,.85)}
+.cell--g::before{background-image:var(--img-hero)}
+.cell--garden::before{background-image:var(--img-garden)}
+
+/* ================= TRANSFORMER ================= */
+.transform{background:linear-gradient(180deg,var(--cream),var(--bg))}
+.tf{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,4vw,48px);
+  background:var(--card);border:1px solid var(--line);border-radius:30px;
+  padding:clamp(22px,3vw,34px);box-shadow:var(--shadow);align-items:stretch;
+}
+.tf__left{display:flex;flex-direction:column;gap:18px;justify-content:space-between}
+.seg{display:flex;flex-direction:column;gap:10px}
+.seg button{
+  display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;
+  background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:14px 16px;
+  font-family:var(--body);transition:all .35s var(--ease);
+}
+.seg button .si{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);flex:none;transition:all .35s}
+.seg button .si svg{width:19px;height:19px}
+.seg button .when{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.seg button .what{font-family:var(--display);font-weight:700;font-size:1.12rem}
+.seg button[aria-selected="true"]{background:var(--accent-bg);border-color:transparent}
+.seg button[aria-selected="true"] .si{background:#fff;border-color:transparent}
+.seg button[aria-selected="true"] .si svg{color:var(--accent)}
+.seg button:not([aria-selected="true"]):hover{transform:translateX(4px);border-color:rgba(23,37,32,.25)}
+.tf__read{border-top:1px solid var(--line);padding-top:18px}
+.tf__read .rt{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.tf__read h3{font-size:clamp(1.5rem,2.6vw,2rem);margin:.25em 0}
+.tf__read p{color:var(--muted);font-size:1rem;max-width:36ch}
+.tf__vis{position:relative;border-radius:22px;overflow:hidden;min-height:360px;background:#dfe6d2}
+.tf__img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);transition:opacity .9s var(--ease),transform 1.3s var(--ease)}
+.tf__img.show{opacity:1;transform:scale(1)}
+.tf__badge{position:absolute;left:18px;top:18px;z-index:2}
+
+/* ================= WORLDS ================= */
+.world{padding:clamp(66px,9vw,110px) 0;position:relative;overflow:hidden}
+.world--kids{background:var(--kids-bg)}
+.world--biz{background:var(--biz-bg)}
+.world--well{background:var(--well-bg)}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.world--biz .wgrid{direction:rtl}
+.world--biz .wgrid>*{direction:ltr}
+.wtext .tag{margin-bottom:18px}
+.world--kids .tag{background:#fff;color:var(--kids)}
+.world--biz .tag{background:#fff;color:var(--biz)}
+.world--well .tag{background:#fff;color:var(--well)}
+.wtext h2{font-size:clamp(2.3rem,5.4vw,3.8rem);font-weight:800;letter-spacing:-.04em}
+.world--kids h2 em{font-style:normal;color:var(--kids)}
+.world--biz h2 em{font-style:normal;color:var(--biz)}
+.world--well h2 em{font-style:normal;color:var(--well)}
+.wtext .slogan{font-size:clamp(1.15rem,2vw,1.5rem);color:var(--ink);margin-top:.3em;font-weight:500}
+.wtext .target{margin-top:1em;color:var(--muted);max-width:46ch}
+.benefits{margin-top:1.6em;display:grid;gap:10px}
+.benefit{display:flex;gap:13px;align-items:flex-start}
+.benefit .ck{width:24px;height:24px;border-radius:50%;flex:none;display:grid;place-items:center;margin-top:1px}
+.world--kids .benefit .ck{background:var(--kids)}
+.world--biz .benefit .ck{background:var(--biz)}
+.world--well .benefit .ck{background:var(--well)}
+.benefit .ck svg{width:13px;height:13px;color:#fff}
+.benefit b{font-weight:700}
+.benefit span{color:var(--muted)}
+.benefit b::after{content:" — ";color:var(--muted);font-weight:400}
+.packs{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.8em}
+.packs .pk{background:#fff;border:1px solid var(--line);border-radius:100px;padding:.5em 1em;font-size:.86rem;font-weight:600;box-shadow:var(--shadow-sm)}
+.world--kids .packs .pk b{color:var(--kids)}
+.world--biz .packs .pk b{color:var(--biz)}
+.world--well .packs .pk b{color:var(--well)}
+
+.wphoto{position:relative}
+.wphoto .ph{height:clamp(320px,40vw,460px);border-radius:var(--r);background-size:cover;background-position:center;box-shadow:var(--shadow)}
+.world--kids .wphoto .ph{background-image:var(--img-kids)}
+.world--biz .wphoto .ph{background-image:var(--img-biz)}
+.world--well .wphoto .ph{background-image:var(--img-well)}
+.wphoto .float{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:.7em 1em;box-shadow:var(--shadow);display:flex;align-items:center;gap:.7em;font-weight:600;font-size:.9rem}
+.wphoto .float small{display:block;color:var(--muted);font-weight:500;font-size:.78rem}
+.wphoto .float .cd{width:10px;height:10px;border-radius:50%}
+.world--kids .wphoto .float{bottom:-16px;left:-14px}
+.world--biz .wphoto .float{bottom:-16px;right:-14px}
+.world--well .wphoto .float{top:-16px;left:-14px}
+
+/* ================= MOAT ================= */
+.moat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.mcell{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(26px,3vw,38px);box-shadow:var(--shadow-sm);transition:transform .4s var(--ease)}
+.mcell:hover{transform:translateY(-5px)}
+.mcell .mk{display:inline-flex;align-items:center;gap:.5em;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--clay)}
+.mcell h3{font-size:clamp(1.4rem,2.3vw,1.85rem);font-weight:700;margin:.55em 0 .35em}
+.mcell p{color:var(--muted);max-width:44ch}
+
+/* ================= CTA ================= */
+.cta .panel{
+  background:var(--green);color:var(--cream);border-radius:34px;
+  padding:clamp(42px,6vw,80px) clamp(28px,5vw,64px);position:relative;overflow:hidden;box-shadow:var(--shadow);
+}
+.cta .panel .b3{width:380px;height:380px;background:#3c6b48;top:-140px;right:-100px;opacity:.6}
+.cta .panel>*{position:relative;z-index:1}
+.cta .pill{background:rgba(251,249,242,.14);border-color:rgba(251,249,242,.2);color:var(--cream);box-shadow:none}
+.cta h2{font-size:clamp(2.2rem,5.5vw,4rem);font-weight:800;letter-spacing:-.04em;max-width:16ch;margin-top:18px}
+.cta h2 em{font-style:normal;color:#e9c39e}
+.cta .csub{color:#c4d3c2;margin-top:1em;max-width:52ch;font-size:1.08rem}
+.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(34px,4vw,52px)}
+.door{background:rgba(251,249,242,.06);border:1px solid rgba(251,249,242,.16);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:12px;transition:transform .4s var(--ease),background .3s}
+.door:hover{transform:translateY(-5px);background:rgba(251,249,242,.12)}
+.door .sw{width:36px;height:36px;border-radius:11px}
+.door:nth-child(1) .sw{background:linear-gradient(135deg,#7fb44a,#efbf3f)}
+.door:nth-child(2) .sw{background:linear-gradient(135deg,#3c6b48,#cf8047)}
+.door:nth-child(3) .sw{background:linear-gradient(135deg,#9fb487,#cf8b6f)}
+.door h3{font-size:1.35rem;font-weight:700;color:var(--cream)}
+.door p{color:#bcccbb;font-size:.92rem;flex:1}
+.door .go{color:#e9c39e;font-weight:600;display:inline-flex;gap:.4em;align-items:center}
+.cta-contact{display:flex;flex-wrap:wrap;gap:10px 30px;margin-top:32px;color:#c4d3c2;font-size:.96rem;align-items:center}
+.cta-contact a{font-weight:600;color:var(--cream);border-bottom:1.5px solid #e9c39e;padding-bottom:1px}
+
+/* ================= FOOTER ================= */
+.footer{padding:54px 0 44px}
+.footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:22px;align-items:flex-end}
+.footer .brand{font-size:1.4rem}
+.footer .fnote{color:var(--muted);font-size:.9rem;margin-top:.5em;max-width:40ch}
+.footer .fnav{display:flex;gap:20px;flex-wrap:wrap;font-size:.92rem;color:var(--muted)}
+.footer .fnav a:hover{color:var(--ink)}
+.footer .cr{width:100%;color:var(--muted);font-size:.84rem;border-top:1px solid var(--line);padding-top:20px;margin-top:8px}
+
+/* ================= REVEAL ================= */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:980px){
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .cell-wide{grid-column:span 2}
+  .cell-tall{grid-row:span 1}
+  .tf{grid-template-columns:1fr}
+  .tf__vis{min-height:280px;order:-1}
+  .wgrid{grid-template-columns:1fr;direction:ltr!important}
+  .world--biz .wgrid{direction:ltr}
+  .wphoto{order:-1}
+  .moat-grid{grid-template-columns:1fr}
+  .doors{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .nav-links{
+    position:absolute;top:64px;left:14px;right:14px;flex-direction:column;align-items:stretch;gap:4px;
+    background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:var(--shadow);
+    transform-origin:top;transform:scaleY(0);opacity:0;pointer-events:none;transition:transform .35s var(--ease),opacity .3s;
+  }
+  .nav-links.open{transform:scaleY(1);opacity:1;pointer-events:auto}
+  .nav-links a:not(.btn){padding:.7em 1em}
+  .nav .btn--solid{justify-content:center;margin-top:6px}
+  .menu-btn{display:block}
+  .bento{grid-template-columns:1fr}
+  .cell-wide{grid-column:span 1}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal,.kinetic .w{opacity:1;transform:none;transition:none}
+  .chip{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="bar">
+    <a href="#top" class="brand" aria-label="Bosque">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c2.6 2.2 4 5 4 8.2 0 2-.8 3.7-2.2 5v5.8h-3.6V15.7C8.8 14.4 8 12.7 8 10.7c0-3.2 1.4-6 4-8.2Z"/></svg>
+      Bosque<span class="dot">.</span>
+    </a>
+    <div class="nav-links" id="navlinks">
+      <a href="#espaco">O espaço</a>
+      <a href="#kids">Kids</a>
+      <a href="#business">Business</a>
+      <a href="#wellness">Wellness</a>
+      <a href="#reservar" class="btn btn--solid">Reservar uma visita</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap">
+    <div class="hero-head reveal">
+      <span class="pill"><span class="dot"></span>Belverde · Margem Sul</span>
+      <h1 style="margin-top:20px">Um só espaço.<br><span class="soft">Múltiplas vidas.</span></h1>
+      <p class="hero-sub">Cave climatizada e jardim privado que se transformam ao ritmo do seu dia — santuário de bem-estar de manhã, hub de inovação à tarde, parque de aventura ao fim de semana.</p>
+      <div class="hero-cta">
+        <a href="#reservar" class="btn btn--solid">Reservar uma visita <span class="arr">→</span></a>
+        <a href="#espaco" class="btn btn--ghost">Ver o espaço</a>
+      </div>
+      <div class="trust">
+        <span><b>300 m²</b> interior + jardim</span><span class="sep"></span>
+        <span><b>3</b> universos</span><span class="sep"></span>
+        <span><b>1</b> chave, só sua</span>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal d2">
+      <div class="hero-photo">
+        <div class="cap"><span>Belverde · Margem Sul</span><b>O seu refúgio privado</b></div>
+      </div>
+      <div class="chip chip-1"><span class="cd" style="background:var(--well)"></span> Yoga <small>· 8:00</small></div>
+      <div class="chip chip-2"><span class="cd" style="background:var(--biz)"></span> Workshop <small>· 14:00</small></div>
+      <div class="chip chip-3"><span class="cd" style="background:var(--kids)"></span> Festa <small>· Sábado</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ KINETIC STATEMENT ============ -->
+<section class="kinetic reveal" id="manifesto">
+  <div class="wrap">
+    <p class="line">
+      <span class="w">De</span> <span class="w">manhã</span> <span class="w am">respira.</span>
+      <span class="w">À</span> <span class="w">tarde</span> <span class="w pm">pensa.</span>
+      <span class="w">Ao</span> <span class="w">fim</span> <span class="w">de</span> <span class="w">semana</span> <span class="w we">brinca.</span>
+    </p>
+    <p>O mesmo metro quadrado, vendido três vezes — com a natureza como denominador comum.</p>
+  </div>
+</section>
+
+<!-- ============ O ESPAÇO (BENTO) ============ -->
+<section class="section" id="espaco">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="pill"><span class="dot"></span>O que está cá dentro</span>
+      <h2>Um único espaço, infinitamente configurável.</h2>
+      <p>Tudo o que precisa numa só morada — e nada que tenha de partilhar com estranhos.</p>
+    </div>
+    <div class="bento">
+      <div class="cell cell-wide cell--photo cell--g reveal">
+        <h3>300 m² para reinventar</h3>
+        <p>Cave + jardim ligados de forma contínua. Plano A e plano B no mesmo sítio.</p>
+      </div>
+      <div class="cell reveal d1">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h18M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/></svg></span>
+        <h3>Cave climatizada</h3>
+        <p>100 m² frescos, silenciosos e à prova de chuva ou calor.</p>
+      </div>
+      <div class="cell reveal d2">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M5 8c4 0 7 2 7 6M19 8c-4 0-7 2-7 6"/></svg></span>
+        <h3>Jardim vedado</h3>
+        <p>200 m² de relva privada para correr, jogar ou aterrar.</p>
+      </div>
+      <div class="cell reveal">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c4-3 6-6 6-9a6 6 0 0 0-12 0c0 3 2 6 6 9Z"/><path d="M12 14c1.5-1 2.5-2 2.5-3.5"/></svg></span>
+        <h3>Pitfire exterior</h3>
+        <p>O elemento "uau" para networking ao entardecer.</p>
+      </div>
+      <div class="cell cell--photo cell--garden reveal d1" style="min-height:200px">
+        <h3>Lounge &amp; pérgula</h3>
+        <p>Sombra, sofás e conforto para conviver à vontade.</p>
+      </div>
+      <div class="cell reveal d2">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h9a4 4 0 0 1 0 8H6Z"/><path d="M6 4v2M10 4v2"/><path d="M4 20h14"/></svg></span>
+        <h3>Copa &amp; café</h3>
+        <p>Frigorífico, máquina de café e bancada de apoio.</p>
+      </div>
+      <div class="cell reveal d3">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="2.5"/><circle cx="17" cy="16" r="2.5"/></svg></span>
+        <h3>Som ambiente</h3>
+        <p>Colunas integradas para criar qualquer atmosfera.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRANSFORMER ============ -->
+<section class="section transform" id="transformador">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="pill"><span class="dot"></span>A matriz Bosque</span>
+      <h2>Veja o espaço mudar de pele.</h2>
+      <p>Escolha o momento do dia e o mesmo espaço transforma-se diante de si.</p>
+    </div>
+    <div class="tf reveal d1" id="tf" style="--accent:var(--well);--accent-bg:var(--well-bg)">
+      <div class="tf__left">
+        <div class="seg" role="tablist" aria-label="Momento do dia">
+          <button role="tab" aria-selected="true" data-mode="well" style="--accent:var(--well);--accent-bg:var(--well-bg)">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span>
+            <span><span class="when">Manhã</span><span class="what">Bem-estar</span></span>
+          </button>
+          <button role="tab" aria-selected="false" data-mode="biz" style="--accent:var(--biz);--accent-bg:var(--biz-bg)">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9l9-5 9 5-9 5-9-5Z"/><path d="M5 11v5c0 1 3 3 7 3s7-2 7-3v-5"/></svg></span>
+            <span><span class="when">Tarde · Noite</span><span class="what">Inovação</span></span>
+          </button>
+          <button role="tab" aria-selected="false" data-mode="kids" style="--accent:var(--kids);--accent-bg:var(--kids-bg)">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <span><span class="when">Fim de semana</span><span class="what">Aventura</span></span>
+          </button>
+        </div>
+        <div class="tf__read">
+          <span class="rt" id="tfTag">Wellness</span>
+          <h3 id="tfTitle">Estúdio Zen</h3>
+          <p id="tfDesc">A cave torna-se um estúdio livre de distrações para yoga ou reiki; o relvado, um tapete natural para meditar de pés na terra.</p>
+        </div>
+      </div>
+      <div class="tf__vis">
+        <span class="pill tf__badge" id="tfBadge">Manhã tranquila</span>
+        <div class="tf__img show" data-img="well" style="background-image:var(--img-well)"></div>
+        <div class="tf__img" data-img="biz" style="background-image:var(--img-biz)"></div>
+        <div class="tf__img" data-img="kids" style="background-image:var(--img-kids)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KIDS ============ -->
+<section class="world world--kids" id="kids">
+  <div class="wrap">
+    <div class="wgrid">
+      <div class="wtext reveal">
+        <span class="tag">Fins de semana</span>
+        <h2>Bosque <em>Kids</em></h2>
+        <p class="slogan">Onde a natureza encontra a brincadeira.</p>
+        <p class="target">Festas de aniversário (3–12), chás de bebé e encontros de família — seguros, privados e ao ar livre, longe dos parques de plástico.</p>
+        <div class="benefits">
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Liberdade controlada</b>as crianças correm livres, os pais relaxam.</span></div>
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Gasto de energia</b>trampolim, balizas e insufláveis.</span></div>
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Logística parental</b>copa com frigorífico para bolo e bebidas.</span></div>
+        </div>
+        <div class="packs">
+          <span class="pk"><b>Aventura Express</b> · 3h</span>
+          <span class="pk"><b>O Dia é Nosso</b> · 10h–19h</span>
+        </div>
+      </div>
+      <div class="wphoto reveal d2">
+        <div class="ph"></div>
+        <div class="float"><span class="cd" style="background:var(--kids)"></span><span>Festa segura<small>jardim 200 m² vedado</small></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSINESS ============ -->
+<section class="world world--biz" id="business">
+  <div class="wrap">
+    <div class="wgrid">
+      <div class="wtext reveal">
+        <span class="tag">Dias úteis &amp; after-work</span>
+        <h2>Bosque <em>Business</em></h2>
+        <p class="slogan">Onde as ideias ganham espaço para respirar.</p>
+        <p class="target">Offsites de equipas tech, workshops e reuniões trimestrais. Profissional, mas longe do corporativo frio — com a casa só para si.</p>
+        <div class="benefits">
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Sala polivalente</b>brainstorming, workshops ou jantares de equipa.</span></div>
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Networking premium</b>o pitfire acende finais de tarde memoráveis.</span></div>
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Fuel station</b>coffee breaks contínuos sem sair da sessão.</span></div>
+        </div>
+        <div class="packs">
+          <span class="pk"><b>Deep Work</b> · dia completo</span>
+          <span class="pk"><b>After-Work</b> · 17h–21h</span>
+        </div>
+      </div>
+      <div class="wphoto reveal d2">
+        <div class="ph"></div>
+        <div class="float"><span class="cd" style="background:var(--biz)"></span><span>Pitfire ligado<small>networking · 18:30</small></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WELLNESS ============ -->
+<section class="world world--well" id="wellness">
+  <div class="wrap">
+    <div class="wgrid">
+      <div class="wtext reveal">
+        <span class="tag">Manhãs &amp; dias tranquilos</span>
+        <h2>Bosque <em>Wellness</em></h2>
+        <p class="slogan">O seu santuário de equilíbrio.</p>
+        <p class="target">Para terapeutas e instrutores independentes — yoga, pilates, reiki, círculos e mini-retiros. Silêncio de zona residencial e atmosfera controlável.</p>
+        <div class="benefits">
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Imersão sensorial</b>som ambiente para qualquer atmosfera.</span></div>
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Grounding</b>prática de pés na relva, no jardim de 200 m².</span></div>
+          <div class="benefit"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span><span><b>Ritual de acolhimento</b>lounge de entrada e copa de chás.</span></div>
+        </div>
+        <div class="packs">
+          <span class="pk"><b>Instrutor</b> · packs 10/20h</span>
+          <span class="pk"><b>Retiro Urbano</b> · fim de semana</span>
+        </div>
+      </div>
+      <div class="wphoto reveal d2">
+        <div class="ph"></div>
+        <div class="float"><span class="cd" style="background:var(--well)"></span><span>Aula a começar<small>grounding · 8:00</small></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOAT ============ -->
+<section class="section" id="porque">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="pill"><span class="dot"></span>Porquê Bosque</span>
+      <h2>Quatro razões difíceis de copiar.</h2>
+      <p>Não é só um espaço bonito — é uma combinação de ativos e de cuidado que o mercado da Margem Sul não tem.</p>
+    </div>
+    <div class="moat-grid">
+      <div class="mcell reveal"><span class="mk">Cave + jardim</span><h3>O híbrido perfeito</h3><p>Interior e exterior ligados: liberdade quando o tempo está bom, refúgio garantido quando não está. O evento nunca é cancelado.</p></div>
+      <div class="mcell reveal d1"><span class="mk">Dono-operador</span><h3>O toque pessoal</h3><p>Sendo uma casa, tem uma curadoria e um cuidado ao detalhe que espaços puramente comerciais não conseguem replicar.</p></div>
+      <div class="mcell reveal d2"><span class="mk">Belverde</span><h3>Endereço aspiracional</h3><p>Um destino associado a pinhal, praia e qualidade de vida, que posiciona a marca num segmento médio-alto.</p></div>
+      <div class="mcell reveal d3"><span class="mk">Flexibilidade</span><h3>Radical, por design</h3><p>De estúdio de yoga vazio a sala de reuniões em 30 minutos — ocupação máxima sem custos fixos a crescer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section cta" id="reservar">
+  <div class="wrap">
+    <div class="panel reveal">
+      <span class="blob b3"></span>
+      <span class="pill"><span class="dot" style="background:#e9c39e"></span>Reservar</span>
+      <h2>Três portas, <em>um só</em> refúgio.</h2>
+      <p class="csub">Escolha a entrada certa. A curadoria, a montagem e o detalhe — tratamos nós.</p>
+      <div class="doors">
+        <a class="door" href="mailto:ola@bosque.pt?subject=Reserva%20Bosque%20Kids">
+          <span class="sw"></span><h3>Uma festa</h3>
+          <p>Aniversários e encontros de família, seguros e ao ar livre.</p>
+          <span class="go">Reservar Kids →</span>
+        </a>
+        <a class="door" href="mailto:ola@bosque.pt?subject=Reserva%20Bosque%20Business">
+          <span class="sw"></span><h3>Um offsite</h3>
+          <p>Workshops e team building com pitfire ao entardecer.</p>
+          <span class="go">Reservar Business →</span>
+        </a>
+        <a class="door" href="mailto:ola@bosque.pt?subject=Reserva%20Bosque%20Wellness">
+          <span class="sw"></span><h3>Uma sessão</h3>
+          <p>Aulas e mini-retiros num santuário silencioso.</p>
+          <span class="go">Reservar Wellness →</span>
+        </a>
+      </div>
+      <div class="cta-contact">
+        <span>Belverde · Margem Sul</span>
+        <a href="mailto:ola@bosque.pt">ola@bosque.pt</a>
+        <a href="tel:+351000000000">+351 000 000 000</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <a href="#top" class="brand"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c2.6 2.2 4 5 4 8.2 0 2-.8 3.7-2.2 5v5.8h-3.6V15.7C8.8 14.4 8 12.7 8 10.7c0-3.2 1.4-6 4-8.2Z"/></svg>Bosque<span class="dot">.</span></a>
+      <p class="fnote">O seu espaço, ao ritmo da natureza.</p>
+    </div>
+    <div class="fnav">
+      <a href="#espaco">O espaço</a><a href="#kids">Kids</a><a href="#business">Business</a><a href="#wellness">Wellness</a><a href="#reservar">Reservar</a>
+    </div>
+    <div class="cr">© 2026 Bosque · Belverde, Margem Sul. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* mobile menu */
+  var mb=document.getElementById('menuBtn'), nl=document.getElementById('navlinks');
+  mb.addEventListener('click',function(){var o=nl.classList.toggle('open');mb.setAttribute('aria-expanded',o);});
+  nl.addEventListener('click',function(e){if(e.target.tagName==='A'){nl.classList.remove('open');mb.setAttribute('aria-expanded','false');}});
+
+  /* reveal */
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal,.kinetic').forEach(function(el){io.observe(el);});
+
+  /* kinetic stagger */
+  var ws=document.querySelectorAll('.kinetic .w');
+  ws.forEach(function(w,i){w.style.transitionDelay=(i*0.05)+'s';});
+
+  /* transformer */
+  var DATA={
+    well:{tag:'Wellness',title:'Estúdio Zen',badge:'Manhã tranquila',desc:'A cave torna-se um estúdio livre de distrações para yoga ou reiki; o relvado, um tapete natural para meditar de pés na terra.'},
+    biz:{tag:'Business',title:'Sala de Reunião',badge:'Tarde produtiva',desc:'O mesmo interior vira sala polivalente para brainstorms; ao entardecer, o pitfire acende o networking no jardim.'},
+    kids:{tag:'Kids',title:'Parque de Aventura',badge:'Fim de semana épico',desc:'O jardim vedado enche-se de corridas, trampolim e balizas — e a cave é o plano B imediato se o tempo virar.'}
+  };
+  var tf=document.getElementById('tf');
+  var btns=tf.querySelectorAll('.seg button'), imgs=tf.querySelectorAll('.tf__img');
+  var tag=document.getElementById('tfTag'),title=document.getElementById('tfTitle'),desc=document.getElementById('tfDesc'),badge=document.getElementById('tfBadge');
+  function setMode(m,btn){
+    btns.forEach(function(b){b.setAttribute('aria-selected',b===btn?'true':'false');});
+    imgs.forEach(function(im){im.classList.toggle('show',im.dataset.img===m);});
+    var d=DATA[m];tag.textContent=d.tag;title.textContent=d.title;desc.textContent=d.desc;badge.textContent=d.badge;
+    var ac=btn.style.getPropertyValue('--accent'),ab=btn.style.getPropertyValue('--accent-bg');
+    tf.style.setProperty('--accent',ac);tf.style.setProperty('--accent-bg',ab);tag.style.color=ac;
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode,b);used=true;});});
+
+  /* auto rotate until interaction */
+  var order=['well','biz','kids'],idx=0,used=false;
+  if(!reduce){
+    var t=setInterval(function(){
+      if(used){clearInterval(t);return;}
+      idx=(idx+1)%order.length;
+      var b=tf.querySelector('.seg button[data-mode="'+order[idx]+'"]');
+      setMode(order[idx],b);
+    },3600);
+  }
+})();
+</script>
+</body>
+</html>
