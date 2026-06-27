@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belver Green | Espaço Premium Multiusos em Belverde</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Modern Geometric Typography (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafa;
+            color: #111111;
+            scroll-behavior: smooth;
+        }
+        
+        /* Modern Parallax Canvas Effect */
+        .parallax-bg {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            z-index: -1;
+            transform: scale(1.05);
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Smooth reveal transitions */
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-neutral-900 selection:text-white">
+
+    <!-- Header / Navigation Line -->
+    <header class="fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl z-50">
+        <nav class="bg-white/70 backdrop-blur-xl border border-neutral-200/50 rounded-full px-6 py-3 flex items-center justify-between shadow-xs">
+            <a href="#" class="text-lg font-bold tracking-tight text-neutral-900">
+                belver<span class="text-neutral-400 font-light">green</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-neutral-500">
+                <a href="#conceito" class="hover:text-neutral-900 transition-colors">O Espaço</a>
+                <a href="#marcas" class="hover:text-neutral-900 transition-colors">Segmentos</a>
+                <a href="#infraestrutura" class="hover:text-neutral-900 transition-colors">Infraestrutura</a>
+            </div>
+            <div>
+                <a href="#contacto" class="bg-neutral-950 text-white text-xs font-medium px-4 py-2.5 rounded-full hover:bg-neutral-800 transition-all shadow-xs">
+                    Reservar Agora
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section (Clean & Big Typography) -->
+    <main class="relative pt-40 pb-20 px-6 max-w-5xl mx-auto text-center z-10">
+        <div class="inline-flex items-center space-x-2 bg-neutral-100 border border-neutral-200/60 px-3 py-1 rounded-full mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-medium text-neutral-600 tracking-wide">Exclusividade Privada em Belverde</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-neutral-950 max-w-4xl mx-auto leading-[1.05] mb-8">
+            Um único espaço premium.<br>Desenhado para três momentos.
+        </h1>
+        
+        <p class="text-lg md:text-xl text-neutral-500 font-light max-w-2xl mx-auto leading-relaxed mb-12">
+            Esqueça as localizações genéricas. Centralizámos uma infraestrutura sofisticada de <span class="text-neutral-950 font-medium">100m² de área interior</span> e <span class="text-neutral-950 font-medium">200m² de jardim vedado</span> para moldar exatamente ao que precisa.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+            <a href="#marcas" class="w-full sm:w-auto bg-neutral-950 text-white font-medium text-sm px-8 py-4 rounded-xl hover:bg-neutral-900 transition-all shadow-sm text-center">
+                Explorar Configurações
+            </a>
+            <a href="#contacto" class="w-full sm:w-auto bg-white text-neutral-700 border border-neutral-200 font-medium text-sm px-8 py-4 rounded-xl hover:bg-neutral-50 transition-all text-center">
+                Falar com o Gestor do Espaço
+            </a>
+        </div>
+
+        <!-- Hero Feature Image with Smooth Scale Overlay -->
+        <div class="relative w-full aspect-16/9 rounded-3xl overflow-hidden border border-neutral-200 shadow-xl bg-neutral-100">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80" 
+                 alt="Belver Green Arquitetura Premium" 
+                 class="w-full h-full object-cover">
+        </div>
+    </main>
+
+    <!-- Continuous Parallax Visual Separator -->
+    <div class="w-full h-[50vh] overflow-hidden relative">
+        <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;"></div>
+    </div>
+
+    <!-- Bento Grid Section: The 3 Brands (Belver Kids Brand Book.md / Condições e Infraestruturas) -->
+    <section id="marcas" class="py-24 px-6 max-w-5xl mx-auto z-10 relative">
+        <div class="mb-16 text-left">
+            <span class="text-xs font-bold tracking-widest text-neutral-400 uppercase block mb-2">Ecossistema Flexível</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-neutral-950">As Três Configurações Disponíveis</h2>
+            <p class="text-neutral-500 mt-2 text-sm md:text-base">Ativos idênticos, experiências radicalmente distintas. Selecione o seu foco.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Brand 1: Belver Kids -->
+            <div class="bento-card p-8 rounded-3xl flex flex-col justify-between group">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-6 font-semibold text-lg">🧒</div>
+                    <h3 class="text-xl font-bold text-neutral-950 mb-2">Belver Kids</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-6">Focado em crianças dos 3 aos 12 anos. O espaço transforma-se num ecossistema seguro e vedado para aniversários e aventuras memoráveis ao ar livre.</p>
+                </div>
+                <div class="border-t border-neutral-100 pt-4 mt-4">
+                    <span class="text-xs font-medium text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md">Pack Aventura & Diário</span>
+                </div>
+            </div>
+
+            <!-- Brand 2: Belver Business -->
+            <div class="bento-card p-8 rounded-3xl flex flex-col justify-between group">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 mb-6 font-semibold text-lg">💼</div>
+                    <h3 class="text-xl font-bold text-neutral-950 mb-2">Belver Business</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-6">Para startups, equipas de produto e comunidades tech. Desconexão digital focada no Deep Work, offsites estratégicos e networking em torno do Pitfire.</p>
+                </div>
+                <div class="border-t border-neutral-100 pt-4 mt-4">
+                    <span class="text-xs font-medium text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md">Deep Work & After-Work</span>
+                </div>
+            </div>
+
+            <!-- Brand 3: Belver Wellness -->
+            <div class="bento-card p-8 rounded-3xl flex flex-col justify-between group">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-6 font-semibold text-lg">🧘</div>
+                    <h3 class="text-xl font-bold text-neutral-950 mb-2">Belver Wellness</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed mb-6">O santuário minimalista para instrutores de Yoga, Pilates ou terapeutas holísticos. Desenhado para o silêncio, grounding no jardim e meditação profunda.</p>
+                </div>
+                <div class="border-t border-neutral-100 pt-4 mt-4">
+                    <span class="text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">Pack Recorrente Horas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Asset Matrix Setup (From Condições e Infraestruturas por Marca) -->
+    <section id="infraestrutura" class="py-20 bg-white border-t border-b border-neutral-200/60 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5">
+                    <span class="text-xs font-bold tracking-widest text-neutral-400 uppercase">Infraestrutura Inteligente</span>
+                    <h2 class="text-3xl font-bold text-neutral-950 tracking-tight mt-2 mb-6">Otimização de Ativos Cruzados</h2>
+                    <p class="text-sm text-neutral-500 leading-relaxed mb-4">
+                        Gerido com o rigor e o cuidado de um "Dono-Operador", garantimos que a mesma base física premium entrega utilidades radicalmente adaptadas.
+                    </p>
+                    <ul class="space-y-3 text-xs font-medium text-neutral-700">
+                        <li class="flex items-center space-x-2">
+                            <span class="w-1 h-1 bg-neutral-900 rounded-full"></span>
+                            <span><strong>Jardim (200m²):</strong> Área de Ação Kids / Team Building / Grounding Zen.</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-1 h-1 bg-neutral-900 rounded-full"></span>
+                            <span><strong>Cave Ampla (100m²):</strong> Plano B Anti-Chuva / Sala de Projeção / Estúdio Livre.</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-1 h-1 bg-neutral-900 rounded-full"></span>
+                            <span><strong>Copa Técnica:</strong> Armazenamento de Lanches / Coffee Breaks / Casa de Chá.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-7 grid grid-cols-2 gap-4">
+                    <div class="bg-neutral-50 p-6 rounded-2xl border border-neutral-100">
+                        <h4 class="font-bold text-sm text-neutral-950 mb-1">Área Desportiva</h4>
+                        <p class="text-xs text-neutral-500">Campo multi-jogos (Basquetebol/Futebol) integrado no jardim.</p>
+                    </div>
+                    <div class="bg-neutral-50 p-6 rounded-2xl border border-neutral-100">
+                        <h4 class="font-bold text-sm text-neutral-950 mb-1">Climatização & Som</h4>
+                        <p class="text-xs text-neutral-500">Ambiente controlado e colunas de som embutidas para imersão total.</p>
+                    </div>
+                    <div class="bg-neutral-50 p-6 rounded-2xl border border-neutral-100">
+                        <h4 class="font-bold text-sm text-neutral-950 mb-1">Pitfire de Charme</h4>
+                        <p class="text-xs text-neutral-500">Zona exterior com fogueira tribal dedicada a dinâmicas noturnas ou lareira exterior.</p>
+                    </div>
+                    <div class="bg-neutral-50 p-6 rounded-2xl border border-neutral-100">
+                        <h4 class="font-bold text-sm text-neutral-950 mb-1">Acesso Privado</h4>
+                        <p class="text-xs text-neutral-500">Localização premium e discreta no pinhal de Belverde.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Simple Contact Section -->
+    <section id="contacto" class="py-24 px-6 max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-950 mb-4">Pronto para reservar o seu bloco?</h2>
+        <p class="text-neutral-500 font-light text-sm sm:text-base max-w-xl mx-auto mb-12">
+            Seja para o aniversário do seu filho, o próximo sprint estratégico da sua empresa ou uma aula holística recorrente, configuramos o espaço à sua medida.
+        </p>
+        
+        <form class="bg-white border border-neutral-200/80 p-8 rounded-3xl text-left shadow-xs space-y-5" onsubmit="event.preventDefault(); alert('Pedido enviado com sucesso! Entraremos em contacto num prazo de 2 horas.');">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">O seu nome</label>
+                    <input type="text" required class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 text-sm focus:outline-hidden focus:border-neutral-950 transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Finalidade do Aluguer</label>
+                    <select class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-600 text-sm focus:outline-hidden focus:border-neutral-950 transition-all">
+                        <option>Belver Kids (Festa de Aniversário)</option>
+                        <option>Belver Business (Offsite / Team Building)</option>
+                        <option>Belver Wellness (Retiro / Prática Holística)</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">E-mail de Contacto</label>
+                <input type="email" required class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 text-sm focus:outline-hidden focus:border-neutral-950 transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">Data pretendida e detalhes adicionais</label>
+                <textarea rows="4" required class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 text-sm focus:outline-hidden focus:border-neutral-950 transition-all" placeholder="Ex: Sábado, período da tarde, cerca de 15 pessoas..."></textarea>
+            </div>
+            <button type="submit" class="w-full bg-neutral-950 hover:bg-neutral-900 text-white font-medium text-sm py-3.5 rounded-xl transition-all tracking-wide shadow-xs">
+                Solicitar Orçamento Exclusivo
+            </button>
+        </form>
+    </section>
+
+    <!-- Clean Minimalist Footer -->
+    <footer class="border-t border-neutral-200/60 bg-neutral-50 py-12 px-6 text-center text-xs text-neutral-400">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span class="font-bold text-neutral-900">belver<span class="text-neutral-400 font-light">green</span></span>
+            <p>&copy; 2026 Belver Green. Margem Sul, Portugal. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript for smooth interactive background parallax scaling -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const parallaxBg = document.querySelector('.parallax-bg');
+            if(parallaxBg) {
+                let scrollPosition = window.pageYOffset;
+                // Subtle scale and reposition dynamic simulation
+                parallaxBg.style.transform = `scale(${1.05 + scrollPosition * 0.0001})`;
+            }
+        });
+    </script>
+</body>
+</html>
