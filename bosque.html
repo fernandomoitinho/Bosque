@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belver Green | O Seu Refúgio Privado em Belverde</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Parallax Core Engine */
+        .parallax-window {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 60vh;
+        }
+        .hero-parallax {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
+            height: 100vh;
+        }
+        .kids-parallax {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1920&q=80');
+        }
+        .corporate-parallax {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1920&q=80');
+        }
+        .wellness-parallax {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1920&q=80');
+        }
+        /* Touch Device Fix for Parallax */
+        @media (max-width: 1024px) {
+            .parallax-window {
+                background-attachment: scroll;
+                height: 40vh;
+            }
+            .hero-parallax {
+                height: 90vh;
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-stone-200/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-2xl font-semibold tracking-wide text-emerald-900 uppercase">Belver<span class="font-light text-emerald-600">Green</span></span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide uppercase">
+                <a href="#conceito" class="text-stone-600 hover:text-emerald-800 transition-colors">O Conceito</a>
+                <a href="#kids" class="text-stone-600 hover:text-amber-600 transition-colors">Belver Kids</a>
+                <a href="#corporate" class="text-stone-600 hover:text-slate-700 transition-colors">Belver Business</a>
+                <a href="#wellness" class="text-stone-600 hover:text-teal-700 transition-colors">Belver Wellness</a>
+            </div>
+            <a href="#contacto" class="bg-emerald-800 hover:bg-emerald-900 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm">Reservar Espaço</a>
+        </div>
+    </nav>
+
+    <header class="parallax-window hero-parallax flex items-center justify-center relative">
+        <div class="text-center text-white px-4 max-w-4xl mx-auto z-10">
+            <span class="text-xs uppercase tracking-widest bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full font-medium mb-6 inline-block">Exclusividade & Versatilidade em Belverde</span>
+            <h1 class="text-5xl md:text-7xl font-light leading-tight mb-6">"O seu refúgio privado,<br><span class="italic font-serif">moldado ao seu momento.</span>"</h1>
+            <p class="text-lg md:text-xl font-light text-stone-200 mb-12 max-w-2xl mx-auto">Transformamos uma infraestrutura doméstica premium num ecossistema flexível para ligar a natureza, a sua equipa ou a sua família.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                <a href="#kids" class="group bg-white/10 backdrop-blur-md hover:bg-white text-white hover:text-stone-900 p-5 rounded-2xl border border-white/20 transition-all duration-300 text-left">
+                    <span class="text-amber-400 group-hover:text-amber-500 font-bold tracking-wider text-xs uppercase block mb-1">Família & Festas</span>
+                    <h3 class="text-lg font-semibold mb-1">Belver Kids</h3>
+                    <p class="text-xs opacity-80 group-hover:opacity-100 line-clamp-2">Aniversários seguros e memoráveis ao ar livre.</p>
+                </a>
+                <a href="#corporate" class="group bg-white/10 backdrop-blur-md hover:bg-white text-white hover:text-stone-900 p-5 rounded-2xl border border-white/20 transition-all duration-300 text-left">
+                    <span class="text-slate-300 group-hover:text-slate-600 font-bold tracking-wider text-xs uppercase block mb-1">Empresas & Tech</span>
+                    <h3 class="text-lg font-semibold mb-1">Belver Business</h3>
+                    <p class="text-xs opacity-80 group-hover:opacity-100 line-clamp-2">Offsites, team building e foco corporativo.</p>
+                </a>
+                <a href="#wellness" class="group bg-white/10 backdrop-blur-md hover:bg-white text-white hover:text-stone-900 p-5 rounded-2xl border border-white/20 transition-all duration-300 text-left">
+                    <span class="text-emerald-300 group-hover:text-emerald-600 font-bold tracking-wider text-xs uppercase block mb-1">Retiros & Saúde</span>
+                    <h3 class="text-lg font-semibold mb-1">Belver Wellness</h3>
+                    <p class="text-xs opacity-80 group-hover:opacity-100 line-clamp-2">Yoga, meditação profunda e desconexão.</p>
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/70 hidden md:block">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <section id="conceito" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <span class="text-xs uppercase font-bold tracking-widest text-emerald-800 bg-emerald-50 px-3 py-1 rounded-md">O Nosso Diferenciador</span>
+                <h2 class="text-4xl md:text-5xl font-normal text-stone-900 mt-4 mb-8 leading-tight">O equilíbrio perfeito entre o <span class="italic font-serif">interior premium</span> e a liberdade da natureza.</h2>
+                <p class="text-stone-600 leading-relaxed mb-6">Na Margem Sul, encontrar um espaço exclusivo foge sempre para os extremos: ou é corporativo e frio, ou é um parque público sem privacidade. O Belver Green preenche a lacuna do <strong>"Boutique Venue"</strong>.</p>
+                <p class="text-stone-600 leading-relaxed mb-8">Oferecemos uma flexibilidade radical sob uma gestão focada no detalhe e no toque pessoal de quem cuida do ativo como a sua própria casa.</p>
+                
+                <div class="grid grid-cols-2 gap-6 border-t border-stone-200 pt-8">
+                    <div>
+                        <span class="block text-4xl font-light text-emerald-900">100 m²</span>
+                        <span class="text-sm text-stone-500 font-medium uppercase tracking-wider block mt-1">Cave Ampla Multifuncional</span>
+                    </div>
+                    <div>
+                        <span class="block text-4xl font-light text-emerald-900">200 m²</span>
+                        <span class="text-sm text-stone-500 font-medium uppercase tracking-wider block mt-1">Jardim Vedado & Privado</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative bg-stone-200 rounded-3xl overflow-hidden aspect-4/3 shadow-xl">
+                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80" alt="Belver Green Premium Space" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent p-8 flex items-end">
+                    <p class="text-white text-sm font-medium">Localização aspiracional em Belverde: pinhal, praia e tranquilidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-window kids-parallax flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <div class="bg-white/95 backdrop-blur-md p-8 md:p-12 rounded-3xl max-w-xl shadow-xl border border-stone-100">
+                <span class="text-xs uppercase font-bold tracking-widest text-lime-700 bg-lime-50 px-3 py-1 rounded-md">Belver Kids</span>
+                <h2 class="text-3xl md:text-4xl font-normal text-stone-950 mt-4 mb-4">Festas épicas, memórias eternas.</h2>
+                <p class="text-stone-600 text-sm md:text-base mb-6">Fuja dos "parques de plástico" barulhentos. Proporcione aos seus filhos uma área segura e privativa ao ar livre, estruturada para pura liberdade e tranquilidade dos pais.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Crianças dos 3 aos 12 anos</span>
+                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Área Totalmente Vedada</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="kids" class="py-20 bg-stone-100 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-4">
+                    <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-6">O que o espaço inclui para Festas:</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-lime-700 mb-1">Zona de Liberdade Segura</h4>
+                            <p class="text-sm text-stone-600">Jardim de 200m² relvado e vedado para correr e brincar sem "ai-jesus".</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-lime-700 mb-1">Arena Desportiva & Ação</h4>
+                            <p class="text-sm text-stone-600">Campo de basquetebol/futebol, trampolim e espaço para insufláveis.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-lime-700 mb-1">Plano B Garantido (Cave)</h4>
+                            <p class="text-sm text-stone-600">Espaço de 100m² caso ocorra chuva ou calor excessivo a meio do evento.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-lime-700 mb-1">Apoio Logístico Completo</h4>
+                            <p class="text-sm text-stone-600">Copa com frigorífico para bebidas e o bolo, com área dedicada aos parabéns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-lime-900 to-emerald-950 rounded-3xl p-8 text-white flex flex-col justify-between shadow-lg">
+                    <div>
+                        <h3 class="text-2xl font-normal mb-6">Opções de Aluguer</h3>
+                        <div class="space-y-6">
+                            <div class="border-b border-white/10 pb-4">
+                                <h4 class="font-semibold text-lime-300">Pack Aventura Express</h4>
+                                <p class="text-sm text-stone-300 mt-1">3 horas de aluguer exclusivo (manhã ou tarde). Ideal para festas dinâmicas.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lime-300">Pack O Dia é Nosso</h4>
+                                <p class="text-sm text-stone-300 mt-1">Aluguer exclusivo das 10h às 19h. Total flexibilidade e controlo familiar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contacto" class="mt-8 block w-full text-center bg-white text-stone-900 font-medium py-3 rounded-xl hover:bg-stone-100 transition-colors text-sm">Consultar Disponibilidade</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-window corporate-parallax flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full flex justify-end">
+            <div class="bg-white/95 backdrop-blur-md p-8 md:p-12 rounded-3xl max-w-xl shadow-xl border border-stone-100">
+                <span class="text-xs uppercase font-bold tracking-widest text-slate-700 bg-slate-50 px-3 py-1 rounded-md">Belver Business</span>
+                <h2 class="text-3xl md:text-4xl font-normal text-stone-950 mt-4 mb-4">Desconexão digital, foco absoluto.</h2>
+                <p class="text-stone-600 text-sm md:text-base mb-6">Traga a sua startup, equipa de produto ou comunidade de expats para um ambiente "Smart Casual". O espaço ideal para sessões de estratégia corporativa e team building informal.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Tech-Ready & Wi-Fi Robusto</span>
+                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">100% Exclusivo para a Equipa</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="corporate" class="py-20 bg-stone-50 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-4">
+                    <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-6">Infraestrutura Corporativa & Networking:</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-slate-800 mb-1">Sala Polivalente Climatizada</h4>
+                            <p class="text-sm text-stone-600">A cave ampla de 100m² é fresca, silenciosa e configurável para workshops e projeções.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-slate-800 mb-1">Breakout Zones & Lounge</h4>
+                            <p class="text-sm text-stone-600">Espaços informais e sofás no interior para chamadas rápidas ou pausas criativas.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-slate-800 mb-1">Pitfire & Pérgula Exterior</h4>
+                            <p class="text-sm text-stone-600">O elemento "Uau". Uma fogueira tribal ao ar livre perfeita para networking ao fim do dia ou BBQ.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-slate-800 mb-1">Estação de Catering Autónoma</h4>
+                            <p class="text-sm text-stone-600">Copa com máquina de café pronta a garantir o fluxo de cafeína e snacks sem interrupções.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-slate-800 to-neutral-900 rounded-3xl p-8 text-white flex flex-col justify-between shadow-lg">
+                    <div>
+                        <h3 class="text-2xl font-normal mb-6">Planos Corporativos</h3>
+                        <div class="space-y-6">
+                            <div class="border-b border-white/10 pb-4">
+                                <h4 class="font-semibold text-copper-400 text-amber-400">Pack Deep Work</h4>
+                                <p class="text-sm text-stone-300 mt-1">Dia completo (09h-18h). Uso integral das zonas internas/externas com Coffee Break incluído.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-copper-400 text-amber-400">Pack After-Work</h4>
+                                <p class="text-sm text-stone-300 mt-1">Aluguer ao final da tarde (17h-21h). Foco total no uso do Jardim, Pérgula e dinâmica do Pitfire.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contacto" class="mt-8 block w-full text-center bg-white text-stone-900 font-medium py-3 rounded-xl hover:bg-stone-100 transition-colors text-sm">Agendar Offsite</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-window wellness-parallax flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <div class="bg-white/95 backdrop-blur-md p-8 md:p-12 rounded-3xl max-w-xl shadow-xl border border-stone-100">
+                <span class="text-xs uppercase font-bold tracking-widest text-teal-800 bg-teal-50 px-3 py-1 rounded-md">Belver Wellness</span>
+                <h2 class="text-3xl md:text-4xl font-normal text-stone-950 mt-4 mb-4">Respirar, conectar e aterrar.</h2>
+                <p class="text-stone-600 text-sm md:text-base mb-6">Um santuário minimalista e sereno para terapeutas holísticos, instrutores de Yoga, Pilates ou grupos de meditação profunda. Desenhado para o silêncio.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Prática de Grounding</span>
+                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Controlo de Luz e Atmosfera</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="wellness" class="py-20 bg-stone-100 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-4">
+                    <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-6">Atmosfera Zen & Condições:</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-teal-700 mb-1">Estúdio Flexível & Livre</h4>
+                            <p class="text-sm text-stone-600">Espaço interior amplo sem obstáculos. Circulação fluida para tapetes de yoga ou macas de massagem.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-teal-700 mb-1">Grounding na Relva</h4>
+                            <p class="text-sm text-stone-600">Ligação direta à terra no jardim de 200m² para práticas ao ar livre e meditação conectada.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-teal-700 mb-1">Atmosfera Sonora Imersiva</h4>
+                            <p class="text-sm text-stone-600">Colunas com som ambiente integrado para propagar mantras e frequências relaxantes.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
+                            <h4 class="font-semibold text-teal-700 mb-1">Ritual de Acolhimento</h4>
+                            <p class="text-sm text-stone-600">Sala de espera acolhedora combinada com copa equipada para servir chás quentes pós-sessão.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-teal-900 to-stone-900 rounded-3xl p-8 text-white flex flex-col justify-between shadow-lg">
+                    <div>
+                        <h3 class="text-2xl font-normal mb-6">Planos de Prática</h3>
+                        <div class="space-y-6">
+                            <div class="border-b border-white/10 pb-4">
+                                <h4 class="font-semibold text-teal-300">Pack Instrutor</h4>
+                                <p class="text-sm text-stone-300 mt-1">Packs recorrentes de 10 ou 20 horas pré-pagas com preço reduzido para consultas ou aulas locais.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-teal-300">Pack Retiro Urbano</h4>
+                                <p class="text-sm text-stone-300 mt-1">Aluguer integral focado em bem-estar de 1 dia ou fim de semana completo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contacto" class="mt-8 block w-full text-center bg-white text-stone-900 font-medium py-3 rounded-xl hover:bg-stone-100 transition-colors text-sm">Reservar Bloco de Horas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white px-6 hidden md:block">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-3xl font-normal text-stone-950 mb-4">Otimização Inteligente do Espaço</h3>
+            <p class="text-stone-500 mb-12 text-sm">Como adaptamos a mesma infraestrutura premium para a sua necessidade específica:</p>
+            
+            <div class="overflow-hidden rounded-2xl border border-stone-200 shadow-sm">
+                <table class="w-full text-left border-collapse bg-white">
+                    <thead class="bg-stone-50 text-stone-400 text-xs font-bold uppercase tracking-wider border-b border-stone-200">
+                        <tr>
+                            <th class="p-5">Ativo Físico</th>
+                            <th class="p-5 text-amber-700">Uso Kids 🧒</th>
+                            <th class="p-5 text-slate-700">Uso Business 💼</th>
+                            <th class="p-5 text-teal-700">Uso Wellness 🧘</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-stone-200 text-stone-600">
+                        <tr>
+                            <td class="p-5 font-semibold text-stone-950">Relvado Exterior</td>
+                            <td class="p-5">Pista de corridas e brincadeiras</td>
+                            <td class="p-5">Team Building dinâmico</td>
+                            <td class="p-5">Yoga e Grounding ao ar livre</td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 font-semibold text-stone-950">Copa Técnica</td>
+                            <td class="p-5">Armazenamento do bolo e lanches</td>
+                            <td class="p-5">Estação de Coffee Break constante</td>
+                            <td class="p-5">Casa de Chá pós-sessão</td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 font-semibold text-stone-950">Espaço Amplo Interior</td>
+                            <td class="p-5">Refúgio seguro em caso de chuva</td>
+                            <td class="p-5">Sala de Reuniões e Projeção</td>
+                            <td class="p-5">Estúdio Zen livre de obstáculos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="bg-stone-900 text-stone-300 py-20 px-6 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <span class="text-2xl font-semibold tracking-wide text-white uppercase block mb-6">Belver<span class="font-light text-emerald-500">Green</span></span>
+                <p class="text-stone-400 max-w-sm mb-8 leading-relaxed">Pronto para moldar o nosso espaço ao seu momento? Entre em contacto para verificar datas e fazer uma visita guiada.</p>
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span>Belverde, Margem Sul, Portugal (Aroeira / Verdizela / Seixal)</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <span>reservas@belvergreen.com</span>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="space-y-4 bg-stone-800 p-8 rounded-3xl border border-stone-700/50" onsubmit="event.preventDefault(); alert('Obrigado pelo contacto! Responderemos brevemente.');">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">Nome</label>
+                        <input type="text" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">Segmento de Interesse</label>
+                        <select class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500">
+                            <option>Belver Kids (Festas)</option>
+                            <option>Belver Business (Empresas)</option>
+                            <option>Belver Wellness (Terapias/Retiros)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">E-mail</label>
+                    <input type="email" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">Detalhes do Evento / Data Estimada</label>
+                    <textarea rows="4" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl transition-colors text-sm uppercase tracking-wider">Solicitar Orçamento Personalizado</button>
+            </form>
+        </div>
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-stone-800 text-center text-xs text-stone-500">
+            <p>&copy; 2026 Belver Green. Todos os direitos reservados. Gestão Premium Dono-Operador.</p>
+        </div>
+    </section>
+
+</body>
+</html>
