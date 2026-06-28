@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel — Bosque</title>
+  <link rel="stylesheet" href="/css/bosque.css" />
+  <link rel="stylesheet" href="/reservas/assets/app.css" />
+</head>
+<body>
+  <main class="rsv-page">
+    <div class="rsv-wrap" style="max-width:420px;">
+      <p class="rsv-eyebrow">Bosque · Gestão</p>
+      <h1 class="rsv-title">Painel de reservas</h1>
+      <section class="rsv-card">
+        <form method="POST" action="/reservas/admin/login">
+          <div class="field">
+            <label for="password">Palavra-passe</label>
+            <input type="password" id="password" name="password" autofocus required />
+          </div>
+          <div id="err"></div>
+          <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+      </section>
+    </div>
+  </main>
+  <script>
+    if (new URLSearchParams(location.search).get('e')) {
+      document.getElementById('err').innerHTML = '<p class="notice notice-error">Palavra-passe incorreta.</p>';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+{
+  "currency": "EUR",
+  "timezone": "Europe/Lisbon",
+  "_note": "CMS-lite: edit prices, slots, packages and add-ons here — no code changes needed. Prices are placeholders (€) pending Fernando's confirmation.",
+  "segments": {
+    "kids": {
+      "label": "Bosque Kids",
+      "slogan": "Onde a natureza encontra a brincadeira.",
+      "accentVar": "--kids",
+      "bgVar": "--kids-bg",
+      "ctaLabel": "Reservar a festa",
+      "slots": [
+        { "key": "manha", "label": "Manhã · 10h–13h", "start": "10:00", "end": "13:00" },
+        { "key": "tarde", "label": "Tarde · 15h–18h", "start": "15:00", "end": "18:00" },
+        { "key": "dia", "label": "Dia inteiro · 10h–19h", "start": "10:00", "end": "19:00" }
+      ],
+      "packages": [
+        {
+          "id": "aventura-express",
+          "name": "Aventura Express",
+          "desc": "3 horas de festa, manhã ou tarde, jardim + cave como plano B.",
+          "base": 350,
+          "slots": ["manha", "tarde"],
+          "addons": [
+            { "label": "Insufláveis", "price": 90 },
+            { "label": "Animação / monitor", "price": 120 },
+            { "label": "Mesa de doces (copa)", "price": 60 }
+          ]
+        },
+        {
+          "id": "dia-e-nosso",
+          "name": "O Dia é Nosso",
+          "desc": "10h–19h, espaço exclusivo só para a vossa família.",
+          "base": 650,
+          "slots": ["dia"],
+          "addons": [
+            { "label": "Insufláveis", "price": 90 },
+            { "label": "Animação / monitor", "price": 120 },
+            { "label": "Catering parceiro", "price": 0 }
+          ]
+        }
+      ]
+    },
+    "business": {
+      "label": "Bosque Business",
+      "slogan": "Onde as ideias ganham espaço para respirar.",
+      "accentVar": "--biz-copper",
+      "bgVar": "--biz-bg",
+      "ctaLabel": "Pedir proposta",
+      "slots": [
+        { "key": "deep", "label": "Deep Work · 09h–18h", "start": "09:00", "end": "18:00" },
+        { "key": "after", "label": "After-Work · 17h–21h", "start": "17:00", "end": "21:00" }
+      ],
+      "packages": [
+        {
+          "id": "deep-work",
+          "name": "Deep Work",
+          "desc": "09h–18h, sala configurável climatizada, coffee break incluído.",
+          "base": 480,
+          "slots": ["deep"],
+          "addons": [
+            { "label": "Almoço de equipa (catering)", "price": 0 },
+            { "label": "Ecrã + equipamento AV", "price": 50 },
+            { "label": "Walking-meeting no jardim", "price": 0 }
+          ]
+        },
+        {
+          "id": "after-work",
+          "name": "After-Work",
+          "desc": "17h–21h, jardim + pitfire para networking.",
+          "base": 320,
+          "slots": ["after"],
+          "addons": [
+            { "label": "Pitfire + lenha", "price": 40 },
+            { "label": "Bar / bebidas (parceiro)", "price": 0 }
+          ]
+        }
+      ]
+    },
+    "wellness": {
+      "label": "Bosque Wellness",
+      "slogan": "O seu santuário de equilíbrio.",
+      "accentVar": "--well-terra",
+      "bgVar": "--well-bg",
+      "ctaLabel": "Reservar horas",
+      "slots": [
+        { "key": "w-0810", "label": "Manhã · 08h–10h", "start": "08:00", "end": "10:00" },
+        { "key": "w-1012", "label": "Meio da manhã · 10h–12h", "start": "10:00", "end": "12:00" },
+        { "key": "w-1719", "label": "Fim de tarde · 17h–19h", "start": "17:00", "end": "19:00" },
+        { "key": "w-1921", "label": "Noite · 19h–21h", "start": "19:00", "end": "21:00" },
+        { "key": "retiro", "label": "Retiro · fim de semana", "start": "10:00", "end": "18:00" }
+      ],
+      "packages": [
+        {
+          "id": "instrutor",
+          "name": "Instrutor",
+          "desc": "Bloco de 2 h pré-pago, cave com controlo de luz e som.",
+          "base": 45,
+          "slots": ["w-0810", "w-1012", "w-1719", "w-1921"],
+          "addons": [
+            { "label": "Pacote 10 h (pré-pago)", "price": 400 },
+            { "label": "Pacote 20 h (pré-pago)", "price": 760 },
+            { "label": "Copa de chás", "price": 15 }
+          ]
+        },
+        {
+          "id": "retiro-urbano",
+          "name": "Retiro Urbano",
+          "desc": "Dia de retiro (fim de semana), cave + jardim, acolhimento.",
+          "base": 380,
+          "slots": ["retiro"],
+          "addons": [
+            { "label": "Almoço saudável (parceiro)", "price": 0 },
+            { "label": "Som ambiente premium", "price": 30 }
+          ]
+        }
+      ]
+    }
+  }
+}

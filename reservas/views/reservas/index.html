@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reservar — Bosque</title>
+  <meta name="description" content="Veja a disponibilidade e reserve o seu momento no Bosque, em Belverde." />
+  <link rel="stylesheet" href="/css/bosque.css" />
+  <link rel="stylesheet" href="/reservas/assets/app.css" />
+</head>
+<body>
+  <div class="rsv-bar">
+    <a class="brand" href="/">Bosque<span class="dot">.</span></a>
+    <a class="back" href="/contacto.html">← Voltar ao site</a>
+  </div>
+
+  <main class="rsv-page">
+    <div class="rsv-wrap">
+      <p class="rsv-eyebrow">Belverde · Margem Sul</p>
+      <h1 class="rsv-title">Reserve o seu momento</h1>
+      <p class="rsv-sub">Escolha a sua vida, a data e o horário disponível. Confirmamos e enviamos uma proposta à medida em menos de 24 horas.</p>
+
+      <!-- Step 1: segment -->
+      <section class="rsv-card" id="card-segment">
+        <p class="rsv-step-label">01 · A sua vida</p>
+        <div class="chip-grid" id="segment-grid"></div>
+      </section>
+
+      <!-- Step 2: package -->
+      <section class="rsv-card hidden" id="card-package">
+        <p class="rsv-step-label">02 · Pacote</p>
+        <div class="chip-grid" id="package-grid"></div>
+      </section>
+
+      <!-- Step 3: date + slots -->
+      <section class="rsv-card hidden" id="card-date">
+        <p class="rsv-step-label">03 · Data e horário</p>
+        <div class="field">
+          <label for="date">Data pretendida</label>
+          <input type="date" id="date" />
+        </div>
+        <div id="slots-area">
+          <p class="notice notice-info">Escolha uma data para ver os horários livres.</p>
+        </div>
+      </section>
+
+      <!-- Step 4: details -->
+      <section class="rsv-card hidden" id="card-details">
+        <p class="rsv-step-label">04 · Os seus dados</p>
+        <div class="summary-box" id="summary"></div>
+        <form id="booking-form" novalidate>
+          <div class="row-2">
+            <div class="field">
+              <label for="name">Nome</label>
+              <input type="text" id="name" name="name" placeholder="O seu nome" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="email@exemplo.pt" required />
+            </div>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label for="phone">Telefone (opcional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+351 ..." />
+            </div>
+            <div class="field">
+              <label for="party_size">Nº de pessoas</label>
+              <input type="number" id="party_size" name="party_size" min="1" placeholder="ex. 12" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Mensagem (opcional)</label>
+            <textarea id="message" name="message" placeholder="Conte-nos mais sobre o que procura…"></textarea>
+          </div>
+          <div id="form-error"></div>
+          <button type="submit" class="btn-primary" id="submit-btn">
+            <span id="submit-label">Enviar pedido</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Success -->
+      <section class="rsv-card hidden center" id="card-success">
+        <h3>Recebemos o seu pedido 🌿</h3>
+        <p class="muted" style="margin-top:8px;">Enviámos-lhe um email de confirmação. Voltamos a si em menos de 24 horas com uma proposta à medida do seu momento.</p>
+        <p style="margin-top:18px;"><a class="btn-ghost" href="/">Voltar ao Bosque</a></p>
+      </section>
+    </div>
+  </main>
+
+  <script src="/reservas/assets/booking.js"></script>
+</body>
+</html>
