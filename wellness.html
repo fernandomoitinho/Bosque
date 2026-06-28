@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bosque Wellness — O seu santuário de equilíbrio</title>
+  <meta name="description" content="Um espaço privado, silencioso e rodeado de natureza em Belverde. Para instrutores, terapeutas e retiros urbanos que merecem algo mais do que uma sala partilhada." />
+  <link rel="stylesheet" href="css/bosque.css" />
+  <style>
+    /* ── Wellness segment tokens ──────────────────────────────────── */
+    :root {
+      --seg:      #9CAE93;
+      --seg-dark: #4a6b45;
+      --seg-sun:  #C98C6B;
+      --seg-bg:   #EAF0E7;
+    }
+
+    body { background: var(--seg-bg); }
+
+    /* ── Hero ─────────────────────────────────────────────────────── */
+    .seg-hero {
+      min-height: 92vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding-top: clamp(100px,14vh,140px);
+      padding-bottom: clamp(64px,10vh,100px);
+    }
+    .seg-hero__bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: var(--img-well) center/cover no-repeat;
+    }
+    .seg-hero__bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(115deg,
+        rgba(74,107,69,.82) 0%,
+        rgba(74,107,69,.48) 55%,
+        rgba(74,107,69,.12) 100%);
+    }
+    .seg-hero .wrap { position: relative; z-index: 1; max-width: 640px; }
+    .seg-hero h1 {
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(3rem,7.5vw,5.6rem);
+      line-height: 1.0; letter-spacing: -.03em;
+      color: #fff;
+    }
+    .seg-hero h1 em {
+      font-style: italic; font-weight: 400;
+      display: block; font-size: .72em;
+      color: rgba(255,255,255,.85);
+      margin-top: .18em;
+    }
+    .seg-hero p {
+      color: rgba(255,255,255,.82); font-size: clamp(1rem,1.6vw,1.15rem);
+      margin-top: 1.3em; max-width: 44ch; line-height: 1.7;
+    }
+    .seg-hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2em; }
+
+    .btn-seg {
+      background: var(--seg); color: #fff;
+      box-shadow: 0 10px 28px -12px rgba(156,174,147,.5);
+    }
+    .btn-seg:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+    /* ── Section colours ──────────────────────────────────────────── */
+    .prob { background: var(--seg-dark); color: #fff; }
+    .prob .eyebrow { color: var(--seg-sun); opacity: .9; }
+    .prob .shead p { color: rgba(255,255,255,.7); }
+    .prob .shead h2 { color: #fff; }
+
+    .infra { background: var(--seg-bg); }
+    .infra .shead .eyebrow { color: var(--seg-dark); }
+    .infra .shead h2 { color: var(--pine-900); }
+
+    .diff  { background: #fff; }
+    .diff .shead .eyebrow { color: var(--seg); }
+
+    .steps-s { background: var(--seg-bg); }
+    .steps-s .shead .eyebrow { color: var(--seg-dark); }
+
+    .packs { background: var(--seg-dark); color: #fff; }
+    .packs .shead .eyebrow { color: rgba(201,140,107,.9); }
+    .packs .shead h2, .packs .shead p { color: rgba(255,255,255,.9); }
+
+    .seg-faq { background: var(--seg-bg); }
+    .seg-faq .shead .eyebrow { color: var(--seg-dark); }
+
+    .seg-cta { background: var(--seg-dark); }
+    .crosssell { background: #fff; }
+
+    /* ── Problem cards ────────────────────────────────────────────── */
+    .prob-row {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+      margin-top: clamp(32px,5vw,56px);
+    }
+    .prob-item {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r); padding: 28px;
+    }
+    .prob-item__icon { font-size: 2rem; margin-bottom: 14px; }
+    .prob-item h4 { font-family: var(--sans); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .prob-item p { font-size: .92rem; color: rgba(255,255,255,.65); line-height: 1.6; }
+
+    /* ── Infra grid ───────────────────────────────────────────────── */
+    .infra-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+      margin-top: clamp(32px,5vw,56px);
+    }
+    .infra-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 24px 22px;
+      box-shadow: var(--shadow-xs); transition: box-shadow .3s, transform .3s;
+    }
+    .infra-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+    .infra-card__from { font-family: var(--sans); font-size: .75rem; font-weight: 600; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+    .infra-card__arrow { font-size: 1.1rem; margin: 6px 0; color: var(--seg); }
+    .infra-card h3 { font-family: var(--sans); font-size: 1rem; font-weight: 700; color: var(--pine-900); margin-bottom: 6px; }
+    .infra-card p { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── Differentiators ──────────────────────────────────────────── */
+    .diff-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: center; margin-top: clamp(32px,5vw,56px);
+    }
+    .diff-photo {
+      border-radius: var(--r); overflow: hidden;
+      aspect-ratio: 4/5; box-shadow: var(--shadow);
+    }
+    .diff-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s var(--ease);
+    }
+    .diff-photo:hover img { transform: scale(1.04); }
+    .diff-items { display: flex; flex-direction: column; gap: 28px; }
+    .diff-item { display: flex; gap: 18px; align-items: flex-start; }
+    .diff-item__num {
+      flex: none; width: 40px; height: 40px; border-radius: 50%;
+      background: var(--seg-bg); display: flex; align-items: center; justify-content: center;
+      font-family: var(--sans); font-size: .78rem; font-weight: 800; color: var(--seg-dark);
+      margin-top: 2px;
+    }
+    .diff-item h4 { font-size: 1rem; margin-bottom: 5px; }
+    .diff-item p { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Steps ────────────────────────────────────────────────────── */
+    .steps {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
+      counter-reset: steps;
+      margin-top: clamp(32px,5vw,56px);
+    }
+    .step {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 24px;
+      counter-increment: steps;
+      position: relative; box-shadow: var(--shadow-xs);
+    }
+    .step::before {
+      content: counter(steps, decimal-leading-zero);
+      display: block;
+      font-family: var(--sans); font-size: .72rem; font-weight: 800;
+      color: var(--seg); letter-spacing: .06em; margin-bottom: 10px;
+    }
+    .step h4 { font-size: .96rem; margin-bottom: 6px; }
+    .step p { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── Packages ─────────────────────────────────────────────────── */
+    .packs-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+      margin-top: clamp(32px,5vw,56px);
+    }
+    .pack-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r); padding: 28px;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .pack-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -20px rgba(0,0,0,.3); }
+    .pack-card--featured {
+      background: rgba(255,255,255,.15); border-color: rgba(201,140,107,.45);
+    }
+    .pack-card__tag {
+      display: inline-block; font-family: var(--sans); font-size: .7rem; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase;
+      background: rgba(201,140,107,.25); color: var(--seg-sun); border-radius: 100px;
+      padding: .3em .75em; margin-bottom: 14px;
+    }
+    .pack-card h3 { font-family: var(--display); font-size: 1.45rem; color: #fff; margin-bottom: 8px; }
+    .pack-card__meta { font-size: .88rem; color: rgba(255,255,255,.6); margin-bottom: 14px; }
+    .pack-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 22px; }
+    .pack-card ul li { font-size: .9rem; color: rgba(255,255,255,.8); padding-left: 1.3em; position: relative; }
+    .pack-card ul li::before { content: '✦'; position: absolute; left: 0; color: var(--seg-sun); font-size: .6rem; top: .25em; }
+
+    /* ── FAQ ──────────────────────────────────────────────────────── */
+    .faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 740px; margin-top: clamp(32px,5vw,56px); }
+    .faq-list details {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-xs);
+    }
+    .faq-list details[open] { box-shadow: var(--shadow-sm); }
+    .faq-list summary {
+      font-family: var(--sans); font-weight: 600; font-size: .95rem;
+      padding: 18px 22px; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--ink);
+      transition: background .2s;
+    }
+    .faq-list summary:hover { background: var(--seg-bg); }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: '+'; font-size: 1.2rem; font-weight: 400; color: var(--seg); flex: none; transition: transform .25s; }
+    .faq-list details[open] summary::after { transform: rotate(45deg); }
+    .faq-list details > div { padding: 0 22px 18px; font-size: .92rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── Segment CTA form ─────────────────────────────────────────── */
+    .seg-cta { color: #fff; }
+    .seg-cta .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .seg-cta__copy { padding-top: 16px; }
+    .seg-cta__copy .eyebrow { color: rgba(201,140,107,.85); }
+    .seg-cta__copy h2 { font-family: var(--display); font-size: clamp(2rem,4.5vw,3rem); color: #fff; margin-top: .4em; line-height: 1.1; }
+    .seg-cta__copy p { color: rgba(255,255,255,.72); margin-top: .8em; font-size: 1rem; line-height: 1.7; }
+    .seg-cta__copy .note { margin-top: 2em; display: flex; flex-direction: column; gap: 10px; }
+    .seg-cta__copy .note span { font-size: .88rem; color: rgba(255,255,255,.55); display: flex; align-items: center; gap: 8px; }
+
+    .seg-cta__form {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r); padding: 32px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-family: var(--sans); font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.65); }
+    .form-group input, .form-group select, .form-group textarea {
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; border-radius: 12px; padding: .7em 1em;
+      font-family: var(--body); font-size: .92rem;
+      transition: border-color .2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.35); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--seg);
+    }
+    .form-group select option { background: var(--seg-dark); color: #fff; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .seg-cta__form > * + * { margin-top: 14px; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Cross-sell ───────────────────────────────────────────────── */
+    .crosssell .wrap { text-align: center; }
+    .crosssell .shead { margin-inline: auto; max-width: 520px; }
+    .crosssell__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: clamp(28px,4vw,48px); }
+    .cs-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 28px; text-align: left;
+      box-shadow: var(--shadow-xs); transition: box-shadow .3s, transform .3s;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .cs-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+    .cs-card__label { font-family: var(--sans); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .cs-card h4 { font-family: var(--display); font-size: 1.35rem; color: var(--pine-900); }
+    .cs-card p { font-size: .9rem; color: var(--muted); line-height: 1.55; }
+    .cs-card .link { font-family: var(--sans); font-size: .88rem; font-weight: 600; display: flex; align-items: center; gap: 6px; margin-top: auto; }
+
+    /* ── Responsive ───────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .prob-row { grid-template-columns: 1fr 1fr; }
+      .infra-grid { grid-template-columns: 1fr 1fr; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .diff-photo { aspect-ratio: 16/9; order: -1; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .packs-grid { grid-template-columns: 1fr; }
+      .seg-cta .wrap { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 600px) {
+      .prob-row { grid-template-columns: 1fr; }
+      .infra-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .crosssell__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__bar">
+      <a href="index.html" class="nav__brand" aria-label="Bosque – página inicial">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+        </svg>
+        Bosque<span class="brand-dot" aria-hidden="true">.</span>
+      </a>
+      <div class="nav__links" id="nav-links" role="menubar">
+        <a href="index.html" role="menuitem">Início</a>
+        <a href="kids.html" class="nav-kids" role="menuitem">Kids</a>
+        <a href="business.html" class="nav-biz" role="menuitem">Business</a>
+        <a href="wellness.html" class="nav-well" aria-current="page" role="menuitem">Wellness</a>
+        <a href="sobre.html" role="menuitem">Sobre</a>
+        <a href="contacto.html" class="btn btn-primary" role="menuitem">Reservar horas</a>
+      </div>
+      <button class="nav__menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="7" x2="19" y2="7"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="15" x2="19" y2="15"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="seg-hero" aria-labelledby="hero-heading">
+    <div class="seg-hero__bg" role="img" aria-label="Jardim sereno em Belverde rodeado de pinhal"></div>
+    <div class="wrap">
+      <p class="eyebrow reveal" style="color:rgba(201,140,107,.9)">Bosque Wellness</p>
+      <h1 class="display reveal d1" id="hero-heading">
+        Bosque Wellness
+        <em>O seu santuário de equilíbrio.</em>
+      </h1>
+      <p class="reveal d2">
+        Pés na relva, mente em pausa. Um espaço privado, silencioso e rodeado de pinhal em Belverde —
+        para instrutores, terapeutas e retiros que merecem mais do que uma sala partilhada.
+      </p>
+      <div class="seg-hero__ctas reveal d3">
+        <a href="#reservar" class="btn btn-seg">
+          Reservar horas <span class="arr" aria-hidden="true">→</span>
+        </a>
+        <a href="contacto.html?s=wellness" class="btn btn-ghost-light">
+          Falar sobre o retiro
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Problem ───────────────────────────────────────────────────── -->
+  <section class="section prob" aria-labelledby="prob-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">O problema</span>
+        <h2 id="prob-heading">As salas partilhadas não ajudam a criar silêncio</h2>
+        <p>Quando o espaço trabalha contra si, é muito difícil criar a atmosfera que os seus clientes merecem.</p>
+      </div>
+      <div class="prob-row">
+        <div class="prob-item reveal d1">
+          <div class="prob-item__icon" aria-hidden="true">🔊</div>
+          <h4>Ruído e interrupções</h4>
+          <p>Estúdios partilhados têm vozes do corredor, passos no tecto e música de outra sala. O silêncio custa muito a construir — e esfumaça-se num instante.</p>
+        </div>
+        <div class="prob-item reveal d2">
+          <div class="prob-item__icon" aria-hidden="true">🏢</div>
+          <h4>Natureza em falta</h4>
+          <p>Betão, ar condicionado e luz artificial. Quando a prática pede grounding, a cidade não coopera — é difícil convidar alguém a desligar dentro de quatro paredes cinzentas.</p>
+        </div>
+        <div class="prob-item reveal d3">
+          <div class="prob-item__icon" aria-hidden="true">⏱️</div>
+          <h4>Montar e desmontar cansa</h4>
+          <p>Chegar, empilhar o que sobrou da aula anterior, montar o seu equipamento, fazer a aula, desmontar tudo — e repetir amanhã. A logística consome o cuidado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Infrastructure → Benefit ─────────────────────────────────── -->
+  <section class="section infra" aria-labelledby="infra-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">O espaço</span>
+        <h2 id="infra-heading">Preparámos cada canto para a sua prática</h2>
+        <p>Não é uma sala genérica — é um espaço que já trabalha por si antes de chegar o primeiro cliente.</p>
+      </div>
+      <div class="infra-grid">
+        <div class="infra-card reveal d1">
+          <div class="infra-card__from">Colunas + Iluminação</div>
+          <div class="infra-card__arrow" aria-hidden="true">↓</div>
+          <h3>Imersão Sensorial</h3>
+          <p>Som ambiente ou silêncio absoluto. Luz quente ou fria conforme o momento. A atmosfera da sessão é sua para moldar.</p>
+        </div>
+        <div class="infra-card reveal d2">
+          <div class="infra-card__from">Relvado + Jardim</div>
+          <div class="infra-card__arrow" aria-hidden="true">↓</div>
+          <h3>Grounding Real</h3>
+          <p>Pés descalços na relva, exercícios ao ar livre, meditação rodeada de pinhal. O Bosque é uma extensão natural da prática.</p>
+        </div>
+        <div class="infra-card reveal d3">
+          <div class="infra-card__from">Lounge de Espera</div>
+          <div class="infra-card__arrow" aria-hidden="true">↓</div>
+          <h3>Acolhimento que já Cura</h3>
+          <p>Os clientes chegam e já estão em modo de descanso — não estão numa sala de espera de consultório, mas num refúgio.</p>
+        </div>
+        <div class="infra-card reveal d1">
+          <div class="infra-card__from">Cave Interior</div>
+          <div class="infra-card__arrow" aria-hidden="true">↓</div>
+          <h3>Foco Sem Distrações</h3>
+          <p>A cave cria uma bolha de silêncio total. Ideal para sessões de terapia, meditação profunda ou práticas que pedem introspecção.</p>
+        </div>
+        <div class="infra-card reveal d2">
+          <div class="infra-card__from">Copa + Lounge</div>
+          <div class="infra-card__arrow" aria-hidden="true">↓</div>
+          <h3>Ritual de Saída</h3>
+          <p>Chá, fruta, momento para absorver. O final da sessão não é uma debandada — é um fecho consciente que os clientes levam consigo.</p>
+        </div>
+        <div class="infra-card reveal d3">
+          <div class="infra-card__from">Zona Residencial Fechada</div>
+          <div class="infra-card__arrow" aria-hidden="true">↓</div>
+          <h3>Silêncio Garantido</h3>
+          <p>Sem trânsito, sem ruído de obra, sem sirenes. O silêncio de Belverde não se simula — faz parte do lugar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Differentiators ──────────────────────────────────────────── -->
+  <section class="section diff" aria-labelledby="diff-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">Porque é diferente</span>
+        <h2 id="diff-heading">Um espaço que transmite calma antes de dizer uma palavra</h2>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-photo reveal">
+          <img
+            src="https://images.unsplash.com/photo-1671041191053-15dd8a7187c8?fm=jpg&q=80&w=800&auto=format&fit=crop"
+            alt="Espaço sereno de wellness rodeado de vegetação"
+            width="800" height="1000"
+            loading="lazy"
+          />
+        </div>
+        <div class="diff-items">
+          <div class="diff-item reveal d1">
+            <div class="diff-item__num" aria-hidden="true">01</div>
+            <div>
+              <h4>Privacidade total</h4>
+              <p>Quando o Bosque é seu, é só seu. Sem clientes de outra prática a cruzar o hall, sem conversas alheias a entrar pela janela. Os seus clientes só encontram o que trouxe para eles.</p>
+            </div>
+          </div>
+          <div class="diff-item reveal d2">
+            <div class="diff-item__num" aria-hidden="true">02</div>
+            <div>
+              <h4>Atmosfera controlável</h4>
+              <p>Luz, som e temperatura nas suas mãos. Cada sessão tem a sua própria assinatura sensorial — não a da sala de quem veio antes.</p>
+            </div>
+          </div>
+          <div class="diff-item reveal d3">
+            <div class="diff-item__num" aria-hidden="true">03</div>
+            <div>
+              <h4>Natureza como co-terapeuta</h4>
+              <p>O jardim, o relvado e o pinhal não são decoração — são parte ativa da prática. Yoga ao ar livre, meditação entre árvores, grounding genuíno sem sair da cidade.</p>
+            </div>
+          </div>
+          <div class="diff-item reveal d4">
+            <div class="diff-item__num" aria-hidden="true">04</div>
+            <div>
+              <h4>Cuidado de dono-operador</h4>
+              <p>Não há gestores de turno. Há quem goste do espaço e da prática tanto quanto você. O carinho está em cada detalhe — da toalha dobrada ao cesto de ervas aromáticas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How it works ──────────────────────────────────────────────── -->
+  <section class="section steps-s" aria-labelledby="steps-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">Como funciona</span>
+        <h2 id="steps-heading">Da primeira hora ao retiro completo</h2>
+        <p>Simples, flexível e sem surpresas — para que possa concentrar-se na prática.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal d1">
+          <h4>Escolhe o seu ritmo</h4>
+          <p>Horas avulsas, pacotes mensais ou reserva de fim de semana para retiro. Cada modalidade tem o seu preço e a sua lógica.</p>
+        </div>
+        <div class="step reveal d2">
+          <h4>Preparamos o espaço</h4>
+          <p>Chegue e encontre tudo pronto — luz calibrada, colunas ligadas, lounge arrumado. Sem montar nem desmontar.</p>
+        </div>
+        <div class="step reveal d3">
+          <h4>A sessão é sua</h4>
+          <p>O espaço é exclusivamente seu durante a reserva. Ajuste a luz, use o jardim, mova o mobiliário. O espaço molda-se à sua prática.</p>
+        </div>
+        <div class="step reveal d4">
+          <h4>O ritual de saída</h4>
+          <p>Copa disponível para o fecho da sessão. Saia sem pressa — os seus clientes merecem um final que não seja uma debandada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Packages ──────────────────────────────────────────────────── -->
+  <section class="section packs" aria-labelledby="packs-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">Modalidades</span>
+        <h2 id="packs-heading">Para instrutores regulares e retiros pontuais</h2>
+        <p>Adaptámos as modalidades aos diferentes ritmos de quem usa o espaço para trabalhar — ou para se refazer.</p>
+      </div>
+      <div class="packs-grid">
+        <div class="pack-card reveal d1">
+          <span class="pack-card__tag">Instrutor</span>
+          <h3>Pack 10h</h3>
+          <p class="pack-card__meta">10 horas pré-pagas · Válidas 60 dias</p>
+          <ul>
+            <li>Preço reduzido por hora</li>
+            <li>Reservas com 24h de antecedência</li>
+            <li>Acesso à copa e ao jardim</li>
+            <li>Suporte direto do proprietário</li>
+          </ul>
+          <a href="#reservar" class="btn btn-ghost-light" style="border-radius:100px">
+            Reservar horas <span class="arr" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="pack-card pack-card--featured reveal d2">
+          <span class="pack-card__tag">Mais escolhido</span>
+          <h3>Pack 20h</h3>
+          <p class="pack-card__meta">20 horas pré-pagas · Válidas 90 dias</p>
+          <ul>
+            <li>Melhor preço por hora</li>
+            <li>Prioridade de reserva</li>
+            <li>Acesso ao jardim e cave</li>
+            <li>Possibilidade de co-criação de marca</li>
+          </ul>
+          <a href="#reservar" class="btn btn-seg" style="border-radius:100px">
+            Reservar horas <span class="arr" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="pack-card reveal d3">
+          <span class="pack-card__tag">Retiro Urbano</span>
+          <h3>Fim de Semana</h3>
+          <p class="pack-card__meta">Sábado + Domingo · Personalizado</p>
+          <ul>
+            <li>Exclusividade total do espaço</li>
+            <li>Cave + Jardim + Pitfire disponíveis</li>
+            <li>Suporte na logística do retiro</li>
+            <li>Ideal para 6 a 16 participantes</li>
+          </ul>
+          <a href="contacto.html?s=wellness" class="btn btn-ghost-light" style="border-radius:100px">
+            Falar sobre o retiro <span class="arr" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────── -->
+  <section class="section seg-faq" aria-labelledby="faq-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2 id="faq-heading">Antes de reservar, ficam estas respostas</h2>
+      </div>
+      <div class="faq-list reveal d1">
+        <details>
+          <summary>Que tipo de práticas acontecem aqui?</summary>
+          <div>
+            <p>Yoga, pilates, meditação, terapias corporais, sound healing, breathwork, coaching e retiros de bem-estar. Se a sua prática precisa de silêncio, privacidade e natureza — o Bosque serve-lhe bem.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Qual a capacidade do espaço interior?</summary>
+          <div>
+            <p>A sala principal acomoda confortavelmente até 12 pessoas em colchão. Para terapias individuais ou em dupla, a cave é ideal. Para retiros maiores, a combinação interior + jardim permite grupos até 20 pessoas.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso deixar equipamento entre sessões?</summary>
+          <div>
+            <p>Com o Pack 20h, temos a possibilidade de combinar armazenamento de equipamento recorrente (tapetes, blocos, colunas portáteis). Para sessões avulsas, o espaço é entregue limpo e vazio no início de cada reserva.</p>
+          </div>
+        </details>
+        <details>
+          <summary>O som exterior interfere com as sessões?</summary>
+          <div>
+            <p>O Bosque fica numa zona residencial fechada em Belverde. Não há trânsito pesado, obras ou ruído industrial. O som ambiente é de natureza — pássaros, vento no pinhal. É parte do que oferecemos.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso usar o espaço exterior durante a sessão?</summary>
+          <div>
+            <p>Sempre. O jardim, o relvado e o pitfire são extensões naturais de qualquer sessão. Yoga no relvado, meditação no jardim, fecho de retiro à volta do fogo — está tudo incluído na reserva.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Como funciona a reserva de Retiro Urbano?</summary>
+          <div>
+            <p>Contacte-nos com as datas e o número de participantes. Desenhamos juntos a estrutura do fim de semana — horários, momentos de pausa, uso do espaço exterior. Respondemos com uma proposta em 48h.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Form ──────────────────────────────────────────────────── -->
+  <section class="section seg-cta" id="reservar" aria-labelledby="cta-heading">
+    <div class="wrap">
+      <div class="seg-cta__copy reveal">
+        <span class="eyebrow">Reservar horas</span>
+        <h2 id="cta-heading">Quando quer começar?</h2>
+        <p>
+          Diga-nos o que precisa e nós tratamos do resto. Respondemos sempre em menos de 24 horas.
+        </p>
+        <div class="note">
+          <span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+            Resposta em menos de 24h
+          </span>
+          <span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 10 Q8 2 14 10"/><path d="M5 10 Q8 7 11 10"/></svg>
+            Espaço privado — só para si
+          </span>
+          <span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 2 L8 14 M4 6 Q8 3 12 6 M3 10 Q8 5 13 10"/></svg>
+            Rodeado de pinhal em Belverde
+          </span>
+        </div>
+      </div>
+      <div class="seg-cta__form reveal d2">
+        <form id="wellness-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-nome">Nome</label>
+              <input type="text" id="f-nome" name="nome" placeholder="O seu nome" required />
+            </div>
+            <div class="form-group">
+              <label for="f-contacto">Email ou telefone</label>
+              <input type="text" id="f-contacto" name="contacto" placeholder="como prefere ser contactado" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-pratica">Tipo de prática</label>
+              <select id="f-pratica" name="pratica">
+                <option value="">Selecione…</option>
+                <option>Yoga</option>
+                <option>Pilates</option>
+                <option>Meditação</option>
+                <option>Terapia corporal</option>
+                <option>Sound Healing</option>
+                <option>Retiro (fim de semana)</option>
+                <option>Outra</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="f-pessoas">Nº de participantes</label>
+              <input type="number" id="f-pessoas" name="pessoas" placeholder="ex. 8" min="1" max="30" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-data">Data pretendida</label>
+            <input type="date" id="f-data" name="data" />
+          </div>
+          <div class="form-group">
+            <label for="f-msg">Mensagem (opcional)</label>
+            <textarea id="f-msg" name="msg" placeholder="Duração, horário preferido, necessidades especiais…"></textarea>
+          </div>
+          <button type="submit" id="btn-submit" class="btn btn-seg btn-full">
+            Reservar horas <span class="arr" aria-hidden="true">→</span>
+          </button>
+        </form>
+        <p id="form-success" style="display:none; text-align:center; color:rgba(255,255,255,.8); padding-top:12px; font-size:.95rem;">
+          Pedido recebido — respondemos em menos de 24h. Até já!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Cross-sell ────────────────────────────────────────────────── -->
+  <section class="section crosssell" aria-labelledby="cs-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">Outros momentos no Bosque</span>
+        <h2 id="cs-heading">O mesmo espaço, vidas diferentes</h2>
+        <p>O Bosque transforma-se conforme quem o visita. Conheça as outras formas de o viver.</p>
+      </div>
+      <div class="crosssell__grid">
+        <a href="kids.html" class="cs-card reveal d1">
+          <span class="cs-card__label" style="color:var(--kids)">Bosque Kids</span>
+          <h4>Festas e aventura na natureza</h4>
+          <p>Aniversários memoráveis com a segurança que os pais precisam e a liberdade que as crianças merecem.</p>
+          <span class="link" style="color:var(--kids)">Saber mais <span aria-hidden="true">→</span></span>
+        </a>
+        <a href="business.html" class="cs-card reveal d2">
+          <span class="cs-card__label" style="color:var(--biz-copper)">Bosque Business</span>
+          <h4>Trabalho com espaço para respirar</h4>
+          <p>Reuniões, off-sites e team-buildings onde as ideias fluem melhor do que entre quatro paredes de escritório.</p>
+          <span class="link" style="color:var(--biz-copper)">Saber mais <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="wrap">
+      <div class="footer__inner">
+        <div class="footer__brand-col">
+          <div class="footer__brand">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+            </svg>
+            Bosque<span class="brand-dot" aria-hidden="true">.</span>
+          </div>
+          <p class="footer__note">O seu refúgio, moldado ao seu momento.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Navegação do rodapé">
+          <span class="footer__nav-label">Páginas</span>
+          <a href="index.html">Início</a>
+          <a href="kids.html">Bosque Kids</a>
+          <a href="business.html">Bosque Business</a>
+          <a href="wellness.html" aria-current="page">Bosque Wellness</a>
+          <a href="sobre.html">Sobre nós</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+        <div class="footer__contact">
+          <span class="footer__contact-label">Contacto</span>
+          <a href="contacto.html">Fazer uma reserva</a>
+          <a href="mailto:ola@bosque.pt">ola@bosque.pt</a>
+          <a href="tel:+351910000000">+351 910 000 000</a>
+          <p class="footer__loc">Belverde, Setúbal · Portugal</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2025 Bosque. Todos os direitos reservados.</p>
+        <div class="footer__legal">
+          <a href="legal.html#privacidade">Privacidade</a>
+          <a href="legal.html#termos">Termos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Nav toggle ─────────────────────────────────────────────────── */
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav__bar')) {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', false);
+      }
+    });
+
+    /* ── Reveal on scroll ───────────────────────────────────────────── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ── Form submit ────────────────────────────────────────────────── */
+    document.getElementById('wellness-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit');
+      btn.textContent = 'A enviar…';
+      btn.disabled = true;
+      setTimeout(() => {
+        this.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
