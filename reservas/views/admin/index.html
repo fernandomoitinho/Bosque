@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel de reservas — Bosque</title>
+  <link rel="stylesheet" href="/css/bosque.css" />
+  <link rel="stylesheet" href="/reservas/assets/app.css" />
+  <link rel="stylesheet" href="/reservas/assets/admin.css" />
+</head>
+<body class="admin">
+  <header class="adm-bar">
+    <span class="brand">Bosque<span class="dot">.</span> <em>gestão</em></span>
+    <nav class="adm-filters" id="filters"></nav>
+    <form method="POST" action="/reservas/admin/logout"><button class="btn-ghost btn-sm">Sair</button></form>
+  </header>
+
+  <main class="adm-main">
+    <section class="adm-list">
+      <h2 class="adm-h">Reservas</h2>
+      <div id="reservation-list"><p class="muted">A carregar…</p></div>
+    </section>
+
+    <section class="adm-detail" id="detail">
+      <div class="adm-empty muted">Selecione uma reserva para ver os detalhes e preparar a proposta.</div>
+    </section>
+  </main>
+
+  <script src="/reservas/assets/admin.js"></script>
+</body>
+</html>
