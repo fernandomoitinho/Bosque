@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Bosque Belverde</title>
+  <meta name="description" content="Perguntas frequentes sobre o Bosque — festas de aniversário, reuniões de equipa, sessões de wellness e tudo o mais que precisa de saber antes de reservar." />
+  <link rel="stylesheet" href="css/bosque.css" />
+  <style>
+    /* ── FAQ page ──────────────────────────────────────────────────── */
+    .faq-hero {
+      padding-top: clamp(120px,16vh,160px);
+      padding-bottom: clamp(48px,8vh,80px);
+      background: var(--pine-900); color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .faq-hero .eyebrow { color: var(--amber-500); opacity: .9; }
+    .faq-hero h1 {
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(2.6rem,6.5vw,4.8rem);
+      line-height: 1.04; letter-spacing: -.03em; color: #fff;
+      max-width: 18ch; margin-top: .4em;
+    }
+    .faq-hero p { color: rgba(255,255,255,.68); max-width: 44ch; margin-top: .9em; font-size: 1.05rem; line-height: 1.7; }
+    .faq-blob {
+      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+    }
+
+    /* ── Jump nav ──────────────────────────────────────────────────── */
+    .faq-jumps { background: var(--bg); padding-block: 24px; border-bottom: 1px solid var(--line); }
+    .faq-jumps__inner {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    }
+    .faq-jump {
+      font-family: var(--sans); font-size: .84rem; font-weight: 600;
+      padding: .45em 1em; border-radius: 100px;
+      border: 1.5px solid var(--line); background: var(--card);
+      color: var(--muted); transition: border-color .2s, color .2s;
+      cursor: pointer;
+    }
+    .faq-jump:hover { border-color: var(--pine-900); color: var(--pine-900); }
+    .faq-jump--kids    { border-color: rgba(127,176,79,.35); color: var(--kids); }
+    .faq-jump--kids:hover { border-color: var(--kids); }
+    .faq-jump--biz     { border-color: rgba(181,113,60,.35); color: var(--biz-copper); }
+    .faq-jump--biz:hover { border-color: var(--biz-copper); }
+    .faq-jump--well    { border-color: rgba(156,174,147,.35); color: var(--well); }
+    .faq-jump--well:hover { border-color: var(--well); }
+
+    /* ── FAQ sections ──────────────────────────────────────────────── */
+    .faq-section { background: var(--bg); }
+    .faq-section + .faq-section { border-top: 1px solid var(--line); }
+
+    .faq-section__head {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: clamp(28px,4vw,48px);
+    }
+    .faq-section__badge {
+      display: inline-flex; align-items: center; gap: .4em;
+      font-family: var(--sans); font-size: .74rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .35em .9em; border-radius: 100px;
+      border: 1.5px solid currentColor; white-space: nowrap;
+    }
+    .badge-global { color: var(--muted); border-color: var(--line); }
+    .badge-kids   { color: var(--kids); border-color: rgba(127,176,79,.4); }
+    .badge-biz    { color: var(--biz-copper); border-color: rgba(181,113,60,.4); }
+    .badge-well   { color: var(--well-terra); border-color: rgba(201,140,107,.4); }
+
+    .faq-section h2 {
+      font-size: clamp(1.6rem,3vw,2.4rem);
+    }
+
+    /* ── Accordion ─────────────────────────────────────────────────── */
+    .faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
+    .faq-list details {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 16px; overflow: hidden;
+      box-shadow: var(--shadow-xs);
+    }
+    .faq-list details[open] { box-shadow: var(--shadow-sm); }
+    .faq-list summary {
+      font-family: var(--sans); font-weight: 600; font-size: .95rem;
+      padding: 18px 22px; cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--ink); transition: background .2s;
+    }
+    .faq-list summary:hover { background: var(--linen-200); }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after {
+      content: '+'; font-size: 1.2rem; font-weight: 400;
+      color: var(--amber-500); flex: none; transition: transform .25s;
+    }
+    .faq-list details[open] summary::after { transform: rotate(45deg); }
+    .faq-list details > div {
+      padding: 0 22px 18px;
+      font-size: .93rem; color: var(--muted); line-height: 1.7;
+    }
+    .faq-list details > div p + p { margin-top: .7em; }
+    .faq-list details > div a { color: var(--pine-900); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* ── CTA strip ──────────────────────────────────────────────────── */
+    .faq-cta { background: var(--pine-900); text-align: center; color: #fff; }
+    .faq-cta .eyebrow { color: var(--amber-500); opacity: .85; }
+    .faq-cta h2 { font-size: clamp(1.8rem,4vw,3rem); color: #fff; margin-top: .4em; }
+    .faq-cta p { color: rgba(255,255,255,.68); max-width: 42ch; margin-inline: auto; margin-top: .8em; line-height: 1.7; }
+    .faq-cta__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 2em; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__bar">
+      <a href="index.html" class="nav__brand" aria-label="Bosque – página inicial">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+        </svg>
+        Bosque<span class="brand-dot" aria-hidden="true">.</span>
+      </a>
+      <div class="nav__links" id="nav-links" role="menubar">
+        <a href="index.html" role="menuitem">Início</a>
+        <a href="kids.html" class="nav-kids" role="menuitem">Kids</a>
+        <a href="business.html" class="nav-biz" role="menuitem">Business</a>
+        <a href="wellness.html" class="nav-well" role="menuitem">Wellness</a>
+        <a href="sobre.html" role="menuitem">Sobre</a>
+        <a href="contacto.html" class="btn btn-primary" role="menuitem">Reservar</a>
+      </div>
+      <button class="nav__menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="7" x2="19" y2="7"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="15" x2="19" y2="15"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="faq-hero" aria-labelledby="faq-heading">
+    <div class="faq-blob blob" style="width:400px;height:400px;background:var(--amber-500);opacity:.07;top:-100px;right:-60px" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow reveal">Perguntas frequentes</span>
+      <h1 class="reveal d1" id="faq-heading">Tudo o que precisa de saber antes de reservar.</h1>
+      <p class="reveal d2">
+        Se a resposta não estiver aqui, escreva-nos. Respondemos sempre em menos de 24 horas
+        — e gostamos de perguntas que ninguém fez antes.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Jump nav ──────────────────────────────────────────────────── -->
+  <div class="faq-jumps" role="navigation" aria-label="Ir para secção">
+    <div class="wrap">
+      <div class="faq-jumps__inner">
+        <span style="font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--muted)">Ir para:</span>
+        <a href="#geral" class="faq-jump">Geral</a>
+        <a href="#kids" class="faq-jump faq-jump--kids">🎉 Kids</a>
+        <a href="#business" class="faq-jump faq-jump--biz">💼 Business</a>
+        <a href="#wellness" class="faq-jump faq-jump--well">🌿 Wellness</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       GERAL
+  ════════════════════════════════════════════════════════════════ -->
+  <section class="section faq-section" id="geral" aria-labelledby="geral-heading">
+    <div class="wrap">
+      <div class="faq-section__head reveal">
+        <span class="faq-section__badge badge-global">Geral</span>
+        <h2 id="geral-heading">Sobre o espaço e como funciona</h2>
+      </div>
+      <div class="faq-list reveal d1">
+        <details>
+          <summary>O que é o Bosque exatamente?</summary>
+          <div>
+            <p>O Bosque é um espaço privado em Belverde, Setúbal, rodeado de pinhal e com jardim. Funciona em três modos: festas de aniversário para crianças, eventos de equipa e reuniões de negócio, e sessões de wellness (yoga, meditação, terapia, retiros).</p>
+            <p>O mesmo espaço adapta-se a momentos completamente diferentes — sem obras, sem esperas, em menos de 30 minutos.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Onde fica o Bosque?</summary>
+          <div>
+            <p>Em Belverde, no concelho de Palmela (distrito de Setúbal), a sul de Lisboa. Zona residencial fechada, rodeada de pinhal — silenciosa e de fácil acesso de carro. A 5 minutos da A2.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Quantas pessoas cabem no espaço?</summary>
+          <div>
+            <p>Depende do formato. A cave e a sala interior acomodam até 20 pessoas em configuração de evento. O jardim e o espaço exterior permitem grupos maiores para dinâmicas ao ar livre. Para festas de crianças, o ideal é até 25 crianças mais acompanhantes.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso visitar o espaço antes de reservar?</summary>
+          <div>
+            <p>Sempre que possível, sim — e incentivamos. Muitas perguntas desaparecem quando se entra no jardim e se respira o ar de Belverde. <a href="contacto.html">Entre em contacto</a> e marcamos uma visita rápida.</p>
+          </div>
+        </details>
+        <details>
+          <summary>O espaço é exclusivo durante a minha reserva?</summary>
+          <div>
+            <p>Sim, sempre. Não partilhamos o espaço com outros grupos em simultâneo. Quando é seu, é só seu — sem cruzamentos com desconhecidos, sem vozes do corredor, sem partilha de casas de banho com outros eventos.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Como se faz uma reserva?</summary>
+          <div>
+            <p>Pelo formulário em <a href="contacto.html">contacto.html</a>, por email para <a href="mailto:ola@bosque.pt">ola@bosque.pt</a> ou por WhatsApp. Respondemos em menos de 24 horas com disponibilidade e proposta. Sem burocracias.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Qual é o horário de funcionamento?</summary>
+          <div>
+            <p>O Bosque não tem horário fixo de balcão — adaptamo-nos às necessidades de quem reserva. Festas ao fim de semana de manhã, sessões de wellness durante a semana, reuniões de equipa em qualquer dia. Fale connosco sobre o horário que precisa.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Há estacionamento?</summary>
+          <div>
+            <p>Sim, há lugar de estacionamento privado junto ao espaço — sem taxas, sem limites de tempo. Para eventos maiores, há também estacionamento adicional na via pública nas proximidades.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       KIDS
+  ════════════════════════════════════════════════════════════════ -->
+  <section class="section faq-section" id="kids" aria-labelledby="kids-heading">
+    <div class="wrap">
+      <div class="faq-section__head reveal">
+        <span class="faq-section__badge badge-kids">Bosque Kids</span>
+        <h2 id="kids-heading">Festas e experiências para crianças</h2>
+      </div>
+      <div class="faq-list reveal d1">
+        <details>
+          <summary>A partir de que idade é recomendado o espaço?</summary>
+          <div>
+            <p>O Bosque Kids é ideal para crianças dos 3 aos 12 anos. Para crianças mais novas, o espaço interior com cave é mais adequado. Para os mais velhos, o jardim e as zonas de atividade ao ar livre são o destaque.</p>
+          </div>
+        </details>
+        <details>
+          <summary>O espaço é seguro para crianças?</summary>
+          <div>
+            <p>Foi desenhado com isso em mente. O jardim tem relvado macio, sem planos de água descobertos e com vedação. A cave e os espaços interiores não têm arestas vivas nem materiais frágeis. Supervisão de adultos é sempre recomendada, como em qualquer espaço de festa.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso trazer o meu próprio bolo e catering?</summary>
+          <div>
+            <p>Sim, totalmente. Pode trazer bolo, snacks, bebidas e decoração. Temos copa equipada para apoiar a logística — frigorífico, micro-ondas, bancada de trabalho. Não fazemos catering interno, mas recomendamos fornecedores locais se precisar de sugestões.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Qual a duração típica de uma festa?</summary>
+          <div>
+            <p>A maioria das festas dura entre 2h30 e 4 horas. Os pacotes standard incluem 3 horas de espaço + 30 minutos de setup antes. É possível prolongar mediante disponibilidade e custo adicional.</p>
+          </div>
+        </details>
+        <details>
+          <summary>O que acontece se chover no dia da festa?</summary>
+          <div>
+            <p>A cave nunca cancela. É o abrigo que garante a festa independentemente do tempo — tem luz, som, espaço suficiente para todas as atividades e uma entrada coberta. O jardim é um bónus quando o tempo deixa, não uma condição.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso decorar o espaço à minha maneira?</summary>
+          <div>
+            <p>Sim. Balões, banners, centros de mesa, fotografias — o espaço é seu para personalizar. Pedimos apenas que decorações com cola permanente, tinta ou elementos que danifiquem superfícies sejam evitadas. Confirmamos sempre os detalhes antes.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       BUSINESS
+  ════════════════════════════════════════════════════════════════ -->
+  <section class="section faq-section" id="business" aria-labelledby="biz-heading">
+    <div class="wrap">
+      <div class="faq-section__head reveal">
+        <span class="faq-section__badge badge-biz">Bosque Business</span>
+        <h2 id="biz-heading">Reuniões, off-sites e team-building</h2>
+      </div>
+      <div class="faq-list reveal d1">
+        <details>
+          <summary>Tem condições profissionais para reuniões?</summary>
+          <div>
+            <p>Sim. Wi-Fi de fibra de alta velocidade, ecrã 4K com HDMI e wireless, sistema de som para apresentações, projetor disponível a pedido, copa com café e chá incluídos. O espaço é diferente de uma sala de reuniões convencional — e é esse o ponto.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Qual a capacidade para reuniões e workshops?</summary>
+          <div>
+            <p>A configuração padrão de reunião serve até 16 pessoas em U ou teatro. Para workshops mais dinâmicos ou sessões de design thinking com mesas de trabalho, até 12 pessoas em configuração de grupo. O jardim permite dinâmicas ao ar livre para grupos maiores.</p>
+          </div>
+        </details>
+        <details>
+          <summary>O que está incluído no pacote Deep Work?</summary>
+          <div>
+            <p>Uso exclusivo do espaço das 09h às 18h, acesso à copa (café, chá, água), Wi-Fi e ecrã incluídos, e estacionamento. Coffee break a meio da manhã e da tarde pode ser organizado mediante pedido adicional.</p>
+          </div>
+        </details>
+        <details>
+          <summary>O pacote After-Work inclui o pitfire?</summary>
+          <div>
+            <p>Sim. O After-Work (17h–21h) inclui o jardim, o pitfire e a copa para convívio pós-reunião. É o elemento que transforma um closing meeting num momento que a equipa vai lembrar. A preparação do pitfire está incluída.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso trazer catering externo?</summary>
+          <div>
+            <p>Sempre. Pode trazer catering, refeição de almoço, brunch de trabalho ou buffet de after-work. Temos copa e frigorífico disponíveis. Podemos também sugerir fornecedores locais de qualidade.</p>
+          </div>
+        </details>
+        <details>
+          <summary>É possível fazer uma reserva de último minuto?</summary>
+          <div>
+            <p>Fazemos o que podemos. Com 24h de antecedência conseguimos normalmente assegurar. Para grupos acima de 10 pessoas, recomendamos reservar com pelo menos 3 dias de antecedência para garantir disponibilidade.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       WELLNESS
+  ════════════════════════════════════════════════════════════════ -->
+  <section class="section faq-section" id="wellness" aria-labelledby="well-heading">
+    <div class="wrap">
+      <div class="faq-section__head reveal">
+        <span class="faq-section__badge badge-well">Bosque Wellness</span>
+        <h2 id="well-heading">Yoga, terapia, meditação e retiros</h2>
+      </div>
+      <div class="faq-list reveal d1">
+        <details>
+          <summary>Que práticas são compatíveis com o espaço?</summary>
+          <div>
+            <p>Yoga (todas as modalidades), pilates, meditação, terapias corporais, sound healing, breathwork, coaching individual e de grupo, retiros de bem-estar. Se a prática precisa de silêncio, natureza e privacidade — o Bosque serve.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Como funciona o Pack de horas para instrutores?</summary>
+          <div>
+            <p>Os packs de 10h e 20h são pré-pagos e têm validade de 60 e 90 dias, respetivamente. Reservas feitas com 24h de antecedência. O preço por hora é reduzido face à hora avulsa. O Pack 20h inclui prioridade de reserva e possibilidade de armazenamento de equipamento recorrente.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso trazer equipamento próprio (tapetes, colunas, etc.)?</summary>
+          <div>
+            <p>Sim, sempre. O espaço tem sistema de som próprio, mas se prefere as suas colunas, pode usá-las. Tapetes, blocos, rodas, bolsters — traga o que precisar. Para equipamento volumoso de uso regular, o Pack 20h prevê solução de armazenamento.</p>
+          </div>
+        </details>
+        <details>
+          <summary>O espaço é silencioso o suficiente para meditação ou terapia?</summary>
+          <div>
+            <p>Sim. Belverde é uma zona residencial fechada sem trânsito pesado, obras ou ruído industrial. O som ambiente é de natureza — pássaros, vento no pinhal. A cave tem isolamento adicional para quem precisa de silêncio absoluto.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Como funciona o Retiro Urbano de fim de semana?</summary>
+          <div>
+            <p>O Retiro Urbano é uma reserva de sábado + domingo com exclusividade total do espaço — cave, jardim, relvado e pitfire incluídos. Ideal para 6 a 16 participantes. A estrutura do retiro é do instrutor; nós asseguramos o espaço e o suporte logístico. Contacte-nos com as datas e o número de participantes para receber proposta.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Posso usar o jardim durante a sessão?</summary>
+          <div>
+            <p>Sempre. O relvado, o jardim e o espaço exterior são extensões naturais de qualquer sessão de wellness. Yoga no relvado, meditação entre árvores, respiração com os pés no chão — está tudo incluído na reserva, sem custo adicional.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────── -->
+  <section class="section faq-cta" aria-labelledby="faq-cta-heading">
+    <div class="wrap">
+      <span class="eyebrow reveal">Ainda tem dúvidas?</span>
+      <h2 class="reveal d1" id="faq-cta-heading">Escreva-nos. Adoramos perguntas.</h2>
+      <p class="reveal d2">
+        Se não encontrou a resposta que precisava, a resposta mais curta é sempre:
+        fale connosco. Respondemos em menos de 24 horas.
+      </p>
+      <div class="faq-cta__btns reveal d3">
+        <a href="contacto.html" class="btn btn-accent">
+          Falar connosco <span class="arr" aria-hidden="true">→</span>
+        </a>
+        <a href="index.html" class="btn btn-ghost-light">
+          Ver o espaço
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="wrap">
+      <div class="footer__inner">
+        <div class="footer__brand-col">
+          <div class="footer__brand">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+            </svg>
+            Bosque<span class="brand-dot" aria-hidden="true">.</span>
+          </div>
+          <p class="footer__note">O seu refúgio, moldado ao seu momento.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Navegação do rodapé">
+          <span class="footer__nav-label">Páginas</span>
+          <a href="index.html">Início</a>
+          <a href="kids.html">Bosque Kids</a>
+          <a href="business.html">Bosque Business</a>
+          <a href="wellness.html">Bosque Wellness</a>
+          <a href="sobre.html">Sobre nós</a>
+          <a href="faq.html" aria-current="page">FAQ</a>
+        </nav>
+        <div class="footer__contact">
+          <span class="footer__contact-label">Contacto</span>
+          <a href="contacto.html">Fazer uma reserva</a>
+          <a href="mailto:ola@bosque.pt">ola@bosque.pt</a>
+          <a href="tel:+351910000000">+351 910 000 000</a>
+          <p class="footer__loc">Belverde, Setúbal · Portugal</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2025 Bosque. Todos os direitos reservados.</p>
+        <div class="footer__legal">
+          <a href="legal.html#privacidade">Privacidade</a>
+          <a href="legal.html#termos">Termos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Nav toggle ─────────────────────────────────────────────────── */
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav__bar')) {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', false);
+      }
+    });
+
+    /* ── Reveal on scroll ───────────────────────────────────────────── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

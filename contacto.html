@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto — Bosque Belverde</title>
+  <meta name="description" content="Faça a sua reserva no Bosque. Festas de aniversário, reuniões de equipa, sessões de wellness — diga-nos o que precisa e respondemos em 24h." />
+  <link rel="stylesheet" href="css/bosque.css" />
+  <style>
+    /* ── Contact page ──────────────────────────────────────────────── */
+    .contact-hero {
+      padding-top: clamp(120px,16vh,160px);
+      padding-bottom: clamp(48px,8vh,80px);
+      background: var(--pine-900);
+      color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .contact-hero__blob1 {
+      width: 500px; height: 500px;
+      background: var(--amber-500); opacity: .08;
+      top: -120px; right: -80px;
+    }
+    .contact-hero__blob2 {
+      width: 360px; height: 360px;
+      background: var(--sage-400); opacity: .12;
+      bottom: -80px; left: 10%;
+    }
+    .contact-hero .wrap { position: relative; z-index: 1; }
+    .contact-hero .eyebrow { color: var(--amber-500); opacity: .9; }
+    .contact-hero h1 {
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(2.6rem,6.5vw,4.8rem);
+      line-height: 1.04; letter-spacing: -.03em; color: #fff;
+      max-width: 20ch; margin-top: .4em;
+    }
+    .contact-hero p {
+      color: rgba(255,255,255,.7); font-size: clamp(1rem,1.6vw,1.15rem);
+      max-width: 46ch; margin-top: .9em; line-height: 1.7;
+    }
+
+    /* ── Segment selector ──────────────────────────────────────────── */
+    .seg-selector {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2em;
+    }
+    .seg-btn {
+      font-family: var(--sans); font-size: .84rem; font-weight: 600;
+      padding: .5em 1.1em; border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.07); color: rgba(255,255,255,.75);
+      cursor: pointer; transition: background .2s, border-color .2s, color .2s, transform .2s;
+    }
+    .seg-btn:hover { background: rgba(255,255,255,.14); color: #fff; }
+    .seg-btn.active-kids    { background: rgba(127,176,79,.25); border-color: rgba(127,176,79,.5); color: #c1e08d; }
+    .seg-btn.active-biz     { background: rgba(181,113,60,.25); border-color: rgba(181,113,60,.5); color: #e8b88a; }
+    .seg-btn.active-well    { background: rgba(156,174,147,.25); border-color: rgba(156,174,147,.5); color: #c0d4b8; }
+    .seg-btn.active-default { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.35); color: #fff; }
+
+    /* ── Main layout ───────────────────────────────────────────────── */
+    .contact-main { background: var(--bg); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 480px; gap: 56px; align-items: start;
+    }
+
+    /* ── Info column ───────────────────────────────────────────────── */
+    .contact-info { padding-top: 8px; }
+    .contact-info h2 { font-size: clamp(1.6rem,3vw,2.4rem); margin-bottom: 1em; }
+
+    .contact-block { margin-bottom: 28px; }
+    .contact-block__label {
+      font-family: var(--sans); font-size: .72rem; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase; color: var(--sage-400);
+      margin-bottom: 6px;
+    }
+    .contact-block a, .contact-block p { color: var(--muted); font-size: .95rem; line-height: 1.65; }
+    .contact-block a { display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .contact-block a:hover { color: var(--pine-900); }
+    .contact-block a + a { margin-top: 4px; }
+    .contact-block__icon { width: 18px; height: 18px; flex: none; }
+
+    /* WhatsApp button */
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: .55em;
+      background: #25D366; color: #fff;
+      font-family: var(--sans); font-size: .9rem; font-weight: 600;
+      padding: .65em 1.3em; border-radius: 100px;
+      border: none; cursor: pointer;
+      box-shadow: 0 8px 24px -10px rgba(37,211,102,.45);
+      transition: filter .2s, transform .2s;
+      margin-top: 6px;
+      text-decoration: none;
+    }
+    .btn-whatsapp:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+    /* Map placeholder */
+    .map-placeholder {
+      border-radius: var(--r); overflow: hidden;
+      background: var(--linen-200); border: 1px solid var(--line);
+      aspect-ratio: 16/9; margin-top: 32px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 10px; color: var(--muted);
+    }
+    .map-placeholder svg { width: 36px; height: 36px; opacity: .4; }
+    .map-placeholder p { font-size: .9rem; text-align: center; max-width: 22ch; line-height: 1.5; }
+
+    /* Segment hints */
+    .seg-hint {
+      display: none;
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 14px; padding: 16px 20px; margin-bottom: 20px;
+      font-size: .9rem; color: var(--muted); line-height: 1.6;
+    }
+    .seg-hint.visible { display: block; }
+    .seg-hint strong { color: var(--ink); }
+
+    /* ── Form column ───────────────────────────────────────────────── */
+    .contact-form-wrap {
+      background: var(--pine-900);
+      border-radius: var(--r); padding: 36px;
+      box-shadow: var(--shadow); color: #fff;
+      position: sticky; top: 92px;
+    }
+    .contact-form-wrap h3 {
+      font-family: var(--display); font-size: 1.5rem;
+      color: #fff; margin-bottom: 6px;
+    }
+    .contact-form-wrap > p { font-size: .88rem; color: rgba(255,255,255,.6); margin-bottom: 22px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-family: var(--sans); font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.65); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; border-radius: 12px; padding: .7em 1em;
+      font-family: var(--body); font-size: .92rem;
+      transition: border-color .2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.35); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--amber-500);
+    }
+    .form-group select option { background: var(--pine-900); color: #fff; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    #btn-contact-submit {
+      width: 100%; justify-content: center; margin-top: 6px;
+      background: var(--amber-500); color: #fff; border: none;
+      box-shadow: 0 10px 28px -12px rgba(201,123,60,.5);
+    }
+    #btn-contact-submit:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+    #contact-success { display:none; text-align:center; padding-top: 12px; font-size:.92rem; color:rgba(255,255,255,.8); line-height:1.6; }
+
+    /* ── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-form-wrap { position: static; }
+    }
+    @media (max-width: 520px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__bar">
+      <a href="index.html" class="nav__brand" aria-label="Bosque – página inicial">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+        </svg>
+        Bosque<span class="brand-dot" aria-hidden="true">.</span>
+      </a>
+      <div class="nav__links" id="nav-links" role="menubar">
+        <a href="index.html" role="menuitem">Início</a>
+        <a href="kids.html" class="nav-kids" role="menuitem">Kids</a>
+        <a href="business.html" class="nav-biz" role="menuitem">Business</a>
+        <a href="wellness.html" class="nav-well" role="menuitem">Wellness</a>
+        <a href="sobre.html" role="menuitem">Sobre</a>
+        <a href="contacto.html" class="btn btn-primary" aria-current="page" role="menuitem">Contacto</a>
+      </div>
+      <button class="nav__menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="7" x2="19" y2="7"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="15" x2="19" y2="15"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="contact-hero" aria-labelledby="contact-heading">
+    <div class="blob contact-hero__blob1" aria-hidden="true"></div>
+    <div class="blob contact-hero__blob2" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow reveal">Contacto</span>
+      <h1 class="reveal d1" id="contact-heading">O que está a planear?</h1>
+      <p class="reveal d2">
+        Uma festa, uma reunião, uma sessão ou um retiro — diga-nos o que procura
+        e tratamos do resto. Respondemos sempre em menos de 24 horas.
+      </p>
+      <div class="seg-selector reveal d3" role="group" aria-label="Selecione o tipo de evento">
+        <button class="seg-btn" data-seg="kids" aria-pressed="false">🎉 Kids &amp; Festas</button>
+        <button class="seg-btn" data-seg="biz" aria-pressed="false">💼 Business</button>
+        <button class="seg-btn" data-seg="well" aria-pressed="false">🌿 Wellness</button>
+        <button class="seg-btn" data-seg="default" aria-pressed="false">🤔 Não sei ainda</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Main ──────────────────────────────────────────────────────── -->
+  <section class="section contact-main">
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <!-- Info -->
+        <div class="contact-info reveal">
+          <h2>Estamos aqui para ajudar a preparar o momento certo.</h2>
+
+          <!-- Segment contextual hints -->
+          <div class="seg-hint" id="hint-kids">
+            <strong>Bosque Kids</strong> — Festas de aniversário e experiências na natureza.
+            Diga-nos a data, a idade e o número de crianças — e nós desenhamos o resto.
+            <a href="kids.html" style="color:var(--kids); font-weight:600; display:inline-flex; align-items:center; gap:4px; margin-top:6px">Ver página Kids →</a>
+          </div>
+          <div class="seg-hint" id="hint-biz">
+            <strong>Bosque Business</strong> — Reuniões, off-sites e team-buildings.
+            Partilhe o número de pessoas e o formato (Deep Work ou After-Work) e enviamos proposta em 24h.
+            <a href="business.html" style="color:var(--biz-copper); font-weight:600; display:inline-flex; align-items:center; gap:4px; margin-top:6px">Ver página Business →</a>
+          </div>
+          <div class="seg-hint" id="hint-well">
+            <strong>Bosque Wellness</strong> — Sessões de yoga, terapia, meditação e retiros de fim de semana.
+            Conte-nos a sua prática e o ritmo ideal — e encontramos juntos a melhor modalidade.
+            <a href="wellness.html" style="color:var(--well); font-weight:600; display:inline-flex; align-items:center; gap:4px; margin-top:6px">Ver página Wellness →</a>
+          </div>
+
+          <div class="contact-block">
+            <div class="contact-block__label">Telefone &amp; WhatsApp</div>
+            <a href="tel:+351910000000">
+              <svg class="contact-block__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.9 12.1 19.79 19.79 0 01.82 3.5 2 2 0 012.82 1.5h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.09a16 16 0 006.92 6.92l.95-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+              +351 910 000 000
+            </a>
+            <a href="https://wa.me/351910000000" class="btn-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensagem via WhatsApp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Conversar no WhatsApp
+            </a>
+          </div>
+
+          <div class="contact-block">
+            <div class="contact-block__label">Email</div>
+            <a href="mailto:ola@bosque.pt">
+              <svg class="contact-block__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+              ola@bosque.pt
+            </a>
+          </div>
+
+          <div class="contact-block">
+            <div class="contact-block__label">Localização</div>
+            <p>
+              Bosque Belverde<br>
+              Rua do Pinhal, Belverde<br>
+              2950-000 Palmela, Setúbal<br>
+              Portugal
+            </p>
+          </div>
+
+          <div class="map-placeholder" role="img" aria-label="Mapa de localização do Bosque em Belverde">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <p>Bosque Belverde<br>Setúbal, Portugal</p>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form-wrap reveal d2">
+          <h3 id="form-title">O que procura?</h3>
+          <p>Preencha e respondemos em menos de 24h.</p>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="c-seg">Tipo de reserva</label>
+              <select id="c-seg" name="segmento" required>
+                <option value="">Selecione…</option>
+                <option value="kids">🎉 Bosque Kids — Festas &amp; Kids</option>
+                <option value="biz">💼 Bosque Business — Reuniões &amp; Team</option>
+                <option value="well">🌿 Bosque Wellness — Yoga &amp; Retiro</option>
+                <option value="default">Ainda não sei — quero saber mais</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-nome">Nome</label>
+                <input type="text" id="c-nome" name="nome" placeholder="O seu nome" required />
+              </div>
+              <div class="form-group">
+                <label for="c-contacto">Email ou telefone</label>
+                <input type="text" id="c-contacto" name="contacto" placeholder="como prefere ser contactado" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-data">Data pretendida</label>
+                <input type="date" id="c-data" name="data" />
+              </div>
+              <div class="form-group">
+                <label for="c-pessoas">Nº de pessoas</label>
+                <input type="number" id="c-pessoas" name="pessoas" placeholder="ex. 12" min="1" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="c-msg">Mensagem</label>
+              <textarea id="c-msg" name="msg" placeholder="Conte-nos mais sobre o que procura…"></textarea>
+            </div>
+            <button type="submit" id="btn-contact-submit" class="btn">
+              <span id="btn-label">Enviar pedido</span>
+              <span class="arr" aria-hidden="true">→</span>
+            </button>
+          </form>
+          <p id="contact-success">
+            Recebemos o seu pedido!<br>
+            Respondemos sempre em menos de 24 horas. Até já.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="wrap">
+      <div class="footer__inner">
+        <div class="footer__brand-col">
+          <div class="footer__brand">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+            </svg>
+            Bosque<span class="brand-dot" aria-hidden="true">.</span>
+          </div>
+          <p class="footer__note">O seu refúgio, moldado ao seu momento.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Navegação do rodapé">
+          <span class="footer__nav-label">Páginas</span>
+          <a href="index.html">Início</a>
+          <a href="kids.html">Bosque Kids</a>
+          <a href="business.html">Bosque Business</a>
+          <a href="wellness.html">Bosque Wellness</a>
+          <a href="sobre.html">Sobre nós</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+        <div class="footer__contact">
+          <span class="footer__contact-label">Contacto</span>
+          <a href="contacto.html" aria-current="page">Fazer uma reserva</a>
+          <a href="mailto:ola@bosque.pt">ola@bosque.pt</a>
+          <a href="tel:+351910000000">+351 910 000 000</a>
+          <p class="footer__loc">Belverde, Setúbal · Portugal</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2025 Bosque. Todos os direitos reservados.</p>
+        <div class="footer__legal">
+          <a href="legal.html#privacidade">Privacidade</a>
+          <a href="legal.html#termos">Termos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Nav toggle ─────────────────────────────────────────────────── */
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav__bar')) {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', false);
+      }
+    });
+
+    /* ── Reveal on scroll ───────────────────────────────────────────── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ── CTA labels per segment ─────────────────────────────────────── */
+    const ctaLabels = {
+      kids:    'Reservar a festa',
+      biz:     'Pedir proposta',
+      well:    'Reservar horas',
+      default: 'Enviar pedido',
+    };
+
+    /* ── Segment selector logic ─────────────────────────────────────── */
+    const segBtns = document.querySelectorAll('.seg-btn');
+    const segSelect = document.getElementById('c-seg');
+    const btnLabel = document.getElementById('btn-label');
+    const hints = {
+      kids: document.getElementById('hint-kids'),
+      biz:  document.getElementById('hint-biz'),
+      well: document.getElementById('hint-well'),
+    };
+
+    function activateSeg(seg) {
+      segBtns.forEach(b => {
+        b.classList.remove('active-kids','active-biz','active-well','active-default');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      Object.values(hints).forEach(h => h.classList.remove('visible'));
+
+      const btn = document.querySelector(`.seg-btn[data-seg="${seg}"]`);
+      if (btn) {
+        btn.classList.add(`active-${seg}`);
+        btn.setAttribute('aria-pressed', 'true');
+      }
+      if (hints[seg]) hints[seg].classList.add('visible');
+
+      if (segSelect) segSelect.value = seg === 'biz' ? 'biz' : seg;
+      btnLabel.textContent = ctaLabels[seg] || 'Enviar pedido';
+    }
+
+    segBtns.forEach(btn => {
+      btn.addEventListener('click', () => activateSeg(btn.dataset.seg));
+    });
+
+    segSelect.addEventListener('change', () => {
+      const v = segSelect.value;
+      if (v) activateSeg(v);
+    });
+
+    /* ── URL param pre-fill ─────────────────────────────────────────── */
+    const params = new URLSearchParams(window.location.search);
+    const urlSeg = params.get('s');
+    const segMap = { kids: 'kids', business: 'biz', wellness: 'well' };
+    if (urlSeg && segMap[urlSeg]) {
+      activateSeg(segMap[urlSeg]);
+    }
+
+    /* ── Form submit ────────────────────────────────────────────────── */
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-contact-submit');
+      btn.textContent = 'A enviar…';
+      btn.disabled = true;
+      setTimeout(() => {
+        this.style.display = 'none';
+        document.getElementById('contact-success').style.display = 'block';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

@@ -1,391 +1,915 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belver Green | O Seu Refúgio Privado em Belverde</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-        }
-        h1, h2, h3, .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-        /* Parallax Core Engine */
-        .parallax-window {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 60vh;
-        }
-        .hero-parallax {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
-            height: 100vh;
-        }
-        .kids-parallax {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1920&q=80');
-        }
-        .corporate-parallax {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1920&q=80');
-        }
-        .wellness-parallax {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1920&q=80');
-        }
-        /* Touch Device Fix for Parallax */
-        @media (max-width: 1024px) {
-            .parallax-window {
-                background-attachment: scroll;
-                height: 40vh;
-            }
-            .hero-parallax {
-                height: 90vh;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bosque · Belverde — Um espaço, múltiplas vidas</title>
+<meta name="description" content="Bosque é um refúgio privado em Belverde: cave climatizada e jardim que se transformam em parque de aventura, hub de inovação ou santuário de bem-estar.">
+<meta property="og:title" content="Bosque · Belverde — Um espaço, múltiplas vidas">
+<meta property="og:description" content="Cave climatizada e jardim privado na Margem Sul. Um espaço, três vidas.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@300;400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/bosque.css">
+<style>
+/* ── Hero ──────────────────────────────────────────────────────── */
+.hero {
+  position: relative; height: 100svh; min-height: 600px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-stage { position: absolute; inset: 0; z-index: 0; }
+.hero-life {
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity 1.4s var(--ease);
+}
+.hero-life.active { opacity: 1; }
+.hero-life__img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.06); transition: transform 8s linear;
+}
+.hero-life.active .hero-life__img { transform: scale(1); }
+
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(28,42,34,.18) 0%, transparent 40%, rgba(28,42,34,.6) 100%);
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  padding-bottom: clamp(44px,7vw,88px); width: 100%;
+}
+.hero-eyebrow {
+  font-family: var(--sans); font-size: .72rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(243,239,231,.72); margin-bottom: 18px;
+}
+.hero-title {
+  font-size: clamp(3rem,7.5vw,6rem);
+  color: var(--linen-50); font-family: var(--display);
+  font-weight: 600; line-height: 1.04; letter-spacing: -.03em;
+  max-width: 14ch;
+}
+.hero-title em { font-style: italic; color: rgba(243,239,231,.75); }
+.hero-sub {
+  margin-top: 1.1em; color: rgba(243,239,231,.78);
+  font-size: clamp(1rem,1.6vw,1.2rem); max-width: 50ch; line-height: 1.6;
+}
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2em; }
+
+.hero-indicator {
+  position: absolute; top: 28px; right: clamp(18px,4vw,44px); z-index: 2;
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+}
+.hero-dot {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--sans); font-size: .74rem; font-weight: 600;
+  color: rgba(243,239,231,.45); cursor: pointer; transition: color .3s;
+  background: none; border: 0; padding: 0;
+}
+.hero-dot.active { color: rgba(243,239,231,.95); }
+.hero-dot__circle {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1.5px solid rgba(243,239,231,.35);
+  transition: background .4s, border-color .4s, transform .3s;
+}
+.hero-dot.active .hero-dot__circle {
+  background: var(--linen-50); border-color: var(--linen-50); transform: scale(1.35);
+}
+
+.hero-triptych { display: none; position: absolute; inset: 0; z-index: 0; }
+.hero-triptych__cell {
+  flex: 1; background-size: cover; background-position: center;
+  display: flex; align-items: flex-end; padding: 16px;
+}
+.hero-triptych__cell span {
+  font-family: var(--sans); font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.85); background: rgba(0,0,0,.28);
+  padding: .3em .7em; border-radius: 100px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stage { display: none; }
+  .hero-triptych { display: flex; }
+  .hero-indicator { display: none; }
+  .hero-overlay { background: linear-gradient(180deg, rgba(28,42,34,.3) 0%, rgba(28,42,34,.55) 100%); z-index: 1; }
+}
+@media (max-width: 640px) {
+  .hero-indicator { display: none; }
+  .hero { align-items: center; }
+  .hero-content { padding-bottom: 0; padding-top: 80px; }
+}
+
+/* ── Kinetic ───────────────────────────────────────────────────── */
+.kinetic { padding-block: clamp(64px,9vw,120px); text-align: center; }
+.kinetic__line {
+  font-family: var(--display); font-size: clamp(1.9rem,5.5vw,4rem);
+  font-weight: 500; line-height: 1.1; letter-spacing: -.025em;
+  max-width: 22ch; margin-inline: auto;
+}
+.kinetic__line .w {
+  display: inline-block; opacity: 0; transform: translateY(16px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.kinetic.in .w { opacity: 1; transform: none; }
+.kw-well { color: var(--well-terra); }
+.kw-biz  { color: var(--biz-copper); }
+.kw-kids { color: var(--kids); }
+.kinetic p { color: var(--muted); font-size: 1.05rem; margin-top: 1.4em; }
+@media (prefers-reduced-motion: reduce) {
+  .kinetic__line .w { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Problem ───────────────────────────────────────────────────── */
+.problem { background: var(--pine-900); color: var(--linen-50); overflow: hidden; }
+.problem .shead h2 { color: var(--linen-50); }
+.problem .shead p  { color: rgba(243,239,231,.6); }
+.problem-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.prob-card {
+  background: rgba(243,239,231,.06); border: 1px solid rgba(243,239,231,.1);
+  border-radius: var(--r); padding: clamp(22px,3vw,36px); transition: background .3s;
+}
+.prob-card:hover { background: rgba(243,239,231,.10); }
+.prob-card__icon {
+  width: 44px; height: 44px; border-radius: 13px;
+  background: rgba(243,239,231,.1); display: grid; place-items: center; margin-bottom: 18px;
+}
+.prob-card__icon svg { width: 22px; height: 22px; color: var(--sage-400); }
+.prob-card h3 { font-size: 1.1rem; color: var(--linen-50); margin-bottom: .4em; }
+.prob-card p  { color: rgba(243,239,231,.58); font-size: .93rem; }
+@media (max-width: 720px) { .problem-cards { grid-template-columns: 1fr; } }
+
+/* ── Solution ──────────────────────────────────────────────────── */
+.solution__grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(28px,5vw,72px); align-items: center;
+}
+.solution__photo { position: relative; border-radius: var(--r); }
+.solution__img {
+  height: clamp(340px,44vw,520px); border-radius: var(--r);
+  background: var(--img-cave) center/cover no-repeat; box-shadow: var(--shadow);
+}
+.solution__float {
+  position: absolute; bottom: -18px; right: -18px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+  padding: .7em 1.1em; box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; gap: .7em; font-weight: 600; font-size: .9rem; z-index: 2;
+}
+.solution__float small { display: block; color: var(--muted); font-weight: 400; font-size: .8em; }
+.solution__text .eyebrow { margin-bottom: 14px; }
+.solution__text h2 { font-size: clamp(2rem,4.4vw,3.2rem); }
+.solution__text p  { color: var(--muted); margin-top: .8em; max-width: 48ch; }
+.solution__points  { margin-top: 2em; display: grid; gap: 16px; }
+.sol-point { display: flex; gap: 14px; align-items: flex-start; }
+.sol-point__icon {
+  width: 36px; height: 36px; border-radius: 11px; flex: none;
+  background: var(--linen-200); display: grid; place-items: center; margin-top: 1px;
+}
+.sol-point__icon svg { width: 18px; height: 18px; color: var(--pine-700); }
+.sol-point h4 { font-size: .98rem; margin-bottom: .2em; }
+.sol-point p   { font-size: .9rem; color: var(--muted); }
+@media (max-width: 760px) {
+  .solution__grid { grid-template-columns: 1fr; }
+  .solution__photo { order: -1; }
+  .solution__float { right: 12px; bottom: 12px; }
+}
+
+/* ── Three lives ───────────────────────────────────────────────── */
+.lives-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.life-card {
+  display: block; border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--shadow-sm); transition: transform .4s var(--ease), box-shadow .4s;
+}
+.life-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.life-card__photo {
+  height: clamp(200px,22vw,260px);
+  background-size: cover; background-position: center;
+  transition: transform .8s var(--ease);
+  overflow: hidden;
+}
+.life-card:hover .life-card__photo { transform: scale(1.04); }
+.life-card__body { padding: clamp(20px,2.5vw,30px); }
+.life-card__tag {
+  font-family: var(--sans); font-size: .69rem; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase;
+}
+.life-card h3 { font-size: clamp(1.35rem,2.2vw,1.75rem); margin-top: .55em; }
+.life-card__slogan { font-size: .98rem; font-weight: 500; margin-top: .25em; }
+.life-card__desc   { font-size: .88rem; margin-top: .5em; }
+.life-card__cta {
+  display: inline-flex; align-items: center; gap: .4em;
+  font-family: var(--sans); font-size: .78rem; font-weight: 700;
+  letter-spacing: .04em; margin-top: 1.2em; padding: .52em 1.05em;
+  border-radius: 100px; border: 1.5px solid;
+  transition: transform .3s var(--ease), background .25s, color .25s;
+}
+.life-card:hover .life-card__cta { transform: translateX(3px); }
+.life-card--kids { background: var(--kids-bg); }
+.life-card--kids .life-card__tag    { color: var(--kids); }
+.life-card--kids h3                 { color: #243a0c; }
+.life-card--kids .life-card__slogan { color: #3a5818; }
+.life-card--kids .life-card__desc   { color: #5a7040; }
+.life-card--kids .life-card__cta    { color: var(--kids); border-color: var(--kids); }
+.life-card--kids:hover .life-card__cta { background: var(--kids); color: #fff; }
+.life-card--biz  { background: var(--biz-bg); }
+.life-card--biz .life-card__tag    { color: var(--biz-copper); }
+.life-card--biz h3                 { color: var(--pine-900); }
+.life-card--biz .life-card__slogan { color: var(--pine-700); }
+.life-card--biz .life-card__desc   { color: var(--muted); }
+.life-card--biz .life-card__cta    { color: var(--biz-copper); border-color: var(--biz-copper); }
+.life-card--biz:hover .life-card__cta { background: var(--biz-copper); color: #fff; }
+.life-card--well { background: var(--well-bg); }
+.life-card--well .life-card__tag    { color: var(--well-terra); }
+.life-card--well h3                 { color: #3a2e24; }
+.life-card--well .life-card__slogan { color: #5a4838; }
+.life-card--well .life-card__desc   { color: #7a6658; }
+.life-card--well .life-card__cta    { color: var(--well-terra); border-color: var(--well-terra); }
+.life-card--well:hover .life-card__cta { background: var(--well-terra); color: #fff; }
+@media (max-width: 840px) { .lives-grid { grid-template-columns: 1fr; } }
+
+/* ── Matrix ────────────────────────────────────────────────────── */
+.matrix-wrap {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border-radius: var(--r); box-shadow: var(--shadow-sm);
+}
+.matrix {
+  width: 100%; border-collapse: collapse;
+  background: var(--card); min-width: 640px;
+}
+.matrix thead { background: var(--linen-200); }
+.matrix thead th {
+  padding: 14px 18px; text-align: left;
+  font-family: var(--sans); font-size: .72rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.matrix thead th:first-child { color: var(--pine-900); }
+.matrix tbody tr { border-top: 1px solid var(--line); transition: background .2s; }
+.matrix tbody tr:hover { background: var(--linen-50); }
+.matrix tbody td { padding: 14px 18px; vertical-align: top; font-size: .91rem; }
+.matrix tbody td:first-child { font-weight: 600; color: var(--pine-900); width: 22%; }
+.matrix__kids { color: #3a5818; }
+.matrix__biz  { color: var(--biz-copper); }
+.matrix__well { color: #7a5048; }
+
+/* ── Steps ─────────────────────────────────────────────────────── */
+.steps {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: clamp(20px,4vw,48px); counter-reset: step;
+}
+.step { position: relative; }
+.step::before {
+  counter-increment: step;
+  content: "0" counter(step);
+  font-family: var(--sans); font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em; color: var(--amber-500);
+  display: block; margin-bottom: 14px;
+}
+.step::after {
+  content: ""; position: absolute; top: 9px; left: 4.5ch;
+  width: calc(100% - 2ch); height: 1px; background: var(--line);
+}
+.step:last-child::after { display: none; }
+.step h3 { font-size: 1.2rem; margin-bottom: .4em; }
+.step p   { color: var(--muted); font-size: .93rem; }
+@media (max-width: 760px) {
+  .steps { grid-template-columns: 1fr; }
+  .step::after { display: none; }
+}
+
+/* ── Gallery ───────────────────────────────────────────────────── */
+.gallery-filters {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+}
+.gallery-filter {
+  font-family: var(--sans); font-size: .78rem; font-weight: 600;
+  padding: .45em 1.05em; border-radius: 100px;
+  border: 1.5px solid var(--line); background: var(--card);
+  cursor: pointer; transition: all .25s var(--ease); color: var(--muted);
+}
+.gallery-filter.active { background: var(--pine-900); color: var(--linen-50); border-color: var(--pine-900); }
+.gallery-filter:hover:not(.active) { border-color: var(--pine-700); color: var(--pine-700); }
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  grid-template-rows: repeat(2, 200px); gap: 12px;
+}
+.gallery-item {
+  border-radius: 16px; overflow: hidden; position: relative;
+  background-size: cover; background-position: center; box-shadow: var(--shadow-xs);
+  transition: transform .4s var(--ease);
+}
+.gallery-item:hover { transform: scale(1.02); }
+.gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.gallery-item:nth-child(2) { grid-column: span 2; }
+.gallery-item__caption {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(28,42,34,.6));
+  display: flex; align-items: flex-end; padding: 14px;
+  opacity: 0; transition: opacity .3s;
+}
+.gallery-item:hover .gallery-item__caption { opacity: 1; }
+.gallery-item__caption span { color: #fff; font-size: .8rem; font-weight: 600; font-family: var(--sans); }
+@media (max-width: 720px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item { height: 160px; }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+  .gallery-item:nth-child(2) { grid-column: span 2; }
+}
+
+/* ── Proof ─────────────────────────────────────────────────────── */
+.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.proof-card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--r); padding: clamp(22px,3vw,32px);
+  box-shadow: var(--shadow-xs); transition: transform .4s var(--ease);
+}
+.proof-card:hover { transform: translateY(-4px); }
+.proof-card__quote {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1rem,1.5vw,1.18rem); color: var(--pine-900);
+  line-height: 1.55; margin-bottom: 1.2em;
+}
+.proof-card__author { display: flex; align-items: center; gap: 12px; }
+.proof-card__avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--linen-200); display: grid; place-items: center;
+  font-family: var(--sans); font-weight: 700; font-size: .88rem;
+  color: var(--pine-700); flex: none;
+}
+.proof-card__name { font-weight: 600; font-size: .88rem; }
+.proof-card__role { font-size: .8rem; color: var(--muted); }
+.proof-card__tag {
+  display: inline-flex; align-items: center; gap: .4em;
+  font-family: var(--sans); font-size: .69rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: .3em .7em; border-radius: 100px;
+  background: var(--linen-200); color: var(--pine-700); margin-bottom: 14px;
+}
+@media (max-width: 640px) { .proof-grid { grid-template-columns: 1fr; } }
+
+/* ── Dark CTA ──────────────────────────────────────────────────── */
+.cta-dark { overflow: hidden; }
+.cta-dark__panel {
+  background: var(--pine-900); color: var(--linen-50);
+  border-radius: 36px; padding: clamp(44px,7vw,88px) clamp(28px,5vw,72px);
+  position: relative; overflow: hidden; box-shadow: var(--shadow);
+}
+.cta-dark__blob {
+  position: absolute; width: 440px; height: 440px;
+  background: var(--pine-700); border-radius: 50%;
+  filter: blur(80px); opacity: .5; top: -160px; right: -110px;
+}
+.cta-dark__panel > * { position: relative; z-index: 1; }
+.cta-dark__pill { background: rgba(243,239,231,.1); border-color: rgba(243,239,231,.2); color: var(--linen-50); box-shadow: none; }
+.cta-dark__pill .dot { background: var(--amber-500); }
+.cta-dark h2 { font-size: clamp(2.2rem,5.2vw,4rem); margin-top: 20px; max-width: 16ch; }
+.cta-dark h2 em { font-style: italic; color: #C97B3C; }
+.cta-dark__sub { color: rgba(243,239,231,.62); margin-top: .9em; max-width: 50ch; font-size: 1.05rem; }
+.cta-dark__doors {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+  margin-top: clamp(32px,4vw,52px);
+}
+.cta-dark__door {
+  background: rgba(243,239,231,.06); border: 1px solid rgba(243,239,231,.14);
+  border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px;
+  transition: background .3s, transform .4s var(--ease);
+}
+.cta-dark__door:hover { background: rgba(243,239,231,.12); transform: translateY(-4px); }
+.cta-dark__swatch { width: 34px; height: 34px; border-radius: 10px; }
+.cta-dark__door h3 { font-size: 1.2rem; color: var(--linen-50); }
+.cta-dark__door p  { color: rgba(243,239,231,.58); font-size: .88rem; flex: 1; }
+.cta-dark__door-cta { color: var(--amber-500); font-family: var(--sans); font-size: .8rem; font-weight: 700; letter-spacing: .04em; }
+.cta-dark__contact {
+  display: flex; flex-wrap: wrap; gap: 8px 28px;
+  margin-top: 32px; color: rgba(243,239,231,.5); font-size: .9rem; align-items: center;
+}
+.cta-dark__contact a {
+  color: var(--linen-50); font-weight: 600;
+  border-bottom: 1.5px solid rgba(201,123,60,.6); padding-bottom: 1px; transition: border-color .2s;
+}
+.cta-dark__contact a:hover { border-color: var(--amber-500); }
+@media (max-width: 760px) {
+  .cta-dark__doors { grid-template-columns: 1fr; }
+  .cta-dark__panel { border-radius: 24px; }
+}
+</style>
 </head>
-<body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
+<body>
 
-    <nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-stone-200/50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-2">
-                <span class="text-2xl font-semibold tracking-wide text-emerald-900 uppercase">Belver<span class="font-light text-emerald-600">Green</span></span>
-            </a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide uppercase">
-                <a href="#conceito" class="text-stone-600 hover:text-emerald-800 transition-colors">O Conceito</a>
-                <a href="#kids" class="text-stone-600 hover:text-amber-600 transition-colors">Belver Kids</a>
-                <a href="#corporate" class="text-stone-600 hover:text-slate-700 transition-colors">Belver Business</a>
-                <a href="#wellness" class="text-stone-600 hover:text-teal-700 transition-colors">Belver Wellness</a>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav__bar">
+    <a href="index.html" class="nav__brand" aria-label="Bosque — início">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c2.6 2.2 4 5 4 8.2 0 2-.8 3.7-2.2 5v5.8h-3.6V15.7C8.8 14.4 8 12.7 8 10.7c0-3.2 1.4-6 4-8.2Z"/></svg>
+      Bosque<span class="brand-dot">.</span>
+    </a>
+    <div class="nav__links" id="navlinks">
+      <a href="#espaco">O espaço</a>
+      <a href="kids.html" class="nav-kids">Kids</a>
+      <a href="business.html" class="nav-biz">Business</a>
+      <a href="wellness.html" class="nav-well">Wellness</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contacto.html" class="btn btn-primary">Reservar</a>
+    </div>
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top" role="banner">
+  <div class="hero-stage" aria-hidden="true">
+    <div class="hero-life active" data-life="well">
+      <div class="hero-life__img" style="background-image:var(--img-well)"></div>
+    </div>
+    <div class="hero-life" data-life="biz">
+      <div class="hero-life__img" style="background-image:var(--img-biz)"></div>
+    </div>
+    <div class="hero-life" data-life="kids">
+      <div class="hero-life__img" style="background-image:var(--img-kids)"></div>
+    </div>
+  </div>
+  <div class="hero-triptych" aria-hidden="true">
+    <div class="hero-triptych__cell" style="background-image:var(--img-well)"><span>Manhã</span></div>
+    <div class="hero-triptych__cell" style="background-image:var(--img-biz)"><span>Tarde</span></div>
+    <div class="hero-triptych__cell" style="background-image:var(--img-kids)"><span>Fim de semana</span></div>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-indicator" role="tablist" aria-label="Momento do dia">
+    <button class="hero-dot active" data-target="well" role="tab" aria-selected="true" aria-label="Manhã — Bem-estar">
+      <span class="hero-dot__circle"></span><span>Manhã</span>
+    </button>
+    <button class="hero-dot" data-target="biz" role="tab" aria-selected="false" aria-label="Tarde — Inovação">
+      <span class="hero-dot__circle"></span><span>Tarde</span>
+    </button>
+    <button class="hero-dot" data-target="kids" role="tab" aria-selected="false" aria-label="Fim de semana — Aventura">
+      <span class="hero-dot__circle"></span><span>Fim de semana</span>
+    </button>
+  </div>
+  <div class="wrap hero-content">
+    <p class="hero-eyebrow">Belverde · Margem Sul</p>
+    <h1 class="hero-title reveal">Um espaço.<br><em>Múltiplas vidas.</em></h1>
+    <p class="hero-sub reveal d1">Uma cave climatizada e um jardim privado que se transformam — santuário de manhã, hub à tarde, território de aventura ao fim de semana.</p>
+    <div class="hero-ctas reveal d2">
+      <a href="#mundos" class="btn btn-primary">Ver o espaço <span class="arr" aria-hidden="true">→</span></a>
+      <a href="contacto.html" class="btn btn-ghost-light">Falar connosco</a>
+    </div>
+  </div>
+</header>
+
+<!-- KINETIC STATEMENT -->
+<section class="kinetic section" id="manifesto" aria-label="O conceito">
+  <div class="wrap">
+    <p class="kinetic__line">
+      <span class="w">De</span> <span class="w">manhã</span> <span class="w kw-well">respira.</span>
+      <span class="w">À</span> <span class="w">tarde</span> <span class="w kw-biz">pensa.</span>
+      <span class="w">Ao</span> <span class="w">fim</span> <span class="w">de</span> <span class="w">semana</span> <span class="w kw-kids">brinca.</span>
+    </p>
+    <p>O mesmo metro quadrado, vivido três vezes — com a natureza como denominador comum.</p>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section problem" id="problema">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">O problema</span>
+      <h2>Encontrar o espaço certo é mais difícil do que devia.</h2>
+      <p>O mercado da Margem Sul oferece dois extremos — nenhum serve.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="prob-card reveal">
+        <div class="prob-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Demasiado corporativo e frio</h3>
+        <p>Salas de reunião em cowork partilhadas, sem identidade e com a eficiência de um aeroporto.</p>
+      </div>
+      <div class="prob-card reveal d1">
+        <div class="prob-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Demasiado público, sem privacidade</h3>
+        <p>Parques e espaços partilhados onde o seu evento compete com desconhecidos ao lado.</p>
+      </div>
+      <div class="prob-card reveal d2">
+        <div class="prob-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 3v18"/></svg>
+        </div>
+        <h3>Demasiado pequeno para o seu grupo</h3>
+        <p>Salas que cabem 15 pessoas mas sufocam a 20, sem opção de expansão ao ar livre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="section" id="espaco">
+  <div class="wrap">
+    <div class="solution__grid">
+      <div class="solution__photo reveal">
+        <div class="solution__img" role="img" aria-label="Cave climatizada do Bosque, Belverde"></div>
+        <div class="solution__float" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pine-700)" stroke-width="2" aria-hidden="true"><path d="M12 21c4-3 6-6 6-9a6 6 0 0 0-12 0c0 3 2 6 6 9Z"/></svg>
+          <div><strong>Belverde</strong><small>Pinhal · Margem Sul</small></div>
+        </div>
+      </div>
+      <div class="solution__text reveal d1">
+        <span class="eyebrow">A solução Bosque</span>
+        <h2>O híbrido que o mercado não tinha.</h2>
+        <p>Uma cave climatizada de 100 m² ligada a um jardim privado de 200 m², gerida com o cuidado de quem trata da própria casa — num endereço aspiracional em Belverde.</p>
+        <div class="solution__points">
+          <div class="sol-point">
+            <div class="sol-point__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"/></svg>
             </div>
-            <a href="#contacto" class="bg-emerald-800 hover:bg-emerald-900 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm">Reservar Espaço</a>
-        </div>
-    </nav>
-
-    <header class="parallax-window hero-parallax flex items-center justify-center relative">
-        <div class="text-center text-white px-4 max-w-4xl mx-auto z-10">
-            <span class="text-xs uppercase tracking-widest bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full font-medium mb-6 inline-block">Exclusividade & Versatilidade em Belverde</span>
-            <h1 class="text-5xl md:text-7xl font-light leading-tight mb-6">"O seu refúgio privado,<br><span class="italic font-serif">moldado ao seu momento.</span>"</h1>
-            <p class="text-lg md:text-xl font-light text-stone-200 mb-12 max-w-2xl mx-auto">Transformamos uma infraestrutura doméstica premium num ecossistema flexível para ligar a natureza, a sua equipa ou a sua família.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-                <a href="#kids" class="group bg-white/10 backdrop-blur-md hover:bg-white text-white hover:text-stone-900 p-5 rounded-2xl border border-white/20 transition-all duration-300 text-left">
-                    <span class="text-amber-400 group-hover:text-amber-500 font-bold tracking-wider text-xs uppercase block mb-1">Família & Festas</span>
-                    <h3 class="text-lg font-semibold mb-1">Belver Kids</h3>
-                    <p class="text-xs opacity-80 group-hover:opacity-100 line-clamp-2">Aniversários seguros e memoráveis ao ar livre.</p>
-                </a>
-                <a href="#corporate" class="group bg-white/10 backdrop-blur-md hover:bg-white text-white hover:text-stone-900 p-5 rounded-2xl border border-white/20 transition-all duration-300 text-left">
-                    <span class="text-slate-300 group-hover:text-slate-600 font-bold tracking-wider text-xs uppercase block mb-1">Empresas & Tech</span>
-                    <h3 class="text-lg font-semibold mb-1">Belver Business</h3>
-                    <p class="text-xs opacity-80 group-hover:opacity-100 line-clamp-2">Offsites, team building e foco corporativo.</p>
-                </a>
-                <a href="#wellness" class="group bg-white/10 backdrop-blur-md hover:bg-white text-white hover:text-stone-900 p-5 rounded-2xl border border-white/20 transition-all duration-300 text-left">
-                    <span class="text-emerald-300 group-hover:text-emerald-600 font-bold tracking-wider text-xs uppercase block mb-1">Retiros & Saúde</span>
-                    <h3 class="text-lg font-semibold mb-1">Belver Wellness</h3>
-                    <p class="text-xs opacity-80 group-hover:opacity-100 line-clamp-2">Yoga, meditação profunda e desconexão.</p>
-                </a>
-            </div>
-        </div>
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/70 hidden md:block">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-        </div>
-    </header>
-
-    <section id="conceito" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-                <span class="text-xs uppercase font-bold tracking-widest text-emerald-800 bg-emerald-50 px-3 py-1 rounded-md">O Nosso Diferenciador</span>
-                <h2 class="text-4xl md:text-5xl font-normal text-stone-900 mt-4 mb-8 leading-tight">O equilíbrio perfeito entre o <span class="italic font-serif">interior premium</span> e a liberdade da natureza.</h2>
-                <p class="text-stone-600 leading-relaxed mb-6">Na Margem Sul, encontrar um espaço exclusivo foge sempre para os extremos: ou é corporativo e frio, ou é um parque público sem privacidade. O Belver Green preenche a lacuna do <strong>"Boutique Venue"</strong>.</p>
-                <p class="text-stone-600 leading-relaxed mb-8">Oferecemos uma flexibilidade radical sob uma gestão focada no detalhe e no toque pessoal de quem cuida do ativo como a sua própria casa.</p>
-                
-                <div class="grid grid-cols-2 gap-6 border-t border-stone-200 pt-8">
-                    <div>
-                        <span class="block text-4xl font-light text-emerald-900">100 m²</span>
-                        <span class="text-sm text-stone-500 font-medium uppercase tracking-wider block mt-1">Cave Ampla Multifuncional</span>
-                    </div>
-                    <div>
-                        <span class="block text-4xl font-light text-emerald-900">200 m²</span>
-                        <span class="text-sm text-stone-500 font-medium uppercase tracking-wider block mt-1">Jardim Vedado & Privado</span>
-                    </div>
-                </div>
+              <h4>Cave + jardim em continuidade</h4>
+              <p>Interior e exterior ligados: plano A e plano B no mesmo sítio. O evento nunca é cancelado.</p>
             </div>
-            <div class="relative bg-stone-200 rounded-3xl overflow-hidden aspect-4/3 shadow-xl">
-                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80" alt="Belver Green Premium Space" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent p-8 flex items-end">
-                    <p class="text-white text-sm font-medium">Localização aspiracional em Belverde: pinhal, praia e tranquilidade.</p>
-                </div>
+          </div>
+          <div class="sol-point">
+            <div class="sol-point__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             </div>
-        </div>
-    </section>
-
-    <div class="parallax-window kids-parallax flex items-center">
-        <div class="max-w-7xl mx-auto px-6 w-full">
-            <div class="bg-white/95 backdrop-blur-md p-8 md:p-12 rounded-3xl max-w-xl shadow-xl border border-stone-100">
-                <span class="text-xs uppercase font-bold tracking-widest text-lime-700 bg-lime-50 px-3 py-1 rounded-md">Belver Kids</span>
-                <h2 class="text-3xl md:text-4xl font-normal text-stone-950 mt-4 mb-4">Festas épicas, memórias eternas.</h2>
-                <p class="text-stone-600 text-sm md:text-base mb-6">Fuja dos "parques de plástico" barulhentos. Proporcione aos seus filhos uma área segura e privativa ao ar livre, estruturada para pura liberdade e tranquilidade dos pais.</p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Crianças dos 3 aos 12 anos</span>
-                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Área Totalmente Vedada</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section id="kids" class="py-20 bg-stone-100 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 space-y-4">
-                    <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-6">O que o espaço inclui para Festas:</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-lime-700 mb-1">Zona de Liberdade Segura</h4>
-                            <p class="text-sm text-stone-600">Jardim de 200m² relvado e vedado para correr e brincar sem "ai-jesus".</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-lime-700 mb-1">Arena Desportiva & Ação</h4>
-                            <p class="text-sm text-stone-600">Campo de basquetebol/futebol, trampolim e espaço para insufláveis.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-lime-700 mb-1">Plano B Garantido (Cave)</h4>
-                            <p class="text-sm text-stone-600">Espaço de 100m² caso ocorra chuva ou calor excessivo a meio do evento.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-lime-700 mb-1">Apoio Logístico Completo</h4>
-                            <p class="text-sm text-stone-600">Copa com frigorífico para bebidas e o bolo, com área dedicada aos parabéns.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gradient-to-br from-lime-900 to-emerald-950 rounded-3xl p-8 text-white flex flex-col justify-between shadow-lg">
-                    <div>
-                        <h3 class="text-2xl font-normal mb-6">Opções de Aluguer</h3>
-                        <div class="space-y-6">
-                            <div class="border-b border-white/10 pb-4">
-                                <h4 class="font-semibold text-lime-300">Pack Aventura Express</h4>
-                                <p class="text-sm text-stone-300 mt-1">3 horas de aluguer exclusivo (manhã ou tarde). Ideal para festas dinâmicas.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-lime-300">Pack O Dia é Nosso</h4>
-                                <p class="text-sm text-stone-300 mt-1">Aluguer exclusivo das 10h às 19h. Total flexibilidade e controlo familiar.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#contacto" class="mt-8 block w-full text-center bg-white text-stone-900 font-medium py-3 rounded-xl hover:bg-stone-100 transition-colors text-sm">Consultar Disponibilidade</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="parallax-window corporate-parallax flex items-center">
-        <div class="max-w-7xl mx-auto px-6 w-full flex justify-end">
-            <div class="bg-white/95 backdrop-blur-md p-8 md:p-12 rounded-3xl max-w-xl shadow-xl border border-stone-100">
-                <span class="text-xs uppercase font-bold tracking-widest text-slate-700 bg-slate-50 px-3 py-1 rounded-md">Belver Business</span>
-                <h2 class="text-3xl md:text-4xl font-normal text-stone-950 mt-4 mb-4">Desconexão digital, foco absoluto.</h2>
-                <p class="text-stone-600 text-sm md:text-base mb-6">Traga a sua startup, equipa de produto ou comunidade de expats para um ambiente "Smart Casual". O espaço ideal para sessões de estratégia corporativa e team building informal.</p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Tech-Ready & Wi-Fi Robusto</span>
-                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">100% Exclusivo para a Equipa</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section id="corporate" class="py-20 bg-stone-50 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 space-y-4">
-                    <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-6">Infraestrutura Corporativa & Networking:</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-slate-800 mb-1">Sala Polivalente Climatizada</h4>
-                            <p class="text-sm text-stone-600">A cave ampla de 100m² é fresca, silenciosa e configurável para workshops e projeções.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-slate-800 mb-1">Breakout Zones & Lounge</h4>
-                            <p class="text-sm text-stone-600">Espaços informais e sofás no interior para chamadas rápidas ou pausas criativas.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-slate-800 mb-1">Pitfire & Pérgula Exterior</h4>
-                            <p class="text-sm text-stone-600">O elemento "Uau". Uma fogueira tribal ao ar livre perfeita para networking ao fim do dia ou BBQ.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-slate-800 mb-1">Estação de Catering Autónoma</h4>
-                            <p class="text-sm text-stone-600">Copa com máquina de café pronta a garantir o fluxo de cafeína e snacks sem interrupções.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gradient-to-br from-slate-800 to-neutral-900 rounded-3xl p-8 text-white flex flex-col justify-between shadow-lg">
-                    <div>
-                        <h3 class="text-2xl font-normal mb-6">Planos Corporativos</h3>
-                        <div class="space-y-6">
-                            <div class="border-b border-white/10 pb-4">
-                                <h4 class="font-semibold text-copper-400 text-amber-400">Pack Deep Work</h4>
-                                <p class="text-sm text-stone-300 mt-1">Dia completo (09h-18h). Uso integral das zonas internas/externas com Coffee Break incluído.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-copper-400 text-amber-400">Pack After-Work</h4>
-                                <p class="text-sm text-stone-300 mt-1">Aluguer ao final da tarde (17h-21h). Foco total no uso do Jardim, Pérgula e dinâmica do Pitfire.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#contacto" class="mt-8 block w-full text-center bg-white text-stone-900 font-medium py-3 rounded-xl hover:bg-stone-100 transition-colors text-sm">Agendar Offsite</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="parallax-window wellness-parallax flex items-center">
-        <div class="max-w-7xl mx-auto px-6 w-full">
-            <div class="bg-white/95 backdrop-blur-md p-8 md:p-12 rounded-3xl max-w-xl shadow-xl border border-stone-100">
-                <span class="text-xs uppercase font-bold tracking-widest text-teal-800 bg-teal-50 px-3 py-1 rounded-md">Belver Wellness</span>
-                <h2 class="text-3xl md:text-4xl font-normal text-stone-950 mt-4 mb-4">Respirar, conectar e aterrar.</h2>
-                <p class="text-stone-600 text-sm md:text-base mb-6">Um santuário minimalista e sereno para terapeutas holísticos, instrutores de Yoga, Pilates ou grupos de meditação profunda. Desenhado para o silêncio.</p>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Prática de Grounding</span>
-                    <span class="bg-stone-100 text-stone-800 text-xs px-3 py-1 rounded-full font-medium">Controlo de Luz e Atmosfera</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section id="wellness" class="py-20 bg-stone-100 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 space-y-4">
-                    <h3 class="text-xl font-semibold tracking-tight text-stone-900 mb-6">Atmosfera Zen & Condições:</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-teal-700 mb-1">Estúdio Flexível & Livre</h4>
-                            <p class="text-sm text-stone-600">Espaço interior amplo sem obstáculos. Circulação fluida para tapetes de yoga ou macas de massagem.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-teal-700 mb-1">Grounding na Relva</h4>
-                            <p class="text-sm text-stone-600">Ligação direta à terra no jardim de 200m² para práticas ao ar livre e meditação conectada.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-teal-700 mb-1">Atmosfera Sonora Imersiva</h4>
-                            <p class="text-sm text-stone-600">Colunas com som ambiente integrado para propagar mantras e frequências relaxantes.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-xs border border-stone-200/60">
-                            <h4 class="font-semibold text-teal-700 mb-1">Ritual de Acolhimento</h4>
-                            <p class="text-sm text-stone-600">Sala de espera acolhedora combinada com copa equipada para servir chás quentes pós-sessão.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gradient-to-br from-teal-900 to-stone-900 rounded-3xl p-8 text-white flex flex-col justify-between shadow-lg">
-                    <div>
-                        <h3 class="text-2xl font-normal mb-6">Planos de Prática</h3>
-                        <div class="space-y-6">
-                            <div class="border-b border-white/10 pb-4">
-                                <h4 class="font-semibold text-teal-300">Pack Instrutor</h4>
-                                <p class="text-sm text-stone-300 mt-1">Packs recorrentes de 10 ou 20 horas pré-pagas com preço reduzido para consultas ou aulas locais.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-teal-300">Pack Retiro Urbano</h4>
-                                <p class="text-sm text-stone-300 mt-1">Aluguer integral focado em bem-estar de 1 dia ou fim de semana completo.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#contacto" class="mt-8 block w-full text-center bg-white text-stone-900 font-medium py-3 rounded-xl hover:bg-stone-100 transition-colors text-sm">Reservar Bloco de Horas</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-white px-6 hidden md:block">
-        <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-3xl font-normal text-stone-950 mb-4">Otimização Inteligente do Espaço</h3>
-            <p class="text-stone-500 mb-12 text-sm">Como adaptamos a mesma infraestrutura premium para a sua necessidade específica:</p>
-            
-            <div class="overflow-hidden rounded-2xl border border-stone-200 shadow-sm">
-                <table class="w-full text-left border-collapse bg-white">
-                    <thead class="bg-stone-50 text-stone-400 text-xs font-bold uppercase tracking-wider border-b border-stone-200">
-                        <tr>
-                            <th class="p-5">Ativo Físico</th>
-                            <th class="p-5 text-amber-700">Uso Kids 🧒</th>
-                            <th class="p-5 text-slate-700">Uso Business 💼</th>
-                            <th class="p-5 text-teal-700">Uso Wellness 🧘</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm divide-y divide-stone-200 text-stone-600">
-                        <tr>
-                            <td class="p-5 font-semibold text-stone-950">Relvado Exterior</td>
-                            <td class="p-5">Pista de corridas e brincadeiras</td>
-                            <td class="p-5">Team Building dinâmico</td>
-                            <td class="p-5">Yoga e Grounding ao ar livre</td>
-                        </tr>
-                        <tr>
-                            <td class="p-5 font-semibold text-stone-950">Copa Técnica</td>
-                            <td class="p-5">Armazenamento do bolo e lanches</td>
-                            <td class="p-5">Estação de Coffee Break constante</td>
-                            <td class="p-5">Casa de Chá pós-sessão</td>
-                        </tr>
-                        <tr>
-                            <td class="p-5 font-semibold text-stone-950">Espaço Amplo Interior</td>
-                            <td class="p-5">Refúgio seguro em caso de chuva</td>
-                            <td class="p-5">Sala de Reuniões e Projeção</td>
-                            <td class="p-5">Estúdio Zen livre de obstáculos</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="bg-stone-900 text-stone-300 py-20 px-6 border-t border-stone-800">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-                <span class="text-2xl font-semibold tracking-wide text-white uppercase block mb-6">Belver<span class="font-light text-emerald-500">Green</span></span>
-                <p class="text-stone-400 max-w-sm mb-8 leading-relaxed">Pronto para moldar o nosso espaço ao seu momento? Entre em contacto para verificar datas e fazer uma visita guiada.</p>
-                <div class="space-y-4 text-sm">
-                    <div class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <span>Belverde, Margem Sul, Portugal (Aroeira / Verdizela / Seixal)</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        <span>reservas@belvergreen.com</span>
-                    </div>
-                </div>
+              <h4>Dono-operador, toque pessoal</h4>
+              <p>A curadoria de quem cuida do espaço como a própria casa. Sem burocracia, com atenção ao detalhe.</p>
             </div>
-            
-            <form class="space-y-4 bg-stone-800 p-8 rounded-3xl border border-stone-700/50" onsubmit="event.preventDefault(); alert('Obrigado pelo contacto! Responderemos brevemente.');">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">Nome</label>
-                        <input type="text" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">Segmento de Interesse</label>
-                        <select class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500">
-                            <option>Belver Kids (Festas)</option>
-                            <option>Belver Business (Empresas)</option>
-                            <option>Belver Wellness (Terapias/Retiros)</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">E-mail</label>
-                    <input type="email" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500">
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-wider font-semibold mb-2 text-stone-400">Detalhes do Evento / Data Estimada</label>
-                    <textarea rows="4" required class="w-full bg-stone-900 border border-stone-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-hidden focus:border-emerald-500"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl transition-colors text-sm uppercase tracking-wider">Solicitar Orçamento Personalizado</button>
-            </form>
+          </div>
+          <div class="sol-point">
+            <div class="sol-point__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div>
+              <h4>Flexibilidade radical</h4>
+              <p>De estúdio de yoga vazio a sala de reuniões em 30 minutos. Ocupação máxima, custos fixos mínimos.</p>
+            </div>
+          </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-stone-800 text-center text-xs text-stone-500">
-            <p>&copy; 2026 Belver Green. Todos os direitos reservados. Gestão Premium Dono-Operador.</p>
-        </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- THREE LIVES -->
+<section class="section" id="mundos" style="background:var(--linen-200)">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Três portas, um refúgio</span>
+      <h2>O mesmo bosque. Três formas de o viver.</h2>
+      <p>Cada universo tem a sua identidade, o seu ritmo e o seu público. Escolha a vida que é a sua.</p>
+    </div>
+    <div class="lives-grid">
+      <a class="life-card life-card--kids reveal" href="kids.html">
+        <div class="life-card__photo" style="background-image:var(--img-kids)" role="img" aria-label="Bosque Kids — jardim em festa"></div>
+        <div class="life-card__body">
+          <span class="life-card__tag">Fins de semana</span>
+          <h3>Bosque Kids</h3>
+          <p class="life-card__slogan">Onde a natureza encontra a brincadeira.</p>
+          <p class="life-card__desc">Festas de aniversário e encontros de família — seguros, privados e ao ar livre, longe dos parques de plástico.</p>
+          <span class="life-card__cta">Reservar a festa <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a class="life-card life-card--biz reveal d1" href="business.html">
+        <div class="life-card__photo" style="background-image:var(--img-biz)" role="img" aria-label="Bosque Business — offsite de equipa"></div>
+        <div class="life-card__body">
+          <span class="life-card__tag">Dias úteis &amp; after-work</span>
+          <h3>Bosque Business</h3>
+          <p class="life-card__slogan">Onde as ideias ganham espaço para respirar.</p>
+          <p class="life-card__desc">Offsites, workshops e team building — profissional, mas longe do corporativo frio.</p>
+          <span class="life-card__cta">Pedir proposta <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a class="life-card life-card--well reveal d2" href="wellness.html">
+        <div class="life-card__photo" style="background-image:var(--img-well)" role="img" aria-label="Bosque Wellness — aula de yoga"></div>
+        <div class="life-card__body">
+          <span class="life-card__tag">Manhãs &amp; dias tranquilos</span>
+          <h3>Bosque Wellness</h3>
+          <p class="life-card__slogan">O seu santuário de equilíbrio.</p>
+          <p class="life-card__desc">Yoga, pilates, terapias e mini-retiros num espaço de silêncio total e atmosfera controlável.</p>
+          <span class="life-card__cta">Reservar horas <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ASSET MATRIX -->
+<section class="section" id="matriz">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Um espaço, vendido três vezes</span>
+      <h2>O mesmo m², três vidas diferentes.</h2>
+      <p>Os mesmos ativos físicos reconfigurados para cada universo — é flexibilidade radical, por design.</p>
+    </div>
+    <div class="matrix-wrap reveal d1">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Ativo físico</th>
+            <th class="matrix__kids">🧒 Kids</th>
+            <th class="matrix__biz">💼 Business</th>
+            <th class="matrix__well">🧘 Wellness</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jardim vedado 200 m²</td>
+            <td>Liberdade controlada — crianças correm, pais relaxam</td>
+            <td>Extensão do escritório — walking meetings, team building</td>
+            <td>Grounding — prática de pés na relva, meditação ao ar livre</td>
+          </tr>
+          <tr>
+            <td>Cave climatizada 100 m²</td>
+            <td>Plano B imediato — chuva ou calor, a festa continua</td>
+            <td>Sala polivalente — workshop, projeção, brainstorm</td>
+            <td>Estúdio zen — interior controlável, sem obstáculos</td>
+          </tr>
+          <tr>
+            <td>Pitfire exterior</td>
+            <td>Momento épico — noite de estrelas com os amigos</td>
+            <td>Socialização premium — networking ao entardecer</td>
+            <td>Ritual de encerramento — fogo como ponto focal</td>
+          </tr>
+          <tr>
+            <td>Copa &amp; frigorífico</td>
+            <td>Logística parental — bolo, bebidas, parabéns</td>
+            <td>Fuel station — coffee breaks sem sair da sessão</td>
+            <td>Ritual de saída — chás e acolhimento pós-prática</td>
+          </tr>
+          <tr>
+            <td>Lounge &amp; sofás</td>
+            <td>Oásis dos adultos — descanso enquanto os filhos brincam</td>
+            <td>Breakout zones — chamadas e pausas criativas</td>
+            <td>Acolhimento — sala de espera que já é terapia</td>
+          </tr>
+          <tr>
+            <td>Pérgula</td>
+            <td>Sombra para o bolo e a festa</td>
+            <td>Reuniões informais ao ar livre</td>
+            <td>Transição interior-exterior na prática</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="como-funciona" style="background:var(--linen-200)">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Três passos até ao seu momento.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <h3>Escolha a sua vida</h3>
+        <p>Kids, Business ou Wellness — ou uma combinação. Se não sabe ainda, fale connosco e chegamos lá juntos.</p>
+      </div>
+      <div class="step reveal d1">
+        <h3>Personalize o espaço</h3>
+        <p>Cave, jardim ou os dois? Pitfire, colunas de som, projetor? Confirmamos disponibilidade e ajustamos tudo.</p>
+      </div>
+      <div class="step reveal d2">
+        <h3>Viva o momento</h3>
+        <p>Chegue, o espaço está preparado. A logística, a montagem e o detalhe — tratamos nós.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="galeria">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">O espaço nas três vidas</span>
+      <h2>Um bosque, muitos momentos.</h2>
+      <p>Filtre por universo e veja como o mesmo espaço muda de pele.</p>
+    </div>
+    <div class="gallery-filters reveal" role="group" aria-label="Filtrar galeria">
+      <button class="gallery-filter active" data-filter="all">Todos</button>
+      <button class="gallery-filter" data-filter="kids">Kids</button>
+      <button class="gallery-filter" data-filter="biz">Business</button>
+      <button class="gallery-filter" data-filter="well">Wellness</button>
+    </div>
+    <div class="gallery-grid reveal d1">
+      <div class="gallery-item" data-life="all" style="background-image:var(--img-cave)">
+        <div class="gallery-item__caption"><span>Cave climatizada</span></div>
+      </div>
+      <div class="gallery-item" data-life="all" style="background-image:var(--img-garden)">
+        <div class="gallery-item__caption"><span>Jardim privado 200 m²</span></div>
+      </div>
+      <div class="gallery-item" data-life="kids" style="background-image:var(--img-kids)">
+        <div class="gallery-item__caption"><span>Bosque Kids — jardim em festa</span></div>
+      </div>
+      <div class="gallery-item" data-life="biz" style="background-image:var(--img-biz)">
+        <div class="gallery-item__caption"><span>Bosque Business — offsite</span></div>
+      </div>
+      <div class="gallery-item" data-life="well" style="background-image:var(--img-well)">
+        <div class="gallery-item__caption"><span>Bosque Wellness — yoga</span></div>
+      </div>
+      <div class="gallery-item" data-life="all" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?fm=jpg&q=80&w=800&auto=format&fit=crop')">
+        <div class="gallery-item__caption"><span>Pitfire — entardecer</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="section" id="prova" style="background:var(--linen-200)">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">O que dizem</span>
+      <h2>Momentos que ficam.</h2>
+      <p>Os primeiros eventos já aconteceram. Aqui ficam alguns dos momentos.</p>
+    </div>
+    <div class="proof-grid">
+      <div class="proof-card reveal">
+        <span class="proof-card__tag">Bosque Kids</span>
+        <p class="proof-card__quote">"O jardim vedado foi uma revelação. As crianças correram livres durante horas e nós conseguimos finalmente relaxar. A cave foi o plano B perfeito quando o sol ficou forte."</p>
+        <div class="proof-card__author">
+          <div class="proof-card__avatar">M</div>
+          <div><p class="proof-card__name">Marta S.</p><p class="proof-card__role">Mãe · Festa de 7 anos · Belverde</p></div>
+        </div>
+      </div>
+      <div class="proof-card reveal d1">
+        <span class="proof-card__tag">Bosque Business</span>
+        <p class="proof-card__quote">"O pitfire ao fim da tarde transformou uma reunião de estratégia num momento de equipa que ainda hoje se lembra. Muito mais eficaz do que qualquer team building em sala."</p>
+        <div class="proof-card__author">
+          <div class="proof-card__avatar">R</div>
+          <div><p class="proof-card__name">Ricardo F.</p><p class="proof-card__role">CTO · Offsite de equipa tech · Lisboa</p></div>
+        </div>
+      </div>
+      <div class="proof-card reveal d2">
+        <span class="proof-card__tag">Bosque Wellness</span>
+        <p class="proof-card__quote">"Já dei aulas em muitos espaços mas o silêncio de Belverde e a possibilidade de ir do tapete para a relva é única. Os meus alunos querem voltar todas as semanas."</p>
+        <div class="proof-card__author">
+          <div class="proof-card__avatar">A</div>
+          <div><p class="proof-card__name">Ana L.</p><p class="proof-card__role">Instrutora de Yoga · Pack Instrutor</p></div>
+        </div>
+      </div>
+      <div class="proof-card reveal d3">
+        <span class="proof-card__tag">O espaço</span>
+        <p class="proof-card__quote">"Desde a reserva até ao fim do dia, a atenção ao detalhe foi constante. Sente-se que é um espaço de casa, não um negócio de aluguer anónimo."</p>
+        <div class="proof-card__author">
+          <div class="proof-card__avatar">J</div>
+          <div><p class="proof-card__name">João P.</p><p class="proof-card__role">Retiro de meditação · Grupo de 12</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DARK CTA -->
+<section class="section cta-dark" id="reservar">
+  <div class="wrap">
+    <div class="cta-dark__panel reveal">
+      <div class="cta-dark__blob" aria-hidden="true"></div>
+      <span class="pill cta-dark__pill"><span class="dot"></span>Reservar</span>
+      <h2>Três portas, <em>um só</em> refúgio.</h2>
+      <p class="cta-dark__sub">Escolha a entrada certa. A curadoria, a montagem e o detalhe — tratamos nós.</p>
+      <div class="cta-dark__doors">
+        <a class="cta-dark__door" href="kids.html">
+          <span class="cta-dark__swatch" style="background:linear-gradient(135deg,#7FB04F,#F6C445)" aria-hidden="true"></span>
+          <h3>Uma festa</h3>
+          <p>Aniversários e encontros de família, seguros e ao ar livre.</p>
+          <span class="cta-dark__door-cta">Reservar a festa →</span>
+        </a>
+        <a class="cta-dark__door" href="business.html">
+          <span class="cta-dark__swatch" style="background:linear-gradient(135deg,#2F4536,#B5713C)" aria-hidden="true"></span>
+          <h3>Um offsite</h3>
+          <p>Workshops e team building com pitfire ao entardecer.</p>
+          <span class="cta-dark__door-cta">Pedir proposta →</span>
+        </a>
+        <a class="cta-dark__door" href="wellness.html">
+          <span class="cta-dark__swatch" style="background:linear-gradient(135deg,#9CAE93,#C98C6B)" aria-hidden="true"></span>
+          <h3>Uma sessão</h3>
+          <p>Aulas e mini-retiros num santuário silencioso.</p>
+          <span class="cta-dark__door-cta">Reservar horas →</span>
+        </a>
+      </div>
+      <div class="cta-dark__contact">
+        <span>Belverde · Margem Sul</span>
+        <a href="mailto:ola@bosque.pt">ola@bosque.pt</a>
+        <a href="tel:+351000000000">+351 000 000 000</a>
+        <a href="https://wa.me/351000000000" target="_blank" rel="noopener noreferrer">WhatsApp →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__inner">
+      <div class="footer__brand-col">
+        <a href="index.html" class="footer__brand">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c2.6 2.2 4 5 4 8.2 0 2-.8 3.7-2.2 5v5.8h-3.6V15.7C8.8 14.4 8 12.7 8 10.7c0-3.2 1.4-6 4-8.2Z"/></svg>
+          Bosque<span class="brand-dot">.</span>
+        </a>
+        <p class="footer__note">O seu refúgio, moldado ao seu momento.<br>Belverde, Margem Sul.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Navegação de rodapé">
+        <span class="footer__nav-label">Universos</span>
+        <a href="kids.html">Bosque Kids</a>
+        <a href="business.html">Bosque Business</a>
+        <a href="wellness.html">Bosque Wellness</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="footer__contact">
+        <span class="footer__contact-label">Contacto</span>
+        <span class="footer__loc">Belverde, Margem Sul</span>
+        <a href="mailto:ola@bosque.pt">ola@bosque.pt</a>
+        <a href="tel:+351000000000">+351 000 000 000</a>
+        <a href="contacto.html">Formulário de reserva</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 Bosque · Belverde, Margem Sul</span>
+      <div class="footer__legal">
+        <a href="legal.html">Privacidade</a>
+        <a href="legal.html#termos">Termos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Mobile nav */
+  var mb = document.getElementById('menuBtn');
+  var nl = document.getElementById('navlinks');
+  mb.addEventListener('click', function () {
+    var open = nl.classList.toggle('open');
+    mb.setAttribute('aria-expanded', String(open));
+  });
+  nl.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') { nl.classList.remove('open'); mb.setAttribute('aria-expanded', 'false'); }
+  });
+
+  /* Reveal */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal, .kinetic').forEach(function (el) { io.observe(el); });
+
+  /* Kinetic stagger */
+  document.querySelectorAll('.kinetic__line .w').forEach(function (w, i) {
+    w.style.transitionDelay = (i * 0.06) + 's';
+  });
+
+  /* Hero transformation */
+  if (!reduce) {
+    var lives = Array.from(document.querySelectorAll('.hero-life'));
+    var dots  = Array.from(document.querySelectorAll('.hero-dot'));
+    var idx   = 0;
+    var used  = false;
+
+    function goTo(n) {
+      lives[idx].classList.remove('active');
+      dots[idx].classList.remove('active');
+      dots[idx].setAttribute('aria-selected', 'false');
+      idx = (n + lives.length) % lives.length;
+      lives[idx].classList.add('active');
+      dots[idx].classList.add('active');
+      dots[idx].setAttribute('aria-selected', 'true');
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { used = true; clearInterval(timer); goTo(i); });
+    });
+
+    var timer = setInterval(function () {
+      if (!used) goTo(idx + 1);
+    }, 4200);
+  }
+
+  /* Gallery filter */
+  var filters = document.querySelectorAll('.gallery-filter');
+  var items   = document.querySelectorAll('.gallery-item');
+
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filters.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.dataset.filter;
+      items.forEach(function (item) {
+        var show = (f === 'all' || item.dataset.life === 'all' || item.dataset.life === f);
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
-

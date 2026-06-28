@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre o Bosque — Um espaço com história e carinho</title>
+  <meta name="description" content="Conheça a história do Bosque, o espaço que nasceu da vontade de criar um refúgio genuíno em Belverde — e as pessoas que o cuidam com carinho." />
+  <link rel="stylesheet" href="css/bosque.css" />
+  <style>
+    /* ── Sobre-specific styles ─────────────────────────────────────── */
+    .sobre-hero {
+      min-height: 70vh;
+      display: flex; align-items: flex-end;
+      position: relative; overflow: hidden;
+      padding-top: clamp(120px,16vh,160px);
+      padding-bottom: clamp(64px,10vh,100px);
+    }
+    .sobre-hero__bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: var(--img-garden) center/cover no-repeat;
+    }
+    .sobre-hero__bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(28,42,34,.35) 0%,
+        rgba(28,42,34,.78) 100%);
+    }
+    .sobre-hero .wrap { position: relative; z-index: 1; }
+    .sobre-hero h1 {
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(2.8rem,7vw,5.5rem);
+      line-height: 1.04; letter-spacing: -.03em; color: #fff;
+      max-width: 18ch;
+    }
+    .sobre-hero__sub {
+      color: rgba(255,255,255,.72); font-size: clamp(1rem,1.6vw,1.2rem);
+      max-width: 44ch; margin-top: 1em; line-height: 1.7;
+    }
+    .sobre-hero__promise {
+      display: inline-flex; align-items: center; gap: .7em;
+      margin-top: 2em;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 100px; padding: .6em 1.2em;
+      font-family: var(--sans); font-size: .9rem; font-weight: 600; color: rgba(255,255,255,.9);
+    }
+    .sobre-hero__promise .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber-500); flex: none; }
+
+    /* ── Story section ─────────────────────────────────────────────── */
+    .story { background: var(--bg); }
+    .story__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+    }
+    .story__photo {
+      border-radius: var(--r); overflow: hidden;
+      aspect-ratio: 4/5; box-shadow: var(--shadow);
+    }
+    .story__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .story__text .eyebrow { margin-bottom: 14px; }
+    .story__text h2 { font-size: clamp(2rem,4vw,3rem); }
+    .story__text p { color: var(--muted); margin-top: 1.1em; line-height: 1.75; font-size: 1.02rem; }
+    .story__text p + p { margin-top: .85em; }
+    .story__sig {
+      margin-top: 2em; display: flex; align-items: center; gap: 14px;
+    }
+    .story__sig-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--linen-200); flex: none;
+      overflow: hidden; border: 2px solid var(--line);
+    }
+    .story__sig-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .story__sig-name { font-family: var(--sans); font-weight: 700; font-size: .95rem; }
+    .story__sig-role { font-size: .85rem; color: var(--muted); margin-top: 1px; }
+
+    /* ── Promise / Essence ─────────────────────────────────────────── */
+    .essence { background: var(--pine-900); color: #fff; text-align: center; }
+    .essence .eyebrow { color: var(--amber-500); opacity: .9; }
+    .essence h2 { font-size: clamp(2rem,5vw,3.6rem); color: #fff; margin-top: .5em; max-width: 22ch; margin-inline: auto; }
+    .essence p { color: rgba(255,255,255,.68); max-width: 52ch; margin-inline: auto; margin-top: 1em; font-size: 1.05rem; line-height: 1.75; }
+    .essence__promise {
+      display: inline-block;
+      font-family: var(--display); font-style: italic; font-weight: 400;
+      font-size: clamp(1.6rem,3.5vw,2.4rem); color: var(--amber-500);
+      margin-top: 2em;
+      position: relative;
+    }
+    .essence__promise::before,
+    .essence__promise::after {
+      content: '"'; font-family: Georgia, serif; font-style: normal;
+      color: rgba(201,123,60,.4); font-size: 3em; line-height: 0;
+      vertical-align: -.3em;
+    }
+
+    /* ── Pillars ───────────────────────────────────────────────────── */
+    .pillars { background: var(--bg); }
+    .pillars__grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 28px;
+      margin-top: clamp(36px,5vw,64px);
+    }
+    .pillar-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 32px;
+      box-shadow: var(--shadow-xs);
+      transition: box-shadow .3s, transform .3s;
+    }
+    .pillar-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+    .pillar-card__icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .pillar-card h3 { font-family: var(--sans); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .pillar-card p { font-size: .93rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── Nature thread ─────────────────────────────────────────────── */
+    .nature-thread { background: var(--linen-200); }
+    .nature-thread__inner {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+      border-radius: var(--r); overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .nature-thread__img {
+      aspect-ratio: 3/4; overflow: hidden;
+    }
+    .nature-thread__img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s var(--ease);
+    }
+    .nature-thread__img:hover img { transform: scale(1.06); }
+
+    /* ── CTA ───────────────────────────────────────────────────────── */
+    .sobre-cta { background: var(--pine-900); color: #fff; text-align: center; }
+    .sobre-cta .eyebrow { color: var(--amber-500); opacity: .85; }
+    .sobre-cta h2 { font-size: clamp(2rem,4.5vw,3.2rem); color: #fff; margin-top: .5em; }
+    .sobre-cta p { color: rgba(255,255,255,.7); max-width: 46ch; margin-inline: auto; margin-top: .8em; line-height: 1.7; }
+    .sobre-cta__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 2.2em; }
+
+    /* ── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .story__grid { grid-template-columns: 1fr; gap: 40px; }
+      .story__photo { aspect-ratio: 16/9; }
+      .pillars__grid { grid-template-columns: 1fr; }
+      .nature-thread__inner { grid-template-columns: 1fr; }
+      .nature-thread__img { aspect-ratio: 16/9; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__bar">
+      <a href="index.html" class="nav__brand" aria-label="Bosque – página inicial">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+        </svg>
+        Bosque<span class="brand-dot" aria-hidden="true">.</span>
+      </a>
+      <div class="nav__links" id="nav-links" role="menubar">
+        <a href="index.html" role="menuitem">Início</a>
+        <a href="kids.html" class="nav-kids" role="menuitem">Kids</a>
+        <a href="business.html" class="nav-biz" role="menuitem">Business</a>
+        <a href="wellness.html" class="nav-well" role="menuitem">Wellness</a>
+        <a href="sobre.html" aria-current="page" role="menuitem">Sobre</a>
+        <a href="contacto.html" class="btn btn-primary" role="menuitem">Ver o espaço</a>
+      </div>
+      <button class="nav__menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="7" x2="19" y2="7"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="15" x2="19" y2="15"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="sobre-hero" aria-labelledby="sobre-heading">
+    <div class="sobre-hero__bg" role="img" aria-label="Jardim do Bosque ao entardecer em Belverde"></div>
+    <div class="wrap">
+      <p class="eyebrow reveal" style="color:rgba(243,239,231,.8)">A nossa história</p>
+      <h1 class="reveal d1" id="sobre-heading">
+        Um espaço construído com as mãos e guardado com carinho.
+      </h1>
+      <p class="sobre-hero__sub reveal d2">
+        O Bosque não nasceu de uma folha de cálculo. Nasceu da vontade de ter um lugar próprio —
+        um refúgio genuíno onde o tempo corre de outra maneira.
+      </p>
+      <div class="sobre-hero__promise reveal d3">
+        <span class="dot" aria-hidden="true"></span>
+        O seu refúgio, moldado ao seu momento.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Story ─────────────────────────────────────────────────────── -->
+  <section class="section story" aria-labelledby="story-heading">
+    <div class="wrap">
+      <div class="story__grid">
+        <div class="story__photo reveal">
+          <img
+            src="https://images.unsplash.com/photo-1692339267725-ce644ac805ec?fm=jpg&q=80&w=800&auto=format&fit=crop"
+            alt="Vista do jardim do Bosque com árvores e zona de estar ao ar livre"
+            width="800" height="1000"
+            loading="lazy"
+          />
+        </div>
+        <div class="story__text reveal d1">
+          <span class="eyebrow">Como começou</span>
+          <h2 id="story-heading">Queríamos um lugar nosso. Acabámos por criar um lugar de todos.</h2>
+          <p>
+            Crescemos a ouvir histórias de casas com jardim onde o tempo passava devagar. Onde havia
+            uma fogueira ao fundo e crianças a correr descalças. Onde se chegava a trabalhar e saía-se
+            mais leve. Queríamos esse lugar — e como não o encontrámos, construímo-lo.
+          </p>
+          <p>
+            O Bosque nasceu em Belverde, rodeado de pinhal, com a convicção de que um espaço bem
+            cuidado transforma o momento de quem o visita. Não temos rececionistas. Temos donos que
+            conhecem cada palmo do jardim e cada característica do espaço — porque foi feito por
+            nós, para ser partilhado com cuidado.
+          </p>
+          <p>
+            Com o tempo, percebemos que o mesmo espaço podia ser muitas coisas diferentes.
+            Uma festa de aniversário que as crianças vão sempre querer repetir. Uma reunião onde
+            as ideias aparecem porque há ar fresco e silêncio. Uma sessão de yoga em que os
+            pés tocam a relva de verdade. O espaço transforma-se — o carinho fica sempre.
+          </p>
+          <div class="story__sig">
+            <div class="story__sig-avatar" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=face"
+                alt="Proprietários do Bosque"
+                width="48" height="48"
+              />
+            </div>
+            <div>
+              <div class="story__sig-name">Os proprietários do Bosque</div>
+              <div class="story__sig-role">Belverde, Setúbal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Essence ───────────────────────────────────────────────────── -->
+  <section class="section essence" aria-labelledby="essence-heading">
+    <div class="wrap" style="text-align:center">
+      <span class="eyebrow reveal">A essência</span>
+      <h2 class="reveal d1" id="essence-heading">Transformação acolhedora</h2>
+      <p class="reveal d2">
+        O espaço muda conforme quem o visita — de cave de jogos a sala de reuniões,
+        de estúdio de yoga a jardim de festa. O que não muda é a sensação de ser bem recebido.
+        Isso é o Bosque: um espaço que se molda ao momento sem perder a sua alma.
+      </p>
+      <div class="reveal d3">
+        <span class="essence__promise">O seu refúgio, moldado ao seu momento.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Four Pillars ──────────────────────────────────────────────── -->
+  <section class="section pillars" aria-labelledby="pillars-heading">
+    <div class="wrap">
+      <div class="shead reveal">
+        <span class="eyebrow">O que nos guia</span>
+        <h2 id="pillars-heading">Quatro ideias que estão em tudo o que fazemos</h2>
+        <p>Não são valores de brochura — são as decisões que tomámos quando desenhámos cada canto do Bosque.</p>
+      </div>
+      <div class="pillars__grid">
+        <div class="pillar-card reveal d1">
+          <div class="pillar-card__icon" aria-hidden="true">🔄</div>
+          <h3>Transformável</h3>
+          <p>
+            O mesmo espaço, três vidas diferentes. Em 30 minutos, a cave de jogos transforma-se
+            em sala de reuniões. O jardim passa de parque de aventura a zona de meditação.
+            Não precisamos de espaços especializados — precisamos de um espaço inteligente.
+          </p>
+        </div>
+        <div class="pillar-card reveal d2">
+          <div class="pillar-card__icon" aria-hidden="true">🏠</div>
+          <h3>Abrigo &amp; Liberdade</h3>
+          <p>
+            A cave nunca cancela por causa da chuva — é o abrigo que garante o momento.
+            O jardim é a liberdade — ar fresco, espaço, natureza. São duas promessas em simultâneo:
+            a segurança de ter um tecto e a alegria de não precisar dele.
+          </p>
+        </div>
+        <div class="pillar-card reveal d3">
+          <div class="pillar-card__icon" aria-hidden="true">🌿</div>
+          <h3>Natureza</h3>
+          <p>
+            Belverde e o pinhal não são o cenário — são parte da experiência. A relva, os pinheiros,
+            o som dos pássaros, o cheiro do ar limpo. A natureza está presente em cada sessão,
+            cada reunião, cada festa — mesmo quando chove.
+          </p>
+        </div>
+        <div class="pillar-card reveal d4">
+          <div class="pillar-card__icon" aria-hidden="true">🤝</div>
+          <h3>Privado &amp; com Carinho</h3>
+          <p>
+            Não há gestores de turno nem equipa de serviço anónima. Há donos que conhecem o espaço
+            por dentro e por fora — porque o fizeram. A exclusividade não é um extra premium:
+            é a forma como o Bosque funciona.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Nature thread ─────────────────────────────────────────────── -->
+  <section class="section nature-thread" aria-label="Imagens do Bosque">
+    <div class="wrap">
+      <div class="shead reveal" style="text-align:center; margin-inline:auto; max-width:640px">
+        <span class="eyebrow">O lugar</span>
+        <h2>Belverde, onde o tempo corre diferente</h2>
+        <p>Zona residencial fechada, rodeada de pinhal, a sul de Lisboa. Silêncio que não se simula.</p>
+      </div>
+      <div class="nature-thread__inner reveal d1" style="margin-top:clamp(32px,5vw,56px)">
+        <div class="nature-thread__img">
+          <img
+            src="https://images.unsplash.com/photo-1750889054950-32e9dd92f221?fm=jpg&q=82&w=600&auto=format&fit=crop"
+            alt="Interior aconchegante do Bosque com iluminação quente"
+            width="600" height="800"
+            loading="lazy"
+          />
+        </div>
+        <div class="nature-thread__img">
+          <img
+            src="https://images.unsplash.com/photo-1692339267725-ce644ac805ec?fm=jpg&q=80&w=600&auto=format&fit=crop"
+            alt="Jardim com relvado verde e zona de descanso"
+            width="600" height="800"
+            loading="lazy"
+          />
+        </div>
+        <div class="nature-thread__img">
+          <img
+            src="https://images.unsplash.com/photo-1533222535026-754c501569dd?fm=jpg&q=80&w=600&auto=format&fit=crop"
+            alt="Crianças em atividade ao ar livre rodeadas de natureza"
+            width="600" height="800"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────── -->
+  <section class="section sobre-cta" aria-labelledby="cta-heading">
+    <div class="wrap">
+      <span class="eyebrow reveal">Venha ver</span>
+      <h2 class="reveal d1" id="cta-heading">O espaço explica-se melhor quando se visita.</h2>
+      <p class="reveal d2">
+        Palavras e fotografias dão uma ideia — mas é quando se entra no jardim e se respira o ar de Belverde
+        que tudo faz sentido. Diga-nos o que procura e marcamos uma visita.
+      </p>
+      <div class="sobre-cta__btns reveal d3">
+        <a href="contacto.html" class="btn btn-accent">
+          Falar connosco <span class="arr" aria-hidden="true">→</span>
+        </a>
+        <a href="index.html#mundos" class="btn btn-ghost-light">
+          Ver o espaço
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="wrap">
+      <div class="footer__inner">
+        <div class="footer__brand-col">
+          <div class="footer__brand">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M10 2 L10 18 M6 7 Q10 3 14 7 M4 12 Q10 6 16 12"/>
+            </svg>
+            Bosque<span class="brand-dot" aria-hidden="true">.</span>
+          </div>
+          <p class="footer__note">O seu refúgio, moldado ao seu momento.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Navegação do rodapé">
+          <span class="footer__nav-label">Páginas</span>
+          <a href="index.html">Início</a>
+          <a href="kids.html">Bosque Kids</a>
+          <a href="business.html">Bosque Business</a>
+          <a href="wellness.html">Bosque Wellness</a>
+          <a href="sobre.html" aria-current="page">Sobre nós</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+        <div class="footer__contact">
+          <span class="footer__contact-label">Contacto</span>
+          <a href="contacto.html">Fazer uma reserva</a>
+          <a href="mailto:ola@bosque.pt">ola@bosque.pt</a>
+          <a href="tel:+351910000000">+351 910 000 000</a>
+          <p class="footer__loc">Belverde, Setúbal · Portugal</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2025 Bosque. Todos os direitos reservados.</p>
+        <div class="footer__legal">
+          <a href="legal.html#privacidade">Privacidade</a>
+          <a href="legal.html#termos">Termos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Nav toggle ─────────────────────────────────────────────────── */
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.nav__bar')) {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', false);
+      }
+    });
+
+    /* ── Reveal on scroll ───────────────────────────────────────────── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
