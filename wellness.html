@@ -17,6 +17,10 @@
       --seg-dark: #4a6b45;
       --seg-sun:  #C98C6B;
       --seg-bg:   #EAF0E7;
+      /* Fraunces: lighter & airier for Wellness (Spec §2.3) */
+      --display-wght:     470;
+      --display-tracking: -.012em;
+      --display-leading:  1.2;
     }
 
     body { background: var(--seg-bg); }
@@ -43,7 +47,7 @@
     }
     .seg-hero .wrap { position: relative; z-index: 1; max-width: 640px; }
     .seg-hero h1 {
-      font-family: var(--display); font-weight: 600;
+      font-family: var(--display); font-weight: var(--display-wght); font-optical-sizing: auto;
       font-size: clamp(3rem,7.5vw,5.6rem);
       line-height: 1.0; letter-spacing: -.03em;
       color: #fff;

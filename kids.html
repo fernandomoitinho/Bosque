@@ -21,6 +21,10 @@
   --seg-sky:  var(--kids-sky);
   --seg-bg:   var(--kids-bg);
   --seg-img:  var(--img-kids);
+  /* Fraunces: heavier & rounder for Kids (Spec §2.3) */
+  --display-wght:     660;
+  --display-tracking: -.018em;
+  --display-leading:  1.06;
 }
 
 /* ── Segment hero ──────────────────────────────────────────────── */
@@ -51,7 +55,7 @@
 .seg-hero__tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--seg-sun); }
 .seg-hero h1 {
   font-size: clamp(3rem,7vw,5.5rem); color: #fff;
-  font-family: var(--display); font-weight: 700;
+  font-family: var(--display); font-weight: var(--display-wght); font-optical-sizing: auto;
   line-height: 1.04; letter-spacing: -.03em; max-width: 16ch;
 }
 .seg-hero h1 em { font-style: italic; color: var(--seg-sun); }
