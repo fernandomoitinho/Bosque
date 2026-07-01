@@ -15,17 +15,24 @@ Applied via `redesign-skill` + `taste-skill`. Safe, non-brand, reversible. Not m
 | 6 | Removed emoji from the asset-matrix headers (🧒💼🧘 → text; colour classes already carry meaning) | `index.html` | Emoji policy |
 | 7 | Cut homepage eyebrows 8 → 3 (kept hero + "A solução Bosque" + "Três portas, um refúgio") | `index.html` | Eyebrow restraint (max 1 / 3 sections) |
 
-## Deliberately NOT touched (needs sign-off — see `REDESIGN-brand-proposal-for-Sky.md`)
+## Reconciled against the Brand Book (after reading the spec + positioning docs)
 
-- **Display font (Fraunces)** and **palette (beige+brass)** — brand decisions → Sky.
-- **38 em-dashes** in body copy — editorial → venture writer.
-- **Stock Unsplash imagery** — needs real/branded photos → Sky.
+Earlier draft of this pass flagged the palette and font as "AI defaults." The Brand
+Book / Website Spec show both are **deliberate, documented decisions** — so those
+flags were retracted:
 
-## Housekeeping note
+- **Palette** — LOCKED per Spec §2.2 (pinhal: pine + linen + golden-hour amber). No change.
+- **Display font (Fraunces)** — a deliberate editorial choice AND already Fernando's
+  logged open decision (Spec §10 #5: confirm Fraunces vs Schibsted-as-display). → Sky/Fernando.
+- **Em-dashes** — in-voice for the "editorial estate" brand voice. Copy left untouched;
+  writer handoff WITHDRAWN.
+- **Real photography** — the one genuinely open visual item (Spec §2.4/§8/§10 #2). → Sky.
 
-4 files don't use the shared CSS and look like old standalone prototypes:
-`bosque.html`, `bosque2.html`, `bosque-clean.html`, `gemini2.html`.
-Left untouched. Recommend deleting or moving to an `_archive/` folder once confirmed dead — Fernando to confirm.
+## Housekeeping
+
+`bosque2.html`, `gemini2.html` → moved to `_archive/` (not referenced anywhere).
+`bosque.html`, `bosque-clean.html` were briefly archived then **restored** — Spec §8
+names them as component-source builds, not dead files.
 
 ## Preview
 Open `index.html` in a browser (static site, no build). Or from the Website folder:
